@@ -1,2 +1,14 @@
 <h1>Pages#home</h1>
 <p>Find me in app/views/pages/home.html.erb</p>
+
+<% if user_signed_in? %>
+  You are signed in as <%= current_user.email %> !
+  <div>
+    <%= link_to "Edit my password", edit_user_registration_path, class: "btn btn-flat btn-edit" %>
+  </div>
+  <div>
+    <%= link_to "Sign out", destroy_user_session_path, data: {turbo_method: :delete}, class: "btn btn-flat btn-signout" %>
+  </div>
+<% else %>
+  You are not signed in!
+<% end %>
