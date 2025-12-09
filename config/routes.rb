@@ -10,10 +10,16 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  resources :media do
+
+  resources :media, only: [:show, :index] do
+    resources :reviews, only: [:new, :create]
+    
     member do
       get :reviews
     end
-    resources :reviews, only: [:new, :create]
+    
+    collection do
+      post :create_from_omdb
+      post :search_from_omdb
+    end
   end
-end

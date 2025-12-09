@@ -1,0 +1,53 @@
+<div class="container mt-3">
+  <div class="row align-items-start">
+
+    <div class="col-md-4">
+      <div class="banner rounded shadow-sm" id="movie-banner">
+        <img src="<%= @medium.poster_url %>" alt="Movie Poster" class="img-fluid rounded">
+      </div>
+    </div>
+
+
+    <div class="col-md-8">
+      <div class="rounded shadow p-4 h-100" id="movie-description">
+        <h1 class="mb-3"><%= @medium.title %></h1>
+
+        <p class="mb-2">
+          <strong>Release date:</strong>
+          <% if @medium.release_date.present? %>
+            <%= @medium.release_date %>
+          <% else %>
+            N/A
+          <% end %>
+        </p>
+
+        <p class="mb-2">
+          <strong>Genres:</strong>
+          <% if @medium.genres.present? %>
+            <%= @medium.genres.join(", ") %>
+          <% else %>
+            N/A
+          <% end %>
+        </p>
+
+        <p class="mb-2">
+          <strong>Directors:</strong>
+          <% if @medium.sub_media.directors.present? %>
+            <%= @medium.sub_media.directors.join(", ") %>
+          <% else %>
+            N/A
+          <% end %>
+        </p>
+
+        <p>
+          <strong>Description:</strong>
+          <% if @medium.description.present? %>
+            <%= @medium.description %>
+          <% else %>
+            N/A
+          <% end %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

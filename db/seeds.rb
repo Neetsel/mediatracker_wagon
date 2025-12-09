@@ -52,6 +52,13 @@ medium2 = Medium.create!(
   sub_media: book
 )
 
+movie2 = Movie.create!(countries: ["USA"], languages: ["English"], runtime: 136, directors: ["James Gunn"], writers: ["James Gunn", "Dan Abnett", "Andy Lanning"], actors: ["Chris Pratt", "Zoe Saldaña", "Dave Bautista"])
+
+medium3 = Medium.create!(title: "Guardians of the Galaxy Vol. 2", genres: ["Action", "Adventure", "Comedy"], description: "The Guardians struggle to keep together as a team while dealing with their personal family issues, notably Star-Lord's encounter with his father, the ambitious celestial being Ego.
+", release_date: "05 May 2017", year: 2017, poster_url: "https://m.media-amazon.com/images/M/MV5BNWE5MGI3MDctMmU5Ni00YzI2LWEzMTQtZGIyZDA5MzQzNDBhXkEyXkFqcGc@._V1_SX300.jpg", sub_media: movie2)
+
+
+
 puts "Creating reviews..."
 Review.create!(content: "Good movie!", rating: 5, user: user, medium: medium1)
 Review.create!(content: "Great book!", rating: 4, user: user, medium: medium2)
