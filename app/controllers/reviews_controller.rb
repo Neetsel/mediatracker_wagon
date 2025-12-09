@@ -6,9 +6,11 @@ class ReviewsController < ApplicationController
 
   def create
     @user = current_user
-    @review = Review.new(review_params.merge(user_id: @user.id, medium_id: @medium.id))
-    if @review.save
-      redirect_to reviews_media_path(@medium), notice: "The review was created successfully."
+    @review = Review.new(review_params)
+    @review.user_id = @user.id
+    @review.medium_id = @medium.id
+    if @review.save!
+      redirect_to reviews_medium_path(@medium), notice: "The review was created successfully."
     else
       render :new, status: :unprocessable_entity
     end
