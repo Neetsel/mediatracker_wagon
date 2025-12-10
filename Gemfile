@@ -55,6 +55,8 @@ gem "acts-as-taggable-on"
 gem "devise"
 # For API
 gem 'faraday', '~> 2.14'
+# For Images
+gem "cloudinary"
 
 # For AI + Chat presentation
 gem "ruby_llm"
