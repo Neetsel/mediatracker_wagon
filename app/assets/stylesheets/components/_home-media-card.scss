@@ -1,5 +1,9 @@
 .home-media-card {
-
+  background: linear-gradient(#171F28, #000000);
+  padding: 12px 8px 12px 8px;
+  border-radius: 8px;
+  max-width: 90%;
+  margin: 12px auto 12px auto;
 }
 
 .img-container {
@@ -9,7 +13,7 @@
   align-items: center;
   width: 100%;
   padding: 0 10px;
-  margin: 0 auto 24px auto;
+  margin: 24px auto 24px auto;
 }
 
 .home-media-card #img-center {
@@ -24,4 +28,14 @@
   border-radius: 8px;
   width: 148px;
   height: 222px;
+}
+
+.media-card-content {
+  text-align: center;
+  padding: 0 12px 24px 12px;
+}
+
+.media-card-content h2 {
+  font-size: 18px;
+  padding-top: 8px;
 }
