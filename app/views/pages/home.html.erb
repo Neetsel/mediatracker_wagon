@@ -1,6 +1,35 @@
+<div id="home-header">
+  <div class="container">
+    <h1 class="home-title">Watch, play, read : collect!</h1>
+
+    <a href="#" class="btn-cta">Try it now !</a>
+  </div>
+</div>
+
+<div class="container home-media-card">
+
+  <div class="img-container">
+    <div>
+      <img src="https://res.cloudinary.com/dmby1z5d6/image/upload/v1765366834/movie-dune-2021_ewfs2q.jpg" alt="Dune Part One movie poster">
+
+    </div>
+    <div>
+      <img src="https://res.cloudinary.com/dmby1z5d6/image/upload/v1765366832/zelda-poster_zxrylr.webp" alt="Zelda Tears of Kingdom video game poster">
+
+    </div>
+
+    <img src="https://res.cloudinary.com/dmby1z5d6/image/upload/v1765366834/lotr-book-cover_ohywyc.jpg" alt="The Lord of The Rings book cover" id="img-center">
+  </div>
+
+  <h2>All your media in one collection</h2>
+
+  <p><strong>Organize your list</strong></p>
+
+  <p>With MediaTrackr, you can create a collection that gathers all the media you've watched, played, or even read. Rate them, comment on them, set your favorites, and share your collection with your friends!</p>
+</div>
+
 <div class="container">
-  <h1>Pages#home</h1>
-  <p>Find me in app/views/pages/home.html.erb</p>
+
 
   <% if user_signed_in? %>
     You are signed in as <%= current_user.user_name %>
@@ -16,4 +45,6 @@
   <% else %>
     You are not signed in!
   <% end %>
+
+
 </div>

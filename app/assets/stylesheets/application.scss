@@ -9,8 +9,15 @@
 
 // Your CSS partials
 @import "components/index";
+@import "components/buttons";
+@import "components/home-media-card";
+
 @import "pages/index";
 
 main {
   background: linear-gradient(#171F28, #000000);
+}
+
+a {
+  text-decoration: none;
 }

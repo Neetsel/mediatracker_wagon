@@ -1,0 +1,27 @@
+.home-media-card {
+
+}
+
+.img-container {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  padding: 0 10px;
+  margin: 0 auto 24px auto;
+}
+
+.home-media-card #img-center {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.home-media-card img {
+  border-radius: 8px;
+  width: 148px;
+  height: 222px;
+}
