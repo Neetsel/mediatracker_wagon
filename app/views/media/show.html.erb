@@ -38,7 +38,7 @@
             N/A
           <% end %>
         </p>
-        <% else %>
+        <% elsif if @medium.sub_media_type === "Book" %>
           <p class="mb-2">
             <strong>Authors:</strong>
             <% if @medium.sub_media.authors.present? %>
@@ -47,6 +47,8 @@
               N/A
             <% end %>
           </p>
+        <% else %>
+          <%# DISPLAY GAMES INFO %>
         <% end %>
         <p>
           <strong>Description:</strong>

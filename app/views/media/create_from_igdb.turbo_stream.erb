@@ -1,0 +1,2 @@
+<%= turbo_stream.append "media", partial: "media/games/game", locals: { medium: @medium } %>
+<%= turbo_stream.replace "notice", partial: "shared/flashes", locals: { notice: "Game added" } %>

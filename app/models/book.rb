@@ -14,10 +14,10 @@ class Book < ApplicationRecord
       authors: author
     )
 
-    # on sauve le film en DB
+    # on sauve le livre en DB
     @Book.save
 
-    # On renvoie le film créé
+    # On renvoie le livre créé
     @Book
   end
 end

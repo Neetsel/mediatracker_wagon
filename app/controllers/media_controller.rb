@@ -8,6 +8,72 @@ class MediaController < ApplicationController
   def show
   end
 
+  def create_from_igdb
+    igdb = IgdbService.new
+    response = JSON.parse(igdb.search_by_id(params[:id]).body)
+    response_genres = JSON.parse(igdb.genres_by_id(response[0]["genres"]).body)
+
+    genres_id = []
+    response_genres.each {|genre|
+      if genre["name"]
+        genres_id << genre["name"]
+      end
+    }
+
+    if response
+      # Si medium existe déjà, on le récupère(cf.doc active record)
+      @medium = Medium.find_or_initialize_by(title: response[0]["name"])
+
+      release_date = DateTime.strptime(response[0]["first_release_date"].to_s, '%s')
+      @medium.assign_attributes(
+        title: response[0]["name"],
+        description: response[0]["summary"],
+        release_date: release_date,
+        year: release_date.year,
+        genres: genres_id,
+        poster_url: params[:cover]
+      )
+
+      # @medium.sub_media = Game.create_from_medium()
+
+      save_medium
+    else
+      redirect_to media_path, alert: "Medium not available."
+    end
+  end
+
+  def search_from_igdb
+    igdb = IgdbService.new
+    response = JSON.parse(igdb.search_by_title(params[:title]).body)
+
+    covers_id = []
+    response.each {|game|
+      if game["cover"]
+        covers_id << game["cover"]
+      end
+    }
+
+    response_cover = JSON.parse(igdb.cover_by_id(covers_id).body)
+
+    response.map {|game|
+      if game["cover"]
+        cover = response_cover.select { |hash| hash["id"] === game["cover"] }
+        game["cover"] = "//images.igdb.com/igdb/image/upload/t_720p/#{cover[0]["image_id"]}.png"
+      end
+
+      if game["first_release_date"]
+        game["first_release_date"] = DateTime.strptime(game["first_release_date"].to_s, '%s').year
+      end
+    }
+
+    @results = response.empty? ? [] : response
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { render :index }
+    end
+  end
+
   def create_from_open_library
     open_library = OpenLibraryService.new
     response = open_library.search_work_by_key(params[:key])
@@ -43,7 +109,6 @@ class MediaController < ApplicationController
     response = open_library.search_by_title(params[:title])
 
     @results = response["numFound"] > 0 ? response["docs"] : []
-    @media = Medium.all
 
     respond_to do |format|
       format.turbo_stream
@@ -85,7 +150,6 @@ class MediaController < ApplicationController
     response = omdb.search_multiple(params[:title])
 
     @results = response["Response"] == "True" ? response["Search"] : []
-    @media = Medium.all
 
     respond_to do |format|
       format.turbo_stream
