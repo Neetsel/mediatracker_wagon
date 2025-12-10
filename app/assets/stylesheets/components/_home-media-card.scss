@@ -4,6 +4,7 @@
   border-radius: 8px;
   max-width: 90%;
   margin: 12px auto 12px auto;
+  z-index: 0;
 }
 
 .img-container {
@@ -32,10 +33,11 @@
 
 .media-card-content {
   text-align: center;
-  padding: 0 12px 24px 12px;
+  padding: 24px 12px 24px 12px;
 }
 
 .media-card-content h2 {
-  font-size: 18px;
-  padding-top: 8px;
+  font-size: 20px;
+  color: #537B89;
+  margin: 8px auto 8px auto;
 }

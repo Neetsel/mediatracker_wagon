@@ -1,12 +1,13 @@
 // Specific CSS for your home-page
 // Import du bouton cta depuis sa partial
+// Les media-cards sont gérées par une partial
+
 
 // On crée un contexte de positionnement pour l'élément enfant dans le ::before
 #home-header {
   position: relative;
-  overflow: hidden;
+  overflow: visible;  // Permet d'afficher le contenu qui sort de la div
   background: transparent;
-
 }
 
 // On intervient sur l'image ici sans que ca modifie le reste de la div sélectionnée
@@ -17,9 +18,9 @@
   background-image: url('https://res.cloudinary.com/dmby1z5d6/image/upload/v1765366835/movie-posters-compo-2_fcbxeu.jpg');
   background-size: cover;
   background-position: center;
-  transform: rotate(-20deg) scale(1.2); //rotate + zoom
-  transform-origin: center; // orogin du zoom
-  z-index: 0; // placement hiérarchique du contenu
+  transform: rotate(-20deg) scale(1.8); // Rotate + zoom
+  transform-origin: center; // Origin du zoom
+  z-index: 0; // Placement hiérarchique du contenu
   filter: blur(2px);
   opacity: .9;
 }
@@ -37,7 +38,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 24px;
+  gap: 32px;
   min-height: 24vh;
 }
 
