@@ -15,7 +15,7 @@ Game.destroy_all
 User.destroy_all
 
 puts "Creating users..."
-user = User.create!(email: "test@example.com", password: "password")
+user = User.create!(name: "test", email: "test@example.com", password: "password")
 
 puts "Creating movies..."
 movie = Movie.create!(

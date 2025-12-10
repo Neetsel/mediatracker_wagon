@@ -14,8 +14,8 @@
 
         <p class="mb-2">
           <strong>Release date:</strong>
-          <% if @medium.release_date.present? %>
-            <%= @medium.release_date %>
+          <% if @medium.year.present? %>
+            <%= @medium.year %>
           <% else %>
             N/A
           <% end %>
@@ -29,7 +29,7 @@
             N/A
           <% end %>
         </p>
-
+        <% if @medium.sub_media_type === "Movie" %>
         <p class="mb-2">
           <strong>Directors:</strong>
           <% if @medium.sub_media.directors.present? %>
@@ -38,7 +38,16 @@
             N/A
           <% end %>
         </p>
-
+        <% else %>
+          <p class="mb-2">
+            <strong>Authors:</strong>
+            <% if @medium.sub_media.authors.present? %>
+              <%= @medium.sub_media.authors.join(", ") %>
+            <% else %>
+              N/A
+            <% end %>
+          </p>
+        <% end %>
         <p>
           <strong>Description:</strong>
           <% if @medium.description.present? %>

@@ -8,6 +8,49 @@ class MediaController < ApplicationController
   def show
   end
 
+  def create_from_open_library
+    open_library = OpenLibraryService.new
+    response = open_library.search_work_by_key(params[:key])
+    response_book = open_library.search_book_by_key(params[:cover_edition_key])
+
+    if response
+      # Si medium existe déjà, on le récupère(cf.doc active record)
+      @medium = Medium.find_or_initialize_by(title: response["title"])
+
+      # On met à jour les infos si besoin
+      @medium.assign_attributes(
+        title: response["title"],
+        description: response["description"]["value"],
+        release_date: Date.new(params[:year].to_i,1,1),
+        year: params[:year],
+        genres: response_book["subjects"].split(", "),
+        poster_url: "https://covers.openlibrary.org/b/olid/#{params[:cover]}-M.jpg"
+      )
+
+      # À partir de la response, on génère un livre
+      # Ensuite, on assigne ce livre à sub_media
+      @medium.sub_media = Book.create_from_medium(params[:author], response_book["number_of_pages"], params[:key], params[:cover_edition_key])
+
+      # On sauve le medium maintenant qu'il est bien remplit
+      save_medium
+    else
+      redirect_to media_path, alert: "Medium not available."
+    end
+  end
+
+  def search_from_open_library
+    open_library = OpenLibraryService.new
+    response = open_library.search_by_title(params[:title])
+
+    @results = response["numFound"] > 0 ? response["docs"] : []
+    @media = Medium.all
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { render :index }
+    end
+  end
+
   def create_from_omdb
     omdb = OmdbService.new
     response = omdb.search_by_id(params[:imdb_id])
@@ -51,10 +94,6 @@ class MediaController < ApplicationController
   end
 
   private
-
-  def create_movie
-
-  end
 
   def save_medium
     # On save seulement si c'est un nouveau record

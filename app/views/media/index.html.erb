@@ -11,4 +11,17 @@
   <turbo-frame id="omdb_results" class="mt-4">
     <%# Display de la liste de films provenant d'OMDB %>
   </turbo-frame>
+
+  <h1 class="mb-4 text-center">Search for a book <i class="fa-solid fa-magnifying-glass"></i></h1>
+
+  <%= form_with url: search_from_open_library_media_path, method: :post, data: { turbo_stream: true }, class: "input-group shadow-sm" do %>
+    <%= text_field_tag :title, nil, class: "form-control form-control-lg", placeholder: "Enter a book title..." %>
+    <button class="btn btn-primary btn-lg rounded-pill ms-2" type="submit">
+      <i class="bi bi-search"></i> Search
+    </button>
+  <% end %>
+
+  <turbo-frame id="open_library_results" class="mt-4">
+    <%# Display de la liste de films provenant d'OMDB %>
+  </turbo-frame>
 </div>
