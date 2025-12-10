@@ -10,7 +10,7 @@
       <p><strong>Reviews</strong></p>
       <ul class="list-group">
         <% @medium.reviews.each do |review| %>
-        <li class="list-group-item"><%= review.content %> | <%= review.rating %>/5 from <%= current_user.email %> </li>
+        <li class="list-group-item"><%= review.content %> | <%= review.rating %>/5 from <%= current_user.name %> </li>
         <% end %>
       </ul>
       <%= render "modal" %>
