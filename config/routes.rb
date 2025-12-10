@@ -12,6 +12,12 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   resources :media, only: [:show, :index] do
+    resources :reviews, only: [:new, :create]
+
+    member do
+      get :reviews
+    end
+
     collection do
       post :create_from_omdb
       post :search_from_omdb
