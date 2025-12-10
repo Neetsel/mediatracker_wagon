@@ -21,6 +21,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_09_110223) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "authors", default: [], array: true
+    t.string "work_id"
+    t.string "book_id"
   end
 
   create_table "chats", force: :cascade do |t|

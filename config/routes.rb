@@ -22,5 +22,10 @@ Rails.application.routes.draw do
       post :create_from_omdb
       post :search_from_omdb
     end
+
+    collection do
+      post :create_from_open_library
+      post :search_from_open_library
+    end
   end
 end
