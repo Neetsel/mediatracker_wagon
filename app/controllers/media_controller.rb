@@ -233,11 +233,17 @@ class MediaController < ApplicationController
 
   def search_from_omdb
     omdb = OmdbService.new
-    response = omdb.search_multiple(params[:title])
 
+    response = omdb.search_multiple(params[:title], 1)
     @results = response["Response"] == "True" ? response["Search"] : []
 
-    @results.select! {|result| result["Type"] === "movie"}
+    # Si il y a plus de 10 films, on fait un nouveau call API pour avoir la suite
+    if response["totalResults"].to_i>10
+      for i in 2..(response["totalResults"].to_i/10).floor
+        response = omdb.search_multiple(params[:title], i)
+        @results.concat(response["Search"])
+      end
+    end
 
     respond_to do |format|
       format.turbo_stream
@@ -257,9 +263,7 @@ class MediaController < ApplicationController
     end
   end
 
-
   def set_medium
     @medium = Medium.find(params[:id])
   end
-
 end

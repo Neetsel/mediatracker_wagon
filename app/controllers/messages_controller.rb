@@ -76,7 +76,8 @@ class MessagesController < ApplicationController
 
     for medium in Favorite.liked_list
       if (medium.sub_media_type === media_type)
-      liked_medium_text << "#{medium.medium.title} (#{medium.medium.year}) \n"
+        liked_medium_text << "#{medium.medium.title} (#{medium.medium.year}) \n"
+      end
     end
 
     liked_media_text
@@ -115,7 +116,8 @@ class MessagesController < ApplicationController
 
     for medium in Favorite.next_up_list
       if (medium.sub_media_type === media_type)
-      liked_medium_text << "#{medium.medium.title} (#{medium.medium.year}) \n"
+        liked_medium_text << "#{medium.medium.title} (#{medium.medium.year}) \n"
+      end
     end
 
     planned_media_text

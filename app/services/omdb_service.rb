@@ -11,15 +11,15 @@ class OmdbService
   end
 
   def search_by_title(title)
-    @conn.get("/", { t: title, apikey: @api_key }).body
+    @conn.get("/", { t: title, apikey: @api_key, type:"movie" }).body
   end
 
   def search_by_id(imdb_id)
-    @conn.get("/", { i: imdb_id, apikey: @api_key }).body
+    @conn.get("/", { i: imdb_id, apikey: @api_key, type:"movie" }).body
   end
 
-  def search_multiple(keyword)
-    @conn.get("/", { s: keyword, apikey: @api_key }).body
+  def search_multiple(keyword, index)
+    @conn.get("/", { s: keyword, apikey: @api_key, type:"movie", page:index }).body
   end
 
 end
