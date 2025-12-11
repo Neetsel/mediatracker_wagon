@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   resources :reviews, only: [:index]
+  resources :collections, only: [:index]
 
   resources :chats, only: [:show, :index] do
     resources :messages, only: [:create]
@@ -19,6 +20,7 @@ Rails.application.routes.draw do
   resources :media, only: [:show, :index] do
     resources :reviews, only: [:new, :create]
     resources :chats, only: [:create]
+    resources :collections, only: [:create]
 
     member do
       get :reviews

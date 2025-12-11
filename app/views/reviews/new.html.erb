@@ -1,7 +1,6 @@
-<div class="container-fluid">
-  <div class="row justify-content-center">
-    <div class="col-12 col-lg-6 bg-white my-5 p-5">
-      <h1>New Review for <%= @medium.title %></h1>
+<div class="container my-5 bg-dark text-light p-5 rounded shadow">
+  <h1 class="mb-4 text-center">New Review for <%= @medium.title %></h1>
+  <div class="row">
       <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#reviewModal">
         Add New Review
       </button>
@@ -10,10 +9,9 @@
       <p><strong>Reviews</strong></p>
       <ul class="list-group">
         <% @medium.reviews.each do |review| %>
-        <li class="list-group-item"><%= review.content %> | <%= review.rating %>/5 from <%= current_user.name %> </li>
+        <li class="list-group-item text-black"><%= review.content %> | <%= review.rating %>/5 from <%= current_user.user_name %> </li>
         <% end %>
       </ul>
       <%= render "modal" %>
-    </div>
   </div>
 </div>
