@@ -1,5 +1,5 @@
 <div class="container my-5 bg-dark text-light p-5 rounded shadow">
-  <h1 class="mb-4 text-center">Search for a movie <i class="fa-solid fa-magnifying-glass"></i></h1>
+  <h2 class="mb-4 text-center">Search for a movie <i class="fa-solid fa-magnifying-glass"></i></h2>
 
   <%= form_with url: search_from_omdb_media_path, method: :post, data: { turbo_stream: true }, class: "input-group shadow-sm" do %>
     <%= text_field_tag :title, nil, class: "form-control form-control-lg", placeholder: "Enter a movie title..." %>
@@ -12,7 +12,7 @@
     <%# Display de la liste de films provenant d'OMDB %>
   </turbo-frame>
 
-  <h1 class="mb-4 text-center mt-4">Search for a book <i class="fa-solid fa-magnifying-glass"></i></h1>
+  <h2 class="mb-4 text-center mt-4">Search for a book <i class="fa-solid fa-magnifying-glass"></i></h2>
 
   <%= form_with url: search_from_open_library_media_path, method: :post, data: { turbo_stream: true }, class: "input-group shadow-sm" do %>
     <%= text_field_tag :title, nil, class: "form-control form-control-lg", placeholder: "Enter a book title..." %>
@@ -25,7 +25,7 @@
     <%# Display de la liste de livres provenant d'Open Library %>
   </turbo-frame>
 
-  <h1 class="mb-4 text-center mt-4">Search for a game <i class="fa-solid fa-magnifying-glass"></i></h1>
+  <h2 class="mb-4 text-center mt-4">Search for a game <i class="fa-solid fa-magnifying-glass"></i></h2>
 
   <%= form_with url: search_from_igdb_media_path, method: :post, data: { turbo_stream: true }, class: "input-group shadow-sm" do %>
     <%= text_field_tag :title, nil, class: "form-control form-control-lg", placeholder: "Enter a game title..." %>
