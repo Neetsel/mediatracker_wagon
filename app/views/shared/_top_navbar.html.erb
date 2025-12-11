@@ -3,8 +3,12 @@
     <a data-bs-toggle="offcanvas" href="#offcanvasNavbar" role="button" aria-controls="offcanvasNavbar"><i class="fa-solid fa-bars fa-xl" style="color: #FBC500;" id="menu-burger"></i>
     </a>
 
-    <span class="brand-logo">MediaTrackr</span>
-    <i class="fa-regular fa-user fa-xl" style="color: #FBC500;"></i>
+    <%= link_to "MediaTrackr", root_path, class: "brand-logo" %>
+
+    <%= link_to new_user_session_path do %>
+      <i class="fa-regular fa-user fa-xl" style="color: #FBC500;"></i>
+    <% end %>
+
   </div>
 
  <%# Gestion du offcanvas après clique %>
@@ -22,11 +26,11 @@
       <div>
         <ul class="nav-list d-flex flex-column mb-4">
           <a href="<%= root_path %>">Home</a>
-          <a href="">My Collection</a>
+          <a href="<%= %>">My Collection</a>
           <a href="">My Next Up</a>
           <a href="">My Favorites</a>
           <a href="">My Profile</a>
-          <a href="">Chat with AI</a>
+          <a href="<%= chats_path %>">Chat with AI</a>
       </ul>
       </div>
     </div>
