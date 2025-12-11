@@ -8,6 +8,7 @@
   position: relative;
   overflow: visible;  // Permet d'afficher le contenu qui sort de la div
   background: transparent;
+  min-height: 40vh;
 }
 
 // On intervient sur l'image ici sans que ca modifie le reste de la div sélectionnée
@@ -18,11 +19,12 @@
   background-image: url('https://res.cloudinary.com/dmby1z5d6/image/upload/v1765366835/movie-posters-compo-2_fcbxeu.jpg');
   background-size: cover;
   background-position: center;
-  transform: rotate(-20deg) scale(1.8); // Rotate + zoom
+  transform: rotate(-20deg) scale(1.8) translateX(-10%); // Rotate + zoom
   transform-origin: center; // Origin du zoom
   z-index: 0; // Placement hiérarchique du contenu
   filter: blur(2px);
   opacity: .9;
+
 }
 
 // On sélectionne tous les enfants de home-header

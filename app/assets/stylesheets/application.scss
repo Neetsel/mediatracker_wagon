@@ -10,12 +10,15 @@
 // Your CSS partials
 @import "components/index";
 @import "components/buttons";
-@import "components/home-media-card";
+@import "components/home_media_card";
+@import "components/top_navbar";
 
 @import "pages/index";
 
 main {
   background: linear-gradient(#171F28, #000000);
+  padding-top: 64px;
+  overflow-x: hidden;
 }
 
 a {
