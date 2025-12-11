@@ -1,46 +1,35 @@
-<nav data-controller="top-navbar">
+<nav>
   <div id="top-navbar">
-    <i class="fa-solid fa-bars fa-xl" style="color: #FBC500;" id="menu-burger" data-action="click->top-navbar#toggle"></i>
+    <a data-bs-toggle="offcanvas" href="#offcanvasNavbar" role="button" aria-controls="offcanvasNavbar"><i class="fa-solid fa-bars fa-xl" style="color: #FBC500;" id="menu-burger"></i>
+    </a>
+
     <span class="brand-logo">MediaTrackr</span>
     <i class="fa-regular fa-user fa-xl" style="color: #FBC500;"></i>
   </div>
 
-  <div data-top-navbar-target="panel" class="off-canvas">
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">My Collection</a></li>
-      <li><a href="#">My Next Up</a></li>
-      <li><a href="#">My Favorites</a></li>
-      <li><a href="#">My Profile</a></li>
-      <li><a href="#">Chat with AI</a></li>
-    </ul>
-  </div>
-</nav>
-
-
-<a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-  Link with href
-</a>
-
-
-<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-    <div>
-      Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.
+ <%# Gestion du offcanvas après clique %>
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+    <div class="offcanvas-header d-flex justify-content-between">
+      <div>
+        <img src="https://res.cloudinary.com/dmby1z5d6/image/upload/v1765366833/logo-mediatrackr-no-name-1_mznbne.png" style="width: 50px; height: 50px" alt="logo MediaTrackr Yellow">
+      </div>
+      <h2 class="offcanvas-title" id="offcanvasNavbarLabel">MediaTrackr</h2>
+      <div data-bs-theme="dark">
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
     </div>
-    <div class="dropdown mt-3">
-      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-        Dropdown button
-      </button>
-      <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Action</a></li>
-        <li><a class="dropdown-item" href="#">Another action</a></li>
-        <li><a class="dropdown-item" href="#">Something else here</a></li>
+    <div class="offcanvas-body">
+      <div>
+        <ul class="nav-list d-flex flex-column mb-4">
+          <a href="<%= root_path %>">Home</a>
+          <a href="">My Collection</a>
+          <a href="">My Next Up</a>
+          <a href="">My Favorites</a>
+          <a href="">My Profile</a>
+          <a href="">Chat with AI</a>
       </ul>
+      </div>
     </div>
   </div>
-</div>
+
+</nav>
