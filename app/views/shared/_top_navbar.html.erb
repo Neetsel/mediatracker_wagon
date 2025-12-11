@@ -1,8 +1,18 @@
-<nav>
+<nav data-controller="top-navbar">
   <div id="top-navbar">
-  <i class="fa-solid fa-bars fa-xl" style="color: #FBC500;"></i>
-  <span class="brand-logo">MediaTrackr</span>
+    <i class="fa-solid fa-bars fa-xl" style="color: #FBC500;" id="menu-burger" data-action="click->top-navbar#toggle"></i>
+    <span class="brand-logo">MediaTrackr</span>
+    <i class="fa-regular fa-user fa-xl" style="color: #FBC500;"></i>
   </div>
 
-
+  <div data-top-navbar-target="panel" class="offcanvas">
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">My Watchlist</a></li>
+      <li><a href="#">My Next Up</a></li>
+      <li><a href="#">My Favorites</a></li>
+      <li><a href="#">My Profile</a></li>
+      <li><a href="#">Chat with AI</a></li>
+    </ul>
+  </div>
 </nav>

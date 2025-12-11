@@ -7,10 +7,13 @@
   height: 64px;
   background: black;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  z-index: 1000;
+  z-index: 100;
   overflow: hidden;
+
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
 #top-navbar .brand-logo {
@@ -18,4 +21,23 @@
   font-family: "Montserrat";
   font-weight: bold;
   font-size: 24px;
+}
+
+// Gestion visuelle du canva (toggle js) :
+.offcanvas {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 250px;
+  height: 100%;
+  background: linear-gradient(#171F28, #000000);
+  color: white;
+  transition: left 0.3s ease;
+  padding: 1rem;
+  z-index: 1000;
+}
+
+.offcanvas.open {
+  left: 0;
+
 }
