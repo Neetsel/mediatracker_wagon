@@ -28,3 +28,17 @@ a {
 body {
   box-sizing: border-box;
 }
+
+.form-control {
+  color: black;
+}
+
+.form-control::placeholder {
+  color: black;
+  opacity: 0.5;
+
+}
+
+.form-control:focus {
+  color: black !important;
+}
