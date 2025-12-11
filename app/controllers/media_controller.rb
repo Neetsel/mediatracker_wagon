@@ -155,7 +155,6 @@ class MediaController < ApplicationController
     if response
       # Si medium existe déjà, on le récupère(cf.doc active record)
       @medium = Medium.find_or_initialize_by(title: response["title"])
-
       # On met à jour les infos si besoin
       @medium.assign_attributes(
         title: response["title"],
@@ -201,7 +200,7 @@ class MediaController < ApplicationController
       @medium.assign_attributes(
         title: response["Title"],
         description: response["Plot"],
-        release_date: response["Released"],
+        release_date: response["Released"], 
         year: response["Year"],
         genres: response["Genre"].split(", "),
         poster_url: response["Poster"]

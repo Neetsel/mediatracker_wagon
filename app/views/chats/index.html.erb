@@ -1,0 +1,14 @@
+<div class="container my-5 bg-dark text-light p-5 rounded shadow">
+  <h1 class="mb-4 text-center">Media you've talked about <i class="fa-solid fa-comments"></i></h1>
+  <div class="row">
+    <% current_user.chats.each do |chat| %>
+      <div class="col-md-3 mb-4">
+        <div id="<%= dom_id(chat) %>">
+          <%= link_to chat_path(chat) do %>
+            <%= render "shared/cards/chat", medium: chat.medium %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
