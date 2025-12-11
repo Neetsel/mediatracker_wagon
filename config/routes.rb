@@ -21,9 +21,6 @@ Rails.application.routes.draw do
 
     member do
       get :reviews
-    end
-
-    member do
       get :toggle_next_up
     end
 

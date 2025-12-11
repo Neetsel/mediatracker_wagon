@@ -238,7 +238,10 @@ class MediaController < ApplicationController
     end
     current_user.save!
 
-    redirect_to @medium
+    respond_to do |format|
+      format.html { redirect_to @medium, notice: "Media added or already present"}
+      format.turbo_stream { redirect_to @medium }
+    end
   end
 
   private
