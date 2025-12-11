@@ -1,0 +1,19 @@
+<div class="container my-5 bg-dark text-light p-5 rounded shadow">
+  <h1 class="mb-4 text-center">Find your collections here</h1>
+  <div class="row">
+    <% @collections.each do |collection| %>
+      <div class="col-md-3 mb-4">
+        <div class="card h-100 shadow-sm">
+          <%= link_to medium_path(collection.medium) do %>
+            <%= image_tag collection.medium.poster_url, alt: collection.medium.title, class: "card-img-top"%>
+          <% end %>
+          <div class="card-body">
+            <%= link_to medium_path(collection.medium) do %>
+              <h5 class="card-title"><%= collection.medium.title %></h5>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
