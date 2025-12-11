@@ -1,18 +1,30 @@
-<div class="container mt-3">
-  <div class="row align-items-start">
+<div class="container mt-3 ">
+  <div class="row align-items-start min-vh-40">
 
     <div class="col-md-4">
-      <div class="banner rounded shadow-sm" id="movie-banner">
-        <img src="<%= @medium.poster_url %>" alt="Movie Poster" class="img-fluid rounded">
+      <div class="banner rounded shadow-sm" id="background-show">
+        <img src="<%= @medium.poster_url %>" class="background-image">
+        <img src="<%= @medium.poster_url %>" alt=" <%= @medium.title %> Poster" class="foreground-image">
       </div>
     </div>
 
 
     <div class="col-md-8">
-      <div class="rounded shadow p-4 h-100" id="movie-description">
+      <div class="rounded shadow p-4 h-100" id="media-description">
         <h1 class="mb-3"><%= @medium.title %></h1>
 
-        <p class="mb-2">
+        <div class="d-flex justify-content-evenly">
+          <p class="mb-4">
+            <% if @medium.genres.present? %>
+              <%= @medium.genres.join(' <i class="fa-solid fa-circle fa-2xs" style="color:#FBC500;"></i> ').html_safe %>
+            <% else %>
+              N/A
+            <% end %>
+          </p>
+
+        </div>
+
+        <p class="mb-4">
           <strong>Release date:</strong>
           <% if @medium.year.present? %>
             <%= @medium.year %>
@@ -21,16 +33,8 @@
           <% end %>
         </p>
 
-        <p class="mb-2">
-          <strong>Genres:</strong>
-          <% if @medium.genres.present? %>
-            <%= @medium.genres.join(", ") %>
-          <% else %>
-            N/A
-          <% end %>
-        </p>
         <% if @medium.sub_media_type === "Movie" %>
-        <p class="mb-2">
+        <p class="mb-4">
           <strong>Directors:</strong>
           <% if @medium.sub_media.directors.present? %>
             <%= @medium.sub_media.directors.join(", ") %>
@@ -39,7 +43,7 @@
           <% end %>
         </p>
         <% elsif @medium.sub_media_type === "Book" %>
-          <p class="mb-2">
+          <p class="mb-4">
             <strong>Authors:</strong>
             <% if @medium.sub_media.authors.present? %>
               <%= @medium.sub_media.authors.join(", ") %>
@@ -61,7 +65,7 @@
         <div class="container mt-3">
             <div class="row">
               <div class="col text-center">
-                <div class="d-flex justify-content-center gap-3 flex-wrap" id="group-btn-list">
+                <div class="d-flex justify-content-between gap-2 flex-wrap" id="group-btn-list">
                   <%= render "shared/buttons/chat_button", medium: @medium %>
                   <%= render "shared/buttons/collection_button", medium: @medium %>
                   <%= render "shared/buttons/like_button", medium: @medium %>
