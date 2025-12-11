@@ -72,6 +72,8 @@ class MessagesController < ApplicationController
       liked_media_text = "Here is the list of books I liked and read: \n"
     end
 
+    # current_user.all_favorited
+
     # for medium in liked_medium
     #   liked_medium_text << "#{medium.medium.title} (#{medium.medium.year}) \n"
     # end
@@ -103,9 +105,9 @@ class MessagesController < ApplicationController
     if @medium.sub_media_type === "Movie"
       planned_media_text = "Here is the list of movies I already plan to see: "
     elsif @medium.sub_media_type === "Game"
-      planned_media_text = "Here is the list of movies I already plan to see: "
+      planned_media_text = "Here is the list of games I already plan to play: "
     else
-      planned_media_text = "Here is the list of movies I already plan to see: "
+      planned_media_text = "Here is the list of books I already plan to read: "
     end
 
     # for medium in planned_media
