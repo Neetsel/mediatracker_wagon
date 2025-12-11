@@ -13,8 +13,13 @@ Rails.application.routes.draw do
   resources :reviews, only: [:index]
   resources :collections, only: [:index]
 
+  resources :chats, only: [:show, :index] do
+    resources :messages, only: [:create]
+  end
+
   resources :media, only: [:show, :index] do
     resources :reviews, only: [:new, :create]
+    resources :chats, only: [:create]
     resources :collections, only: [:create]
 
     member do

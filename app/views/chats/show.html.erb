@@ -1,0 +1,12 @@
+<div class="container my-5 bg-dark text-light p-5 rounded shadow">
+  <h1 class="mb-4 text-center"><%= @chat.title %></h1>
+  <div id="messages">
+    <%= render "messages/messages", messages:@chat.messages %>
+  </div>
+
+  <div id="new_message_container" class="mb-3">
+	  <%= render "messages/form", chat: @chat, message: @message %>
+  </div>
+
+  <%= link_to "Back to chats", chats_path, class: "btn btn-primary" %>
+</div>
