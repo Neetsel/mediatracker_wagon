@@ -8,6 +8,6 @@ class User < ApplicationRecord
 
   has_many :chats
   has_many :reviews
-  has_many :collections
+  has_many :collections, dependent: :destroy
   has_many :movies, through: :collections
 end
