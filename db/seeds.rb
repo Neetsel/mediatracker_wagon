@@ -23,6 +23,9 @@ movie = Movie.create!(
   api_id: "1234567",
   countries: "USA",
   languages: "English",
+  directors: "abc",
+  writers: "abc",
+  actors: "abc",
   runtime: 136
 )
 
@@ -40,6 +43,9 @@ movie3 = Movie.create!(
   api_id: "1234567",
   countries: "USA",
   languages: "English",
+  directors: "abc",
+  writers: "abc",
+  actors: "abc",
   runtime: 120
 )
 
@@ -57,6 +63,9 @@ movie4 = Movie.create!(
   api_id: "1234567",
   countries: "USA",
   languages: "English",
+  directors: "abc",
+  writers: "abc",
+  actors: "abc",
   runtime: 128
 )
 
@@ -74,6 +83,9 @@ movie5 = Movie.create!(
   api_id: "1234567",
   countries: "USA",
   languages: "English",
+  directors: "abc",
+  writers: "abc",
+  actors: "abc",
   runtime: 121
 )
 
@@ -91,6 +103,7 @@ book = Book.create!(
   # add book-specific fields here
   isbn: "1400078776",
   publisher: "Vintage International",
+  authors: "abc",
   amount_pages: 288
 )
 

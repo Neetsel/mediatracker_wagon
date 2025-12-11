@@ -1,5 +1,5 @@
 class MediaController < ApplicationController
-  before_action :set_medium, only: [:show]
+  before_action :set_medium, only: [:show, :toggle_next_up]
 
   def index
     @media = Medium.all
@@ -228,6 +228,17 @@ class MediaController < ApplicationController
       format.turbo_stream
       format.html { render :index }
     end
+  end
+
+  def toggle_next_up
+    if current_user.favorited?(@medium, scope: :next_up)
+      current_user.unfavorite(@medium, scope: :next_up)
+    else
+      current_user.favorite(@medium, scope: :next_up)
+    end
+    current_user.save!
+
+    redirect_to @medium
   end
 
   private

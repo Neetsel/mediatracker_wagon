@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  get "next_up", to: "collections#next_up"
+
   resources :reviews, only: [:index]
   resources :collections, only: [:index]
 
@@ -19,6 +21,10 @@ Rails.application.routes.draw do
 
     member do
       get :reviews
+    end
+
+    member do
+      get :toggle_next_up
     end
 
     collection do

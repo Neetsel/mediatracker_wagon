@@ -1,0 +1,9 @@
+<% if current_user.favorited?(medium, scope: :next_up) %>
+  <%= link_to toggle_next_up_medium_path(medium), data: { turbo_method:"POST" } do %>
+    <i class="fa-regular fa-calendar"></i>
+  <% end %>
+<% else %>
+  <%= link_to toggle_next_up_medium_path(medium), data: { turbo_method: "DELETE" } do %>
+    <i class="fa-solid fa-calendar"></i>
+  <% end %>
+<% end %>

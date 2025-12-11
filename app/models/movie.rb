@@ -1,5 +1,5 @@
 class Movie < ApplicationRecord
-  has_one :media, as: :sub_media
+  has_one :media, as: :sub_media, dependent: :destroy
 
   def self.create_from_medium(response)
     # Si movie existe déjà, on le récupère(cf.doc active record)
