@@ -1,11 +1,25 @@
 class MediaController < ApplicationController
-  before_action :set_medium, only: [:show]
+  before_action :set_medium, only: [:show, :toggle_likes]
 
   def index
     @media = Medium.all
   end
 
   def show
+  end
+
+  def toggle_likes
+    if(current_user.favorited?(@medium, scope: :likes))
+      current_user.unfavorite(@medium, scope: :likes)
+    else
+      current_user.favorite(@medium, scope: :likes)
+    end
+    current_user.save!
+
+    respond_to do |format|
+      format.html { redirect_to @medium, notice: "Medium added or already present" }
+      format.turbo_stream { redirect_to @medium }
+    end
   end
 
   def create_from_igdb
@@ -200,7 +214,7 @@ class MediaController < ApplicationController
       @medium.assign_attributes(
         title: response["Title"],
         description: response["Plot"],
-        release_date: response["Released"], 
+        release_date: response["Released"],
         year: response["Year"],
         genres: response["Genre"].split(", "),
         poster_url: response["Poster"]
