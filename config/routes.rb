@@ -24,19 +24,14 @@ Rails.application.routes.draw do
 
     member do
       get :reviews
+      get :toggle_likes
     end
 
     collection do
       post :create_from_omdb
       post :search_from_omdb
-    end
-
-    collection do
       post :create_from_igdb
       post :search_from_igdb
-    end
-
-    collection do
       post :create_from_open_library
       post :search_from_open_library
     end

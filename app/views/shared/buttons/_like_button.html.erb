@@ -1,0 +1,9 @@
+<% if current_user.favorited?(medium, scope: :likes) %>
+  <%= link_to toggle_likes_medium_path(medium) do %>
+    <i class="fa-solid fa-heart"></i>
+  <% end %>
+<% else %>
+  <%= link_to toggle_likes_medium_path(medium) do %>
+    <i class="fa-regular fa-heart"></i>
+  <% end %>
+<% end %>

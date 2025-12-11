@@ -3,7 +3,6 @@ class MessagesController < ApplicationController
   SYSTEM_PROMPT_GAMES = "You are a media expert.\n\nI am a video game fan, looking for new video games to play.\n\nHelp me find new games with similar genres, themes or people involved in the making of those games. Don't recommend games that I've played or plan to play.\n\nAnswer concisely in Markdown."
   SYSTEM_PROMPT_BOOKS = "You are a media expert.\n\nI am a book fan, looking for new books to read.\n\nHelp me find new books with similar genres, themes or people involved in the making of those books. Don't recommend books that I've read or plan to read.\n\nAnswer concisely in Markdown."
 
-
   def create
     @chat = Chat.find(params[:chat_id])
     @medium = @chat.medium
@@ -62,57 +61,62 @@ class MessagesController < ApplicationController
   end
 
   def list_media_liked
-
+    media_type = ""
     liked_media_text=""
     if @medium.sub_media_type === "Movie"
       liked_media_text = "Here is the list of movies I liked and seen: \n"
+      media_type = "Movie"
     elsif @medium.sub_media_type === "Game"
       liked_media_text = "Here is the list of games I liked and played: \n"
+      media_type = "Game"
     else
       liked_media_text = "Here is the list of books I liked and read: \n"
+      media_type = "Book"
     end
 
-    # current_user.all_favorited
-
-    # for medium in liked_medium
-    #   liked_medium_text << "#{medium.medium.title} (#{medium.medium.year}) \n"
-    # end
+    for medium in Favorite.liked_list
+      if (medium.sub_media_type === media_type)
+      liked_medium_text << "#{medium.medium.title} (#{medium.medium.year}) \n"
+    end
 
     liked_media_text
   end
 
   def list_media_seen
-
+    media_type = ""
     seen_media_text = ""
     if @medium.sub_media_type === "Movie"
-      seen_media_text = "Here is the list of movies I've seen: "
+      seen_media_text = "Here is the list of movies I've seen: \n"
+      media_type = "Movie"
     elsif @medium.sub_media_type === "Game"
-      seen_media_text = "Here is the list of games I've played: "
+      seen_media_text = "Here is the list of games I've played: \n"
+      media_type = "Game"
     else
-      seen_media_text = "Here is the list of books I've read: "
+      seen_media_text = "Here is the list of books I've read: \n"
+      media_type = "Book"
     end
-
-    # for movie in seen_movies
-    #   seen_media_text << "#{medium.medium.title} (#{medium.medium.year}) \n"
-    # end
 
     seen_media_text
   end
 
   def list_media_planned
-
+    media_type = ""
     planned_media_text = ""
     if @medium.sub_media_type === "Movie"
-      planned_media_text = "Here is the list of movies I already plan to see: "
+      planned_media_text = "Here is the list of movies I already plan to see: \n"
+      media_type = "Movie"
     elsif @medium.sub_media_type === "Game"
-      planned_media_text = "Here is the list of games I already plan to play: "
+      planned_media_text = "Here is the list of games I already plan to play: \n"
+      media_type = "Game"
     else
-      planned_media_text = "Here is the list of books I already plan to read: "
+      planned_media_text = "Here is the list of books I already plan to read: \n"
+      media_type = "Book"
     end
 
-    # for medium in planned_media
-    #   planned_media_text << "#{medium.medium.title} (#{medium.medium.year}) \n"
-    # end
+    for medium in Favorite.next_up_list
+      if (medium.sub_media_type === media_type)
+      liked_medium_text << "#{medium.medium.title} (#{medium.medium.year}) \n"
+    end
 
     planned_media_text
   end
