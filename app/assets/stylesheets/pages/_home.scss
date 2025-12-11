@@ -1,1 +1,51 @@
 // Specific CSS for your home-page
+// Import du bouton cta depuis sa partial
+// Les media-cards sont gérées par une partial
+
+
+// On crée un contexte de positionnement pour l'élément enfant dans le ::before
+#home-header {
+  position: relative;
+  overflow: visible;  // Permet d'afficher le contenu qui sort de la div
+  background: transparent;
+}
+
+// On intervient sur l'image ici sans que ca modifie le reste de la div sélectionnée
+#home-header::before {
+  content:""; // Génère le pseudo élément
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0; // Occupe toute la surface
+  background-image: url('https://res.cloudinary.com/dmby1z5d6/image/upload/v1765366835/movie-posters-compo-2_fcbxeu.jpg');
+  background-size: cover;
+  background-position: center;
+  transform: rotate(-20deg) scale(1.8); // Rotate + zoom
+  transform-origin: center; // Origin du zoom
+  z-index: 0; // Placement hiérarchique du contenu
+  filter: blur(2px);
+  opacity: .9;
+}
+
+// On sélectionne tous les enfants de home-header
+// On donne la position au dessus du background avec z-index
+#home-header > * {
+  position: relative;
+  z-index: 1;
+}
+
+
+#home-header .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  min-height: 24vh;
+}
+
+.home-title {
+  font-family: "Montserrat";
+  font-size: 24px;
+  text-align: center;
+  font-weight: bold;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
