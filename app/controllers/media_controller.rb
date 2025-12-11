@@ -237,6 +237,8 @@ class MediaController < ApplicationController
 
     @results = response["Response"] == "True" ? response["Search"] : []
 
+    @results.select! {|result| result["Type"] === "movie"}
+
     respond_to do |format|
       format.turbo_stream
       format.html { render :index }
