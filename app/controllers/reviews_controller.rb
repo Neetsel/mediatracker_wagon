@@ -1,5 +1,9 @@
 class ReviewsController < ApplicationController
   before_action :set_medium, only: [:new, :create]
+
+  def index
+    @reviews = Review.where(user_id: current_user.id)
+  end
   def new
     @review = Review.new
   end
