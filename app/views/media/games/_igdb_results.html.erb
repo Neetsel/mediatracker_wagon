@@ -18,7 +18,7 @@
             <p class="card-text text-muted"><%= medium["first_release_date"] %></p>
 
             <div class="mt-auto">
-              <%= button_to "More details", create_from_igdb_media_path(id: medium["id"], cover: medium["cover"]),
+              <%= button_to "More details", create_from_igdb_media_path(id: medium["id"], cover: medium["cover"], platforms: medium["platforms"], developer: medium["developer"], publisher: medium["publisher"], main_story_duration: medium["main_story_duration"], main_extras_duration: medium["main_extras_duration"], completionist_duration: medium["completionist_duration"]),
                     method: :post,
                     data: { turbo_stream: true },
                     class: "btn btn-primary w-100 rounded-pill ms-2" %>

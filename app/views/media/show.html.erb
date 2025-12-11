@@ -38,7 +38,7 @@
             N/A
           <% end %>
         </p>
-        <% elsif if @medium.sub_media_type === "Book" %>
+        <% elsif @medium.sub_media_type === "Book" %>
           <p class="mb-2">
             <strong>Authors:</strong>
             <% if @medium.sub_media.authors.present? %>
