@@ -2,7 +2,7 @@
   <h1 class="mb-4 text-center">My reviews</h1>
   <div class="row">
     <% @reviews.each do |review| %>
-      <div class="col-md-3">
+      <div class="col-md-3 mb-4">
         <div class="card h-100 shadow-sm">
           <%= link_to medium_path(review.medium) do %>
             <%= image_tag review.medium.poster_url, alt: review.medium.title, class: "card-img-top"%>
