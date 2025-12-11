@@ -3,6 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
 }
 
 .background-image {
@@ -14,6 +15,7 @@
   filter: blur(2px);
   opacity: 0.9;
   z-index: 1;
+  padding-bottom: 24px;
 }
 
 .foreground-image {
@@ -21,4 +23,23 @@
   z-index: 2;
   width: 214px;
   height: 321px;
+}
+
+#media-description h1 {
+  font-family: "Montserrat";
+  font-weight: bold;
+  font-size: 24px;
+  text-align: center;
+}
+
+.fa-solid {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+#group-btn-list {
+  margin-top: 24px;
+  padding-right: 16px;
+  min-height: 100vh;
+
 }
