@@ -1,0 +1,33 @@
+<% if results.present? %>
+  <h3 class="mb-4 mt-4">Results :</h3>
+
+  <div class="row">
+    <% results.each do |medium| %>
+      <div class="col-md-3 mb-4">
+        <div class="card h-100 shadow-sm">
+          <% if medium["cover"] %>
+            <%= image_tag medium["cover"], alt: medium["name"], class: "card-img-top" %>
+          <% else %>
+            <div class="bg-secondary text-light d-flex align-items-center justify-content-center" style="height: 200px;">
+              No Poster
+            </div>
+          <% end %>
+
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title"><%= medium["name"] %></h5>
+            <p class="card-text text-muted"><%= medium["first_release_date"] %></p>
+
+            <div class="mt-auto">
+              <%= button_to "More details", create_from_igdb_media_path(id: medium["id"], cover: medium["cover"], platforms: medium["platforms"], developer: medium["developer"], publisher: medium["publisher"], main_story_duration: medium["main_story_duration"], main_extras_duration: medium["main_extras_duration"], completionist_duration: medium["completionist_duration"]),
+                    method: :post,
+                    data: { turbo_stream: true },
+                    class: "btn btn-primary w-100 rounded-pill ms-2" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="alert alert-warning">No games found</div>
+<% end %>
