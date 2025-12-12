@@ -194,6 +194,8 @@ class MediaController < ApplicationController
     response = open_library.search_work_by_key(params[:key])
     response_book = open_library.search_book_by_key(params[:cover_edition_key])
 
+    response_book["subjects"] ? genres = response_book["subjects"].split(", ") : genres = []
+
     if response
       # Si medium existe déjà, on le récupère(cf.doc active record)
       @medium = Medium.find_or_initialize_by(title: response["title"])
@@ -203,7 +205,7 @@ class MediaController < ApplicationController
         description: response["description"]["value"],
         release_date: Date.new(params[:year].to_i,1,1),
         year: params[:year],
-        genres: response_book["subjects"].split(", "),
+        genres: genres,
         poster_url: "https://covers.openlibrary.org/b/olid/#{params[:cover]}-M.jpg"
       )
 
