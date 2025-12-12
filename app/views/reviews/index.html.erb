@@ -9,9 +9,9 @@
           <% end %>
           <div class="card-body">
             <%= link_to medium_path(review.medium) do %>
-              <h5 class="card-title"><%= review.medium.title %></h5>
-              <p class="card-text"><%= review.content %></p>
-              <p class="card-text"><%= review.rating %></p>
+              <h5 id="review-index-title"><%= review.medium.title %></h5>
+              <p class="review-card-text"><%= review.content %></p>
+              <p class="review-rating"><%= review.rating %> <i class="fa-solid fa-star" style="color: #FBC500;"></i></p>
             <% end %>
           </div>
         </div>
