@@ -1,5 +1,6 @@
 class CollectionsController < ApplicationController
   before_action :set_medium, only: [:create]
+  before_action :set_collection, only: [:destroy]
 
   def index
     @collections = Collection.where(user_id: current_user.id)
@@ -22,9 +23,22 @@ class CollectionsController < ApplicationController
     @media = @user.all_favorites(scope: [:next_up])
   end
 
+  def destroy
+    if @collection.destroy!
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_back(fallback_location: root_path) }
+      end
+    end
+  end
+
   private
 
   def set_medium
     @medium = Medium.find(params[:medium_id])
+  end
+
+  def set_collection
+    @collection = Collection.find(params[:id])
   end
 end

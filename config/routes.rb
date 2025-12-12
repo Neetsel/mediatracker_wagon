@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   get "likes", to: "pages#likes"
 
   resources :reviews, only: [:index]
-  resources :collections, only: [:index]
+  resources :collections, only: [:index, :destroy]
 
   resources :chats, only: [:show, :index] do
     resources :messages, only: [:create]
