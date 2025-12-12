@@ -18,6 +18,11 @@ class CollectionsController < ApplicationController
     end
   end
 
+  def next_up
+    @user = current_user
+    @media = @user.all_favorites(scope: [:next_up])
+  end
+
   private
 
   def set_medium
