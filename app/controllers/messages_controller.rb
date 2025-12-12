@@ -74,13 +74,13 @@ class MessagesController < ApplicationController
       media_type = "Book"
     end
 
-    for medium in Favorite.liked_list
-      if (medium.sub_media_type === media_type)
-        liked_medium_text << "#{medium.medium.title} (#{medium.medium.year}) \n"
-      end
-    end
+    # for medium in Favorite.liked_list
+    #   if (medium.sub_media_type === media_type)
+    #     liked_medium_text << "#{medium.medium.title} (#{medium.medium.year}) \n"
+    #   end
+    # end
 
-    liked_media_text
+    # liked_media_text
   end
 
   def list_media_seen
@@ -97,7 +97,7 @@ class MessagesController < ApplicationController
       media_type = "Book"
     end
 
-    seen_media_text
+    # seen_media_text
   end
 
   def list_media_planned
@@ -114,13 +114,13 @@ class MessagesController < ApplicationController
       media_type = "Book"
     end
 
-    for medium in Favorite.next_up_list
-      if (medium.sub_media_type === media_type)
-        liked_medium_text << "#{medium.medium.title} (#{medium.medium.year}) \n"
-      end
-    end
+    # for medium in Favorite.next_up_list
+    #   if (medium.sub_media_type === media_type)
+    #     liked_medium_text << "#{medium.medium.title} (#{medium.medium.year}) \n"
+    #   end
+    # end
 
-    planned_media_text
+    # planned_media_text
   end
 
   def system_prompt_selection
