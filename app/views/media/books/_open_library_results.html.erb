@@ -15,13 +15,13 @@
 
           <div class="card-body d-flex flex-column">
             <h5 class="card-title"><%= medium["title"] %></h5>
-            <p class="card-text text-muted"><%= medium["first_publish_year"] %></p>
+            <p class="card-text"><%= medium["first_publish_year"] %></p>
 
             <div class="mt-auto">
               <%= button_to "More details", create_from_open_library_media_path( key: medium["key"], title: medium["title"], cover: medium["cover_edition_key"], author: medium["author_name"], year: medium["first_publish_year"], cover_edition_key: medium["cover_edition_key"] ),
                     method: :post,
                     data: { turbo_stream: true },
-                    class: "btn btn-primary w-100 rounded-pill ms-2" %>
+                    class: "btn btn-primary w-100 rounded-pill" %>
             </div>
           </div>
         </div>
