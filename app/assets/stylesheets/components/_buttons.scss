@@ -1,9 +1,8 @@
 .btn-cta {
 
   font-family: "Inter";
-  font-weight: medium;
-  font-size: 16px;
-  font-weight: 700;
+  font-weight: bold !important;
+  font-size: 18px;
   line-height: 24px;
   word-break: break-word;
   color: black;
@@ -12,7 +11,7 @@
   padding: 8px 18px;
 
   background: #FBC500;
-  // box-shadow: #FBC500 0 10px 20px -10px;
+  box-shadow: #FBC500 0 8px 18px -16px;
   border-radius: 999px;
   width: fit-content;
   border: 0;

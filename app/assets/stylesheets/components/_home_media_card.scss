@@ -14,7 +14,7 @@
   align-items: center;
   width: 100%;
   padding: 0 10px;
-  margin: 24px auto 24px auto;
+  margin: 28px auto 24px auto;
 }
 
 .home-media-card #img-center {
@@ -23,12 +23,14 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 1;
+  box-shadow: #537B89 0 8px 24px -12px;
 }
 
 .home-media-card img {
   border-radius: 8px;
   width: 148px;
   height: 222px;
+  box-shadow: #537B89 0 8px 24px -12px;
 }
 
 .media-card-content {
