@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
+  # custom routes
+  get "next_up", to: "users#next_up", as: "next_up"
 
   root to: "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -10,7 +12,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  get "next_up", to: "collections#next_up"
 
   resources :reviews, only: [:index]
   resources :collections, only: [:index]
