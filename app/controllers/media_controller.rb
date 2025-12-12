@@ -9,10 +9,10 @@ class MediaController < ApplicationController
   end
 
   def toggle_likes
-    if(current_user.favorited?(@medium, scope: :likes))
-      current_user.unfavorite(@medium, scope: :likes)
+    if(current_user.favorited?(@medium, scope: :like))
+      current_user.unfavorite(@medium, scope: :like)
     else
-      current_user.favorite(@medium, scope: :likes)
+      current_user.favorite(@medium, scope: :like)
     end
     current_user.save!
 
