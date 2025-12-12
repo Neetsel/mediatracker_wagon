@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   get "next_up", to: "collections#next_up"
+  get "likes", to: "pages#likes"
 
   resources :reviews, only: [:index]
   resources :collections, only: [:index]
