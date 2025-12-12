@@ -1,0 +1,39 @@
+<nav>
+  <div id="top-navbar">
+    <a data-bs-toggle="offcanvas" href="#offcanvasNavbar" role="button" aria-controls="offcanvasNavbar"><i class="fa-solid fa-bars fa-xl" style="color: #FBC500;" id="menu-burger"></i>
+    </a>
+
+    <%= link_to "MediaTrackr", root_path, class: "brand-logo" %>
+
+    <%= link_to new_user_session_path do %>
+      <i class="fa-regular fa-user fa-xl" style="color: #FBC500;"></i>
+    <% end %>
+
+  </div>
+
+ <%# Gestion du offcanvas après clique %>
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+    <div class="offcanvas-header d-flex justify-content-between">
+      <div>
+        <img src="https://res.cloudinary.com/dmby1z5d6/image/upload/v1765366833/logo-mediatrackr-no-name-1_mznbne.png" style="width: 50px; height: 50px" alt="logo MediaTrackr Yellow">
+      </div>
+      <h2 class="offcanvas-title" id="offcanvasNavbarLabel">MediaTrackr</h2>
+      <div data-bs-theme="dark">
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="offcanvas-body">
+      <div>
+        <ul class="nav-list d-flex flex-column mb-4">
+          <a href="<%= root_path %>">Home</a>
+          <a href="<%= %>">My Collection</a>
+          <a href="">My Next Up</a>
+          <a href="">My Favorites</a>
+          <a href="">My Profile</a>
+          <a href="<%= chats_path %>">Chat with AI</a>
+      </ul>
+      </div>
+    </div>
+  </div>
+
+</nav>

@@ -1,0 +1,48 @@
+#top-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  height: 64px;
+  background: black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+  overflow: hidden;
+
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.brand-logo {
+  color: #FBC500;
+  font-family: "Montserrat";
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.offcanvas {
+  background: #171F28;
+}
+
+.offcanvas-body {
+  background: linear-gradient(#171F28, #000000);
+}
+
+.nav-list a {
+  font-family: "Montserrat";
+  font-weight: 400;
+  font-size: 20px;
+  color: white;
+  padding-bottom: 16px;
+  padding-top: 16px;
+}
+
+#offcanvasNavbarLabel {
+   color: #FBC500;
+  font-family: "Montserrat";
+  font-weight: bold;
+  font-size: 24px;
+}

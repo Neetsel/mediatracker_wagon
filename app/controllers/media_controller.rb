@@ -1,11 +1,25 @@
 class MediaController < ApplicationController
-  before_action :set_medium, only: [:show, :toggle_next_up]
+  before_action :set_medium, only: [:show, :toggle_next_up, :toggle_likes]
 
   def index
     @media = Medium.all
   end
 
   def show
+  end
+
+  def toggle_likes
+    if(current_user.favorited?(@medium, scope: :likes))
+      current_user.unfavorite(@medium, scope: :likes)
+    else
+      current_user.favorite(@medium, scope: :likes)
+    end
+    current_user.save!
+
+    respond_to do |format|
+      format.html { redirect_to @medium, notice: "Medium added or already present" }
+      format.turbo_stream { redirect_to @medium }
+    end
   end
 
   def create_from_igdb
@@ -155,7 +169,6 @@ class MediaController < ApplicationController
     if response
       # Si medium existe déjà, on le récupère(cf.doc active record)
       @medium = Medium.find_or_initialize_by(title: response["title"])
-
       # On met à jour les infos si besoin
       @medium.assign_attributes(
         title: response["title"],

@@ -15,26 +15,26 @@ Rails.application.routes.draw do
   resources :reviews, only: [:index]
   resources :collections, only: [:index]
 
+  resources :chats, only: [:show, :index] do
+    resources :messages, only: [:create]
+  end
+
   resources :media, only: [:show, :index] do
     resources :reviews, only: [:new, :create]
+    resources :chats, only: [:create]
     resources :collections, only: [:create]
 
     member do
       get :reviews
       get :toggle_next_up
+      get :toggle_likes
     end
 
     collection do
       post :create_from_omdb
       post :search_from_omdb
-    end
-
-    collection do
       post :create_from_igdb
       post :search_from_igdb
-    end
-
-    collection do
       post :create_from_open_library
       post :search_from_open_library
     end

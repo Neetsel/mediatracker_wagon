@@ -10,8 +10,8 @@
           <div class="card-body">
             <%= link_to medium_path(review.medium) do %>
               <h5 class="card-title"><%= review.medium.title %></h5>
-              <p class="card-text text-muted"><%= review.content %></p>
-              <p class="card-text text-muted"><%= review.rating %></p>
+              <p class="card-text"><%= review.content %></p>
+              <p class="card-text"><%= review.rating %></p>
             <% end %>
           </div>
         </div>

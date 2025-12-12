@@ -5,7 +5,7 @@
     <% results.each do |medium| %>
       <div class="col-md-3 mb-4">
         <div class="card h-100 shadow-sm">
-          <% if medium["cover_edition_key"] != "N/A" %>
+          <% if medium["cover_edition_key"] %>
             <%= image_tag "https://covers.openlibrary.org/b/olid/#{medium["cover_edition_key"]}-M.jpg", alt: medium["title"], class: "card-img-top" %>
           <% else %>
             <div class="bg-secondary text-light d-flex align-items-center justify-content-center" style="height: 200px;">

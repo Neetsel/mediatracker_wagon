@@ -10,12 +10,17 @@
 // Your CSS partials
 @import "components/index";
 @import "components/buttons";
-@import "components/home-media-card";
+@import "components/home_media_card";
+@import "components/top_navbar";
 
 @import "pages/index";
+@import "pages/media_show";
 
 main {
   background: linear-gradient(#171F28, #000000);
+  padding-top: 64px;
+  overflow-x: hidden;
+  min-height: 100vh;
 }
 
 a {
@@ -24,4 +29,20 @@ a {
 
 body {
   box-sizing: border-box;
+}
+
+.form-control {
+  color: black;
+}
+
+.form-control::placeholder {
+  color: black;
+  opacity: 0.5;
+
+}
+
+.form-control:focus {
+  color: black !important;
+  font-family: "Inter";
+  font-weight: 400;
 }
