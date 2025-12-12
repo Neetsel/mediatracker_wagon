@@ -22,6 +22,20 @@ class MediaController < ApplicationController
     end
   end
 
+  def toggle_next_up
+    if current_user.favorited?(@medium, scope: :next_up)
+      current_user.unfavorite(@medium, scope: :next_up)
+    else
+      current_user.favorite(@medium, scope: :next_up)
+    end
+    current_user.save!
+
+    respond_to do |format|
+      format.html { redirect_to @medium, notice: "Media added or already present"}
+      format.turbo_stream { redirect_to @medium }
+    end
+  end
+
   def create_from_igdb
     igdb = IgdbService.new
     # On fait un call API pour récupérer la fiche spécifique au jeu qui nous donnera sa description
@@ -50,24 +64,38 @@ class MediaController < ApplicationController
         poster_url: params[:cover]
       )
 
+      companies = []
+
+      if params[:publisher] && params[:developer]
+        companies = params[:publisher] + params[:developer]
+      elsif params[:developer]
+        companies = params[:developer]
+      elsif
+        companies = params[:publisher]
+      end
+
       # On fait un call API pour récupérer le nom de toutes les entreprises impliquées dans la création
-      response_companies_name = JSON.parse(igdb.companies_name_by_id(params[:publisher]+params[:developer]).body)
+      response_companies_name = JSON.parse(igdb.companies_name_by_id(companies).body)
       # On prépare un array dans lequel on va mettre le nom de tous les éditeurs du jeu
       publishers = []
-      params[:publisher].each {|publisher|
-        # On cherche le publisher sur base de son id
-        publisher_name = response_companies_name.select { |hash| hash["id"] == publisher.to_i }
-        # On ajoute son nom à l'array
-        publishers << publisher_name[0]["name"]
-      }
+      if params[:publisher]
+        params[:publisher].each {|publisher|
+          # On cherche le publisher sur base de son id
+          publisher_name = response_companies_name.select { |hash| hash["id"] == publisher.to_i }
+          # On ajoute son nom à l'array
+          publishers << publisher_name[0]["name"]
+        }
+      end
       # On prépare un array dans lequel on va mettre le nom de tous les développeurs du jeu
       developers = []
-      params[:developer].each {|developer|
-        # On cherche le développeur sur base de son id
-        developer_name = response_companies_name.select { |hash| hash["id"] == developer.to_i }
-         # On ajoute son nom à l'array
-        developers << developer_name[0]["name"]
-      }
+      if params[:developer]
+        params[:developer].each {|developer|
+          # On cherche le développeur sur base de son id
+          developer_name = response_companies_name.select { |hash| hash["id"] == developer.to_i }
+          # On ajoute son nom à l'array
+          developers << developer_name[0]["name"]
+        }
+      end
 
       # On fait un call API pour récupérer le nom de toutes les plateformes
       response_platforms = JSON.parse(igdb.platforms_by_id(params[:platforms]).body)
@@ -248,20 +276,6 @@ class MediaController < ApplicationController
     respond_to do |format|
       format.turbo_stream
       format.html { render :index }
-    end
-  end
-
-  def toggle_next_up
-    if current_user.favorited?(@medium, scope: :next_up)
-      current_user.unfavorite(@medium, scope: :next_up)
-    else
-      current_user.favorite(@medium, scope: :next_up)
-    end
-    current_user.save!
-
-    respond_to do |format|
-      format.html { redirect_to @medium, notice: "Media added or already present"}
-      format.turbo_stream { redirect_to @medium }
     end
   end
 
