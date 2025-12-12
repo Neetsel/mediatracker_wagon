@@ -1,8 +1,8 @@
 <div class="container my-5 bg-dark text-light p-5 rounded shadow">
   <h1 class="mb-4 text-center">New Review for <%= @medium.title %></h1>
   <div class="row">
-      <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#reviewModal">
-        Add New Review
+      <button type="button" class="btn btn-flat mb-3" data-bs-toggle="modal" data-bs-target="#reviewModal">
+        Add a Review ✏️
       </button>
 
       <!-- Reviews List -->
@@ -13,5 +13,8 @@
         <% end %>
       </ul>
       <%= render "modal" %>
+      <div class="mt-4">
+        <%= link_to "<- Back to media", medium_path(@medium) %>
+      </div>
   </div>
 </div>

@@ -1,0 +1,7 @@
+<% if Review.find_by(medium_id: medium.id, user_id: current_user.id).nil? %>
+  <%= link_to new_medium_review_path(medium), data: { turbo_method:"GET" } do %>
+    <i class="fa-regular fa-pen" style="color: #fbc500;"></i>
+  <% end %>
+<% else %>
+  <i class="fa-solid fa-pen" style="color: #fbc500;"></i>
+<% end %>
