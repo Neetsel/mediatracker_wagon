@@ -1,0 +1,19 @@
+<div class="container my-5 bg-dark text-light p-5 rounded shadow">
+  <h1 class="mb-4 text-center">Find movies you liked here</h1>
+  <div class="row">
+    <% @media.each do |medium| %>
+      <div class="col-md-3 mb-4">
+        <div class="card h-100 shadow-sm">
+          <%= link_to medium_path(medium) do %>
+            <%= image_tag medium.poster_url, alt: medium.title, class: "card-img-top"%>
+          <% end %>
+          <div class="card-body">
+            <%= link_to medium_path(medium) do %>
+              <h5 class="card-title"><%= medium.title %></h5>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -11,7 +11,6 @@ class CollectionsController < ApplicationController
     @collection.user_id = @user.id
     @collection.medium_id = @medium.id
     if @collection.save!
-      @user.favorite(@collection)
       redirect_to medium_collections_path(@medium), notice: "You've created a collection."
     else
       render :new, status: :unprocessable_entity
