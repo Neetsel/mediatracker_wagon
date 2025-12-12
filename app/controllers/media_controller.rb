@@ -266,12 +266,12 @@ class MediaController < ApplicationController
     @results = response["Response"] == "True" ? response["Search"] : []
 
     # Si il y a plus de 10 films, on fait un nouveau call API pour avoir la suite
-    if response["totalResults"].to_i>40
-      for i in 2..4.floor
+    if response["totalResults"].to_i>30
+      for i in 2..3.floor
         response = omdb.search_multiple(params[:title], i)
         @results.concat(response["Search"])
       end
-    elsif response["totalResults"].to_i <= 40 && response["totalResults"].to_i > 10
+    elsif response["totalResults"].to_i <= 30 && response["totalResults"].to_i > 10
       for i in 2..(response["totalResults"].to_i/10).floor
         response = omdb.search_multiple(params[:title], i)
         @results.concat(response["Search"])
