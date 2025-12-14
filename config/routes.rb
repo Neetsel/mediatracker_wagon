@@ -33,11 +33,9 @@ Rails.application.routes.draw do
     end
 
     collection do
-      post :create_from_omdb
+      post :create_record
       post :search_from_omdb
-      post :create_from_igdb
       post :search_from_igdb
-      post :create_from_open_library
       post :search_from_open_library
     end
   end
