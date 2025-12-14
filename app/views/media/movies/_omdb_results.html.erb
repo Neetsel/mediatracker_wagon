@@ -3,21 +3,32 @@
 
   <div class="row">
     <% results.each do |medium| %>
-      <div class="col-md-3 mb-4">
-        <div class="card h-100 shadow-sm">
+      <div class="search-media-cards col-md-3 mb-4">
+
+        <%# Image %>
+        <div class="search-card-image">
           <% if medium["Poster"] != "N/A" %>
-            <%= image_tag medium["Poster"], alt: medium["Title"], class: "card-img-top" %>
+            <%= image_tag medium["Poster"], alt: medium["Title"], class: "search-card-image-left" %>
           <% else %>
             <div class="bg-secondary text-light d-flex align-items-center justify-content-center" style="height: 200px;">
               No Poster
             </div>
           <% end %>
+          </div>
 
-          <div class="card-body d-flex flex-column">
+            <%# Texte %>
+          <div class="search-card-body d-flex flex-column justify-content-between">
             <h5 class="card-title"><%= medium["Title"] %></h5>
             <p class="card-text"><%= medium["Year"] %></p>
 
-            <div class="mt-auto">
+            <%# buttons %>
+            <div class="list-icon d-flex justify-content-between">
+              <i class="fa-solid fa-bookmark fa-lg" style="color: #FBC500;"></i>
+              <i class="fa-solid fa-circle-plus fa-lg" style="color: #FBC500;"></i>
+              <i class="fa-solid fa-heart fa-lg" style="color: #FBC500;"></i>
+
+            </div>
+            <div class="btn-more-details">
               <%= button_to "More details", create_from_omdb_media_path(imdb_id: medium["imdbID"]),
                     method: :post,
                     data: { turbo_stream: true },
@@ -25,8 +36,15 @@
             </div>
           </div>
         </div>
-      </div>
+
     <% end %>
+
+
+
+
+
+
+      </div>
   </div>
 <% else %>
   <div class="alert alert-warning">No movies found</div>

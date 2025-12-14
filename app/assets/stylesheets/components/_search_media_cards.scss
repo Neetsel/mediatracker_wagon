@@ -1,0 +1,38 @@
+.search-media-cards {
+  display: flex;
+}
+
+
+.search-card-image-left {
+  height: 222px;
+  width: 140px;
+  border-radius: 8px;
+}
+
+.search-card-body {
+  padding-left: 12px;
+  margin: 2px auto 2px auto;
+
+}
+
+.search-card-body .card-title {
+  font-family: "Montserrat";
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.search-card-body .card-text {
+  font-family: "Montserrat";
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.search-card-body .card-description {
+  font-family: "Inter";
+  font-weight: 300;
+  font-size: 12px;
+}
+
+.list-icon {
+  padding: auto 8px auto 8px;
+}
