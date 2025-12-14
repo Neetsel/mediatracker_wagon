@@ -1,9 +1,9 @@
 <% if results.present? %>
   <h3 class="mb-4 mt-4">Results :</h3>
 
-  <div class="row">
+  <div class="row g-0">
     <% results.each do |medium| %>
-      <div class="search-media-cards col-md-3 mb-3 mt-3">
+      <div class="search-media-cards col mb-3 mt-3">
 
         <%# Image %>
         <div class="search-card-image">
@@ -24,7 +24,7 @@
 
           <%# buttons %>
 
-          <div class="list-icon d-flex justify-content-between">
+          <div class="list-icon">
             <i class="fa-solid fa-bookmark fa-lg" style="color: #FBC500;"></i>
             <i class="fa-solid fa-circle-plus fa-lg" style="color: #FBC500;"></i>
             <i class="fa-solid fa-heart fa-lg" style="color: #FBC500;"></i>
