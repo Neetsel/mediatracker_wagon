@@ -1,5 +1,5 @@
 class MediaController < ApplicationController
-  before_action :set_medium, only: [:show, :toggle_next_up, :toggle_likes]
+  before_action :set_medium, only: [:show, :toggle_likes, :toggle_next_up]
 
   def index
     @media = Medium.all
@@ -9,108 +9,25 @@ class MediaController < ApplicationController
   end
 
   def toggle_likes
-    if(current_user.favorited?(@medium, scope: :like))
-      current_user.unfavorite(@medium, scope: :like)
-    else
-      current_user.favorite(@medium, scope: :like)
-    end
-    current_user.save!
-
-    respond_to do |format|
-      format.html { redirect_to @medium, notice: "Medium added or already present" }
-      format.turbo_stream { redirect_to @medium }
-    end
+    toggle_favorites("like")
+    redirect
   end
 
   def toggle_next_up
-    if current_user.favorited?(@medium, scope: :next_up)
-      current_user.unfavorite(@medium, scope: :next_up)
-    else
-      current_user.favorite(@medium, scope: :next_up)
-    end
-    current_user.save!
-
-    respond_to do |format|
-      format.html { redirect_to @medium, notice: "Media added or already present"}
-      format.turbo_stream { redirect_to @medium }
-    end
+    toggle_favorites("next_up")
+    redirect
   end
 
-  def create_from_igdb
-    igdb = IgdbService.new
-    # On fait un call API pour récupérer la fiche spécifique au jeu qui nous donnera sa description
-    response = JSON.parse(igdb.search_by_id(params[:id]).body)
-
-    # On fait un call API pour récupérer le nom des genres
-    response_genres = JSON.parse(igdb.genres_by_id(response[0]["genres"]).body)
-    # On prépare un array dans lequel on va mettre le nom de tous les genres
-    genres_names = []
-    response_genres.each {|genre|
-      genres_names << genre["name"]
-    }
-
-    if response
-      # Si medium existe déjà, on le récupère(cf.doc active record)
-      @medium = Medium.find_or_initialize_by(title: response[0]["name"])
-
-      # On convertit la date reçue en Unix
-      release_date = DateTime.strptime(response[0]["first_release_date"].to_s, '%s')
-      @medium.assign_attributes(
-        title: response[0]["name"],
-        description: response[0]["summary"],
-        release_date: release_date,
-        year: release_date.year,
-        genres: genres_names,
-        poster_url: params[:cover]
-      )
-
-      companies = []
-
-      if params[:publisher] && params[:developer]
-        companies = params[:publisher] + params[:developer]
-      elsif params[:developer]
-        companies = params[:developer]
-      elsif
-        companies = params[:publisher]
-      end
-
-      # On fait un call API pour récupérer le nom de toutes les entreprises impliquées dans la création
-      response_companies_name = JSON.parse(igdb.companies_name_by_id(companies).body)
-      # On prépare un array dans lequel on va mettre le nom de tous les éditeurs du jeu
-      publishers = []
-      if params[:publisher]
-        params[:publisher].each {|publisher|
-          # On cherche le publisher sur base de son id
-          publisher_name = response_companies_name.select { |hash| hash["id"] == publisher.to_i }
-          # On ajoute son nom à l'array
-          publishers << publisher_name[0]["name"]
-        }
-      end
-      # On prépare un array dans lequel on va mettre le nom de tous les développeurs du jeu
-      developers = []
-      if params[:developer]
-        params[:developer].each {|developer|
-          # On cherche le développeur sur base de son id
-          developer_name = response_companies_name.select { |hash| hash["id"] == developer.to_i }
-          # On ajoute son nom à l'array
-          developers << developer_name[0]["name"]
-        }
-      end
-
-      # On fait un call API pour récupérer le nom de toutes les plateformes
-      response_platforms = JSON.parse(igdb.platforms_by_id(params[:platforms]).body)
-      # On prépare un array dans lequel on va mettre le nom de toutes les plateformes
-      platforms = []
-      response_platforms.each {|platform|
-        platforms << platform["name"]
-      }
-
-      @medium.sub_media = Game.create_from_medium(params[:id], developers, publishers, platforms, params[:main_story_duration], params[:main_extras_duration], params[:completionist_duration])
-
-      save_medium
-    else
-      redirect_to media_path, alert: "Medium not available."
+  def create_record
+    if params[:medium_type] === "game"
+      create_from_igdb
+    elsif params[:medium_type] === "book"
+      create_from_open_library
+    elsif params[:medium_type] === "movie"
+      create_from_omdb
     end
+    update_favorites
+    redirect
   end
 
   def search_from_igdb
@@ -189,37 +106,6 @@ class MediaController < ApplicationController
     end
   end
 
-  def create_from_open_library
-    open_library = OpenLibraryService.new
-    response = open_library.search_work_by_key(params[:key])
-    response_book = open_library.search_book_by_key(params[:cover_edition_key])
-
-    response_book["subjects"] ? genres = response_book["subjects"].split(", ") : genres = []
-
-    if response
-      # Si medium existe déjà, on le récupère(cf.doc active record)
-      @medium = Medium.find_or_initialize_by(title: response["title"])
-      # On met à jour les infos si besoin
-      @medium.assign_attributes(
-        title: response["title"],
-        description: response["description"]["value"],
-        release_date: Date.new(params[:year].to_i,1,1),
-        year: params[:year],
-        genres: genres,
-        poster_url: "https://covers.openlibrary.org/b/olid/#{params[:cover]}-M.jpg"
-      )
-
-      # À partir de la response, on génère un livre
-      # Ensuite, on assigne ce livre à sub_media
-      @medium.sub_media = Book.create_from_medium(params[:author], response_book["number_of_pages"], params[:key], params[:cover_edition_key])
-
-      # On sauve le medium maintenant qu'il est bien remplit
-      save_medium
-    else
-      redirect_to media_path, alert: "Medium not available."
-    end
-  end
-
   def search_from_open_library
     open_library = OpenLibraryService.new
     response = open_library.search_by_title(params[:title])
@@ -229,35 +115,6 @@ class MediaController < ApplicationController
     respond_to do |format|
       format.turbo_stream
       format.html { render :index }
-    end
-  end
-
-  def create_from_omdb
-    omdb = OmdbService.new
-    response = omdb.search_by_id(params[:imdb_id])
-
-    if response["Response"] == "True"
-      # Si medium existe déjà, on le récupère(cf.doc active record)
-      @medium = Medium.find_or_initialize_by(title: response["Title"])
-
-      # On met à jour les infos si besoin
-      @medium.assign_attributes(
-        title: response["Title"],
-        description: response["Plot"],
-        release_date: response["Released"],
-        year: response["Year"],
-        genres: response["Genre"].split(", "),
-        poster_url: response["Poster"]
-      )
-
-      # À partir de la response, on génère un film
-      # Ensuite, on assigne ce film à sub_media
-      @medium.sub_media = Movie.create_from_medium(response)
-
-      # On sauve le medium maintenant qu'il est bien remplit
-      save_medium
-    else
-      redirect_to media_path, alert: "Medium not available."
     end
   end
 
@@ -288,14 +145,196 @@ class MediaController < ApplicationController
 
   private
 
+  def toggle_favorites(scope)
+    if(current_user.favorited?(@medium, scope: scope))
+      current_user.unfavorite(@medium, scope: scope)
+    else
+      current_user.favorite(@medium, scope: scope)
+    end
+    current_user.save!
+  end
+
+  def update_favorites
+    if params[:favorite] === "like"
+      toggle_favorites("like")
+    elsif params[:favorite] === "next_up"
+      toggle_favorites("next_up")
+    elsif params[:favorite] === "collection"
+
+    end
+  end
+
+  def redirect
+    if params[:favorite] === "none"
+      respond_to do |format|
+        format.html { redirect_to @medium, notice: "Medium added or already present" }
+        format.turbo_stream { redirect_to @medium }
+      end
+    elsif params[:favorite] === "collection"
+      respond_to do |format|
+        format.html { redirect_to @medium, notice: "Medium added or already present" }
+        format.turbo_stream { redirect_to medium_collections_path(medium), data: { turbo_method:"POST" } }
+      end
+    else
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_back(fallback_location: root_path) }
+      end
+    end
+  end
+
+  def create_from_omdb
+    omdb = OmdbService.new
+    response = omdb.search_by_id(params[:new_medium]["imdbID"])
+
+    if response["Response"] == "True"
+      # Si medium existe déjà, on le récupère(cf.doc active record)
+      @medium = Medium.find_or_initialize_by(title: response["Title"], release_date: response["Released"])
+
+      # On met à jour les infos si besoin
+      @medium.assign_attributes(
+        title: response["Title"],
+        description: response["Plot"],
+        release_date: response["Released"],
+        year: response["Year"],
+        genres: response["Genre"].split(", "),
+        poster_url: response["Poster"]
+      )
+
+      # À partir de la response, on génère un film
+      # Ensuite, on assigne ce film à sub_media
+      @medium.sub_media = Movie.create_from_medium(response)
+
+      # On sauve le medium maintenant qu'il est bien remplit
+      save_medium
+    else
+      redirect_to media_path, alert: "Medium not available."
+    end
+  end
+
+  def create_from_open_library
+    open_library = OpenLibraryService.new
+    response = open_library.search_work_by_key(params[:new_medium][:key])
+    response_book = open_library.search_book_by_key(params[:new_medium][:cover_edition_key])
+
+    response_book["subjects"] ? genres = response_book["subjects"].split(", ") : genres = []
+
+    if response
+      # Si medium existe déjà, on le récupère(cf.doc active record)
+      @medium = Medium.find_or_initialize_by(title: response["title"], year: params[:new_medium][:first_publish_year])
+      # On met à jour les infos si besoin
+      @medium.assign_attributes(
+        title: response["title"],
+        description: response["description"],
+        release_date: Date.new(params[:new_medium][:first_publish_year].to_i,1,1),
+        year: params[:new_medium][:first_publish_year],
+        genres: genres,
+        poster_url: "https://covers.openlibrary.org/b/olid/#{params[:new_medium][:cover_edition_key]}-M.jpg"
+      )
+
+      # À partir de la response, on génère un livre
+      # Ensuite, on assigne ce livre à sub_media
+      @medium.sub_media = Book.create_from_medium(params[:new_medium], response_book["number_of_pages"])
+
+      # On sauve le medium maintenant qu'il est bien remplit
+      save_medium
+    else
+      redirect_to media_path, alert: "Medium not available."
+    end
+  end
+
+  def create_from_igdb
+
+    igdb = IgdbService.new
+    # On fait un call API pour récupérer la fiche spécifique au jeu qui nous donnera sa description
+    response = JSON.parse(igdb.search_by_id(params[:new_medium][:id]).body)
+
+    genres_names = []
+    if response[0]["genres"]
+      # On fait un call API pour récupérer le nom des genres
+      response_genres = JSON.parse(igdb.genres_by_id(response[0]["genres"]).body)
+      # On prépare un array dans lequel on va mettre le nom de tous les genres
+      response_genres.each {|genre|
+        genres_names << genre["name"]
+      }
+    end
+
+    if response
+      # On convertit la date reçue en Unix
+      release_date = DateTime.strptime(response[0]["first_release_date"].to_s, '%s')
+
+      # Si medium existe déjà, on le récupère(cf.doc active record)
+      @medium = Medium.find_or_initialize_by(title: response[0]["name"], release_date: release_date)
+
+      @medium.assign_attributes(
+        title: response[0]["name"],
+        description: response[0]["summary"],
+        release_date: release_date,
+        year: release_date.year,
+        genres: genres_names,
+        poster_url: params[:new_medium][:cover]
+      )
+
+      companies = []
+      publishers = []
+      developers = []
+
+      if params[:new_medium][:publisher] || params[:new_medium][:developer]
+
+        if params[:new_medium][:publisher] && params[:new_medium][:developer]
+          companies = params[:new_medium][:publisher] + params[:new_medium][:developer]
+        elsif params[:new_medium][:developer]
+          companies = params[:new_medium][:developer]
+        elsif
+          companies = params[:new_medium][:publisher]
+        end
+
+        # On fait un call API pour récupérer le nom de toutes les entreprises impliquées dans la création
+        response_companies_name = JSON.parse(igdb.companies_name_by_id(companies).body)
+        # On prépare un array dans lequel on va mettre le nom de tous les éditeurs du jeu
+
+        if params[:new_medium][:publisher]
+          params[:new_medium][:publisher].each {|publisher|
+            # On cherche le publisher sur base de son id
+            publisher_name = response_companies_name.select { |hash| hash["id"] == publisher.to_i }
+            # On ajoute son nom à l'array
+            publishers << publisher_name[0]["name"]
+          }
+        end
+        # On prépare un array dans lequel on va mettre le nom de tous les développeurs du jeu
+
+        if params[:new_medium][:developer]
+          params[:new_medium][:developer].each {|developer|
+            # On cherche le développeur sur base de son id
+            developer_name = response_companies_name.select { |hash| hash["id"] == developer.to_i }
+            # On ajoute son nom à l'array
+            developers << developer_name[0]["name"]
+          }
+        end
+      end
+      # On prépare un array dans lequel on va mettre le nom de toutes les plateformes
+      platforms = []
+
+      if params[:new_medium][:platforms]
+        # On fait un call API pour récupérer le nom de toutes les plateformes
+        response_platforms = JSON.parse(igdb.platforms_by_id(params[:new_medium][:platforms]).body)
+
+        response_platforms.each {|platform|
+          platforms << platform["name"]
+        }
+      end
+
+      @medium.sub_media = Game.create_from_medium(params[:new_medium], developers, publishers, platforms)
+
+      save_medium
+    else
+      redirect_to media_path, alert: "Medium not available."
+    end
+  end
+
   def save_medium
     # On save seulement si c'est un nouveau record
     @medium.save if @medium.new_record? || @medium.changed?
-
-    respond_to do |format|
-      format.html { redirect_to @medium, notice: "Medium added or already present" }
-      format.turbo_stream { redirect_to @medium }
-    end
   end
 
   def set_medium
