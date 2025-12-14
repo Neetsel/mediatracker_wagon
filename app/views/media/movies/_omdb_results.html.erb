@@ -3,7 +3,7 @@
 
   <div class="row">
     <% results.each do |medium| %>
-      <div class="search-media-cards col-md-3 mb-4">
+      <div class="search-media-cards col-md-3 mb-3 mt-3">
 
         <%# Image %>
         <div class="search-card-image">
@@ -32,7 +32,7 @@
               <%= button_to "More details", create_from_omdb_media_path(imdb_id: medium["imdbID"]),
                     method: :post,
                     data: { turbo_stream: true },
-                    class: "btn btn-primary w-100 rounded-pill" %>
+                    class: "btn btn-primary rounded-pill" %>
             </div>
           </div>
         </div>

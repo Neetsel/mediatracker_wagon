@@ -1,5 +1,8 @@
 .search-media-cards {
   display: flex;
+  width: 100%;
+  max-width: 300px;
+  overflow: hidden;
 }
 
 
@@ -11,7 +14,7 @@
 
 .search-card-body {
   padding-left: 12px;
-  margin: 2px auto 2px auto;
+  margin: 2px 2px 2px 2px;
 
 }
 
@@ -19,6 +22,10 @@
   font-family: "Montserrat";
   font-weight: bold;
   font-size: 18px;
+  border-left: inset 4px #7B61FF;
+  padding-left: 4px;
+  // border-bottom: solid 1px white;
+  // padding-bottom: 2px;
 }
 
 .search-card-body .card-text {
