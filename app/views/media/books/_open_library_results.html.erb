@@ -4,29 +4,41 @@
   <div class="row">
     <% results.each do |medium| %>
       <% if medium["first_publish_year"] %>
-        <div class="col-md-3 mb-4">
-          <div class="card h-100 shadow-sm">
-            <% if medium["cover_edition_key"] %>
-              <%= image_tag "https://covers.openlibrary.org/b/olid/#{medium["cover_edition_key"]}-M.jpg", alt: medium["title"], class: "card-img-top" %>
-            <% else %>
-              <div class="bg-secondary text-light d-flex align-items-center justify-content-center" style="height: 200px;">
-                No Poster
-              </div>
-            <% end %>
+      <div class="search-media-cards col-md-3 mb-3 mt-3">
 
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title"><%= medium["title"] %></h5>
-              <p class="card-text"><%= medium["first_publish_year"] %></p>
-
-              <div class="mt-auto">
-                <%= button_to "More details", create_record_media_path( new_medium: medium, favorite: "none", medium_type: "book" ),
-                      method: :post,
-                      data: { turbo_stream: true },
-                      class: "btn btn-primary w-100 rounded-pill" %>
-                <%= render "shared/buttons/like_card_button", medium: medium, medium_type: "book", year: medium["first_publish_year"]  %>
-                <%= render "shared/buttons/next_up_card_button", medium: medium, medium_type: "book", year: medium["first_publish_year"]  %>
-              </div>
+        <%# Image %>
+        <div class="search-card-image">
+          <% if medium["cover_edition_key"] %>
+            <%= image_tag "https://covers.openlibrary.org/b/olid/#{medium["cover_edition_key"]}-M.jpg", alt: medium["title"], class: "search-card-image-left" %>
+          <% else %>
+            <div class="bg-secondary text-light d-flex align-items-center justify-content-center" style="height: 222px; width: 140px;">
+              No Poster
             </div>
+          <% end %>
+        </div>
+
+        <%# Texte %>
+
+        <div class="search-card-body d-flex flex-column justify-content-between">
+          <h5 class="card-title"><%= medium["title"] %></h5>
+          <p class="card-text"><%= medium["first_publish_year"] %></p>
+
+          <%# buttons %>
+
+          <div class="list-icon">
+            <%= render "shared/buttons/collection_card_button", medium: medium, medium_type: "book", year: medium["first_publish_year"]  %>
+            <%= render "shared/buttons/like_card_button", medium: medium, medium_type: "book", year: medium["first_publish_year"]  %>
+            <%= render "shared/buttons/next_up_card_button", medium: medium, medium_type: "book", year: medium["first_publish_year"]  %>
+            <i class="fa-solid fa-bookmark fa-lg" style="color: #FBC500;"></i>
+            <i class="fa-solid fa-circle-plus fa-lg" style="color: #FBC500;"></i>
+            <i class="fa-solid fa-heart fa-lg" style="color: #FBC500;"></i>
+          </div>
+
+          <div class="btn-more-details">
+            <%= button_to "More details", create_from_open_library_media_path( key: medium["key"], title: medium["title"], cover: medium["cover_edition_key"], author: medium["author_name"], year: medium["first_publish_year"], cover_edition_key: medium["cover_edition_key"] ),
+                  method: :post,
+                  data: { turbo_stream: true },
+                  class: "btn btn-primary rounded-pill" %>
           </div>
         </div>
       <% end %>

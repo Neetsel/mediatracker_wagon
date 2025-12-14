@@ -1,38 +1,52 @@
 <% if results.present? %>
   <h3 class="mb-4 mt-4">Results :</h3>
 
-  <div class="row">
+  <div class="row g-0">
     <% results.each do |medium| %>
       <% if medium["first_release_date"] %>
-        <div class="col-md-3 mb-4">
-          <div class="card h-100 shadow-sm">
-            <% if medium["cover"] %>
-              <%= image_tag medium["cover"], alt: medium["name"], class: "card-img-top" %>
-            <% else %>
-              <div class="bg-secondary text-light d-flex align-items-center justify-content-center" style="height: 200px;">
-                No Poster
-              </div>
-            <% end %>
+      <div class="search-media-cards col mb-3 mt-3">
 
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title"><%= medium["name"] %></h5>
-              <p class="card-text"><%= medium["first_release_date"] %></p>
-
-              <div class="mt-auto">
-                <%= button_to "More details", create_record_media_path( new_medium: medium, favorite: "none", medium_type: "game" ),
-                      method: :post,
-                      data: { turbo_stream: true },
-                      class: "btn btn-primary w-100 rounded-pill" %>
-                <%= render "shared/buttons/collection_card_button", medium: medium, medium_type: "game", year: medium["first_release_date"]  %>
-                <%= render "shared/buttons/like_card_button", medium: medium, medium_type: "game", year: medium["first_release_date"]  %>
-                <%= render "shared/buttons/next_up_card_button", medium: medium, medium_type: "game", year: medium["first_release_date"]  %>
-              </div>
+        <%# Image %>
+        <div class="search-card-image">
+          <% if medium["cover"] %>
+            <%= image_tag medium["cover"], alt: medium["name"], class: "search-card-image-left" %>
+          <% else %>
+            <div class="bg-secondary text-light d-flex align-items-center justify-content-center" style="height: 200px; width: 140px;">
+              No Poster
             </div>
+          <% end %>
+        </div>
+
+        <%# Texte %>
+
+        <div class="search-card-body d-flex flex-column justify-content-between">
+          <h5 class="card-title"><%= medium["name"] %></h5>
+          <p class="card-text"><%= medium["first_release_date"] %></p>
+
+          <%# buttons %>
+
+          <div class="list-icon">
+             <%= render "shared/buttons/collection_card_button", medium: medium, medium_type: "game", year: medium["first_release_date"]  %>
+            <%= render "shared/buttons/like_card_button", medium: medium, medium_type: "game", year: medium["first_release_date"]  %>
+            <%= render "shared/buttons/next_up_card_button", medium: medium, medium_type: "game", year: medium["first_release_date"]  %>
+            <i class="fa-solid fa-bookmark fa-lg" style="color: #FBC500;"></i>
+            <i class="fa-solid fa-circle-plus fa-lg" style="color: #FBC500;"></i>
+            <i class="fa-solid fa-heart fa-lg" style="color: #FBC500;"></i>
+          </div>
+
+          <div class="btn-more-details">
+            <%= button_to "More details", create_from_igdb_media_path(id: medium["id"], cover: medium["cover"], platforms: medium["platforms"], developer: medium["developer"], publisher: medium["publisher"], main_story_duration: medium["main_story_duration"], main_extras_duration: medium["main_extras_duration"], completionist_duration: medium["completionist_duration"]),
+                  method: :post,
+                  data: { turbo_stream: true },
+                  class: "btn btn-primary rounded-pill" %>
           </div>
         </div>
+      </div>
       <% end %>
     <% end %>
+
   </div>
+
 <% else %>
   <div class="alert alert-warning">No games found</div>
 <% end %>
