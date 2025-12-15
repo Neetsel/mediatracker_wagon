@@ -32,6 +32,8 @@ class MediaController < ApplicationController
   def create_record
     create_record_by_medium_type(params[:medium_type])
 
+    @results = Kaminari.paginate_array(@results).page(current_page).per(10)
+
     respond_to do |format|
       format.html { redirect_to @medium, notice: "Medium added or already present" }
       format.turbo_stream { redirect_to @medium }
@@ -39,6 +41,7 @@ class MediaController < ApplicationController
   end
 
   def search
+    current_page = params[:page] || 1
     case params[:medium_type]
     when "game"
       igdb = IgdbService.new
@@ -50,7 +53,9 @@ class MediaController < ApplicationController
       open_library = OpenLibraryService.new
       @results = open_library.run(params[:title])
     end
-
+    # A partir du result, on créé une page de 10 items
+    @results = Kaminari.paginate_array(@results).page(current_page).per(10)
+    
     respond_to do |format|
       format.html { render :index }
       format.turbo_stream
@@ -253,6 +258,10 @@ class MediaController < ApplicationController
   end
 
   def set_medium
+    if params[:id] == "search_from_omdb"
+      @medium = OmdbService.new.search_by_id(params[:imdb_id])
+    else
     @medium = Medium.find(params[:id])
+    end
   end
 end

@@ -2,8 +2,9 @@ class ReviewsController < ApplicationController
   before_action :set_medium, only: [:new, :create]
 
   def index
-    @reviews = Review.where(user_id: current_user.id)
+    @reviews = Review.where(user_id: current_user.id).page(params[:page]).per(10)
   end
+
   def new
     @review = Review.new
   end
