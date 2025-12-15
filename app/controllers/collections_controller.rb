@@ -18,6 +18,14 @@ class CollectionsController < ApplicationController
     end
   end
 
+  def create_from_card
+    @user = current_user
+    @collection = Collection.new
+    @collection.user_id = @user.id
+    @collection.medium_id = params[:id]
+    @collection.save!
+  end
+
   def next_up
     @user = current_user
     @media = @user.all_favorites(scope: [:next_up])

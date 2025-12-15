@@ -173,7 +173,7 @@ class MediaController < ApplicationController
     elsif params[:favorite] === "collection"
       respond_to do |format|
         format.html { redirect_to @medium, notice: "Medium added or already present" }
-        format.turbo_stream { redirect_to medium_collections_path(medium), data: { turbo_method:"POST" } }
+        format.turbo_stream { redirect_to create_from_card_collection_path(id: @medium.id), data: { turbo_method:"POST" } }
       end
     else
       respond_to do |format|

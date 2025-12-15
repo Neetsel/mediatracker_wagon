@@ -26,12 +26,19 @@
             <%# buttons %>
 
             <div class="list-icon">
-              <%= render "shared/buttons/collection_card_button", medium: medium, medium_type: "book", year: medium["first_publish_year"]  %>
-              <%= render "shared/buttons/like_card_button", medium: medium, medium_type: "book", year: medium["first_publish_year"]  %>
-              <%= render "shared/buttons/next_up_card_button", medium: medium, medium_type: "book", year: medium["first_publish_year"]  %>
-              <i class="fa-solid fa-bookmark fa-lg" style="color: #FBC500;"></i>
-              <i class="fa-solid fa-circle-plus fa-lg" style="color: #FBC500;"></i>
-              <i class="fa-solid fa-heart fa-lg" style="color: #FBC500;"></i>
+              <%= turbo_frame_tag="icon_collection" %>
+                <%= render "shared/buttons/collection_card_button", medium: medium, medium_type: "book", year: medium["first_publish_year"]  %>
+              <% /turbo_frame_tag %>
+              <%= turbo_frame_tag="icon_like" %>
+                <%= render "shared/buttons/like_card_button", medium: medium, medium_type: "book", year: medium["first_publish_year"]  %>
+              <% /turbo_frame_tag %>
+              <%= turbo_frame_tag="icon_next_up" %>
+                <%= render "shared/buttons/next_up_card_button", medium: medium, medium_type: "book", year: medium["first_publish_year"]  %>
+              <% /turbo_frame_tag %>
+                <i class="fa-solid fa-bookmark fa-lg" style="color: #FBC500;"></i>
+                <i class="fa-solid fa-circle-plus fa-lg" style="color: #FBC500;"></i>
+                <i class="fa-solid fa-heart fa-lg" style="color: #FBC500;"></i>
+
             </div>
 
             <div class="btn-more-details">
