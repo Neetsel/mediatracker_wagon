@@ -50,7 +50,7 @@
 <% else %>
   <div class="alert alert-warning">No movies found</div>
 <% end %>
-<div class="d-flex justify-content-center mt-4">
-  <%= link_to_prev_page results, 'Previous Page', params: { format: :turbo_stream }, data: {turbo_method: :post} %>
-  <%= link_to_next_page results, 'Next Page', params: { format: :turbo_stream }, data: {turbo_method: :post} %>
+<div class="pagination-links d-flex justify-content-center mt-4">
+  <%= link_to_prev_page results, '<< Previous Page', params: { format: :turbo_stream }, data: {turbo_method: :post} %>
+  <%= link_to_next_page results, 'Next Page >>', params: { format: :turbo_stream }, data: {turbo_method: :post} %>
 </div>
