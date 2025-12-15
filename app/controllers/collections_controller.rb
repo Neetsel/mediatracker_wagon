@@ -3,7 +3,7 @@ class CollectionsController < ApplicationController
   before_action :set_collection, only: [:destroy]
 
   def index
-    @collections = Collection.where(user_id: current_user.id)
+    @collections = Collection.where(user_id: current_user.id).page(params[:page]).per(10)
   end
 
   def create
