@@ -25,7 +25,7 @@
     <%# Display de la liste de livres provenant d'Open Library %>
   </turbo-frame>
 
-  <turbo-frame id="igdb_results">
+
     <h2 class="mb-4 text-center mt-4">Search for a game <i class="fa-solid fa-magnifying-glass"></i></h2>
 
     <%= form_with url: search_from_igdb_media_path, method: :post, data: { turbo_stream: true }, class: "input-group shadow-sm" do %>
@@ -34,9 +34,9 @@
         <i class="bi bi-search"></i> Search
       </button>
     <% end %>
-  </turbo-frame>
 
   <turbo-frame id="igdb_results" class="mt-4">
     <%# Display de la liste de jeux provenant d'IGDB %>
   </turbo-frame>
+
 </div>

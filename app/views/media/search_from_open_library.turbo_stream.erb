@@ -1,1 +1,1 @@
-<%= turbo_stream.replace "open_library_results", partial: "media/books/open_library_results", locals: { results: @results } %>
+<%= turbo_stream.update "open_library_results", partial: "media/books/open_library_results", locals: { results: @results } %>

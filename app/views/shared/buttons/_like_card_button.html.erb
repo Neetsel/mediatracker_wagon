@@ -1,11 +1,11 @@
 <% existing_medium = Medium.find_by(title: medium["name"], year: year) %>
 <% if existing_medium %>
   <% if medium && current_user.favorited?(existing_medium, scope: :like)  %>
-    <%= link_to toggle_likes_medium_path(existing_medium) do %>
+    <%= link_to toggle_likes_medium_path(existing_medium), data: { turbo_frame: ref_icon } do %>
       <i class="fa-solid fa-heart"></i>
     <% end %>
   <% else %>
-    <%= link_to toggle_likes_medium_path(existing_medium) do %>
+    <%= link_to toggle_likes_medium_path(existing_medium), data: { turbo_frame: ref_icon } do %>
       <i class="fa-regular fa-heart"></i>
     <% end %>
   <% end %>
