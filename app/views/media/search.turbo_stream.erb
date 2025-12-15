@@ -1,0 +1,3 @@
+<%= turbo_stream.update "igdb_results", partial: "media/games/igdb_results", locals: { results: @results } %>
+<%= turbo_stream.update "open_library_results", partial: "media/books/open_library_results", locals: { results: @results } %>
+<%= turbo_stream.update "omdb_results", partial: "media/movies/omdb_results", locals: { results: @results } %>

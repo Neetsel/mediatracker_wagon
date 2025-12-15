@@ -1,3 +1,5 @@
 <%= link_to toggle_settings_media_path(medium: medium, year: year, medium_type: medium_type, settings: "like") do %>
-  <i class="fa-solid fa-heart"></i>
+  <div data-controller="like_icon">
+    <i class="fa-solid fa-heart"></i>
+  </div>
 <% end %>
