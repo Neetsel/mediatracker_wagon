@@ -108,9 +108,12 @@ class MediaController < ApplicationController
 
   def search_from_open_library
     open_library = OpenLibraryService.new
+    current_page = params[:page] || 1
     response = open_library.search_by_title(params[:title])
 
     @results = response["numFound"] > 0 ? response["docs"] : []
+
+    @results = Kaminari.paginate_array(@results).page(current_page).per(10)
 
     respond_to do |format|
       format.turbo_stream
