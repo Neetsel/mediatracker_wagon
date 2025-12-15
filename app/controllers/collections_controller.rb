@@ -20,7 +20,7 @@ class CollectionsController < ApplicationController
 
   def next_up
     @user = current_user
-    @media = @user.all_favorites(scope: [:next_up]).page(params[:page]).per(10)
+    @media = @user.all_favorites(scope: [:next_up])
   end
 
   def destroy
