@@ -32,7 +32,7 @@
             </div>
 
             <div class="btn-more-details">
-              <%= button_to "More details", create_record_media_path( new_medium: medium, favorite: "none", medium_type: "book" ),
+              <%= button_to "More details", create_record_media_path( medium: medium, medium_type: "book" ),
                     method: :post,
                     data: { turbo_frame: "_top" },
                     class: "btn btn-primary rounded-pill" %>
