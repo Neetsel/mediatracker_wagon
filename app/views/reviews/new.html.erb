@@ -7,20 +7,23 @@
 
       <!-- Reviews List -->
       <% @medium.reviews.each do |review| %>
-        <div class="card mb-3">
-          <div class="card-header">
-            Review created at <%= review.created_at.strftime("%b %d, %Y - %H:%M") %>
+        <% if review.user_id === current_user.id %>
+          <div class="card mb-3">
+            <div class="card-header">
+              Review created at <%= review.created_at.strftime("%H:%M - %b %d, %Y") %>
+            </div>
+            <div class="card-body">
+              <figure>
+                <blockquote class="blockquote">
+                  <p><%= review.content %></p>
+                </blockquote>
+                <figcaption><%= review.rating %> ⭐</figcaption>
+              </figure>
+            </div>
           </div>
-          <div class="card-body">
-            <figure>
-              <blockquote class="blockquote">
-                <p><%= review.content %></p>
-              </blockquote>
-              <figcaption><%= review.rating %> ⭐</figcaption>
-            </figure>
-          </div>
-        </div>
+        <% end %>
       <% end %>
+
       <%= render "modal" %>
       <div class="mt-4">
         <%= link_to "<- Back to media", medium_path(@medium) %>
