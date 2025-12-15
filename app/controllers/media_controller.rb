@@ -121,8 +121,12 @@ class MediaController < ApplicationController
   def search_from_omdb
     omdb = OmdbService.new
 
+    # On récupère la page demandée par Kaminari (par défaut 1)
+    current_page = params[:page] || 1
+    # On couple le call API à la page correspondante
     response = omdb.search_multiple(params[:title], 1)
     @results = response["Response"] == "True" ? response["Search"] : []
+    total_results = response["totalResults"].to_i
 
     # Si il y a plus de 10 films, on fait un nouveau call API pour avoir la suite
     if response["totalResults"].to_i>30
@@ -136,6 +140,8 @@ class MediaController < ApplicationController
         @results.concat(response["Search"])
       end
     end
+    # A partir du result, on créé une page de 10 items
+    @results = Kaminari.paginate_array(@results).page(current_page).per(10)
 
     respond_to do |format|
       format.turbo_stream
@@ -338,6 +344,10 @@ class MediaController < ApplicationController
   end
 
   def set_medium
+    if params[:id] == "search_from_omdb"
+      @medium = OmdbService.new.search_by_id(params[:imdb_id])
+    else
     @medium = Medium.find(params[:id])
+    end
   end
 end
