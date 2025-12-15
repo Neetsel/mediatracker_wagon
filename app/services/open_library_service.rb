@@ -24,4 +24,10 @@ class OpenLibraryService
   def search_by_author(author)
     @conn.get("/search/authors.json", { q: author }).body
   end
+
+  def run(title)
+    response = search_by_title(title)
+    @results = response["numFound"] > 0 ? response["docs"] : []
+    @results
+  end
 end
