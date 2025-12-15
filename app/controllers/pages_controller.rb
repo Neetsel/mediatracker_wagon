@@ -12,6 +12,6 @@ class PagesController < ApplicationController
     #   end
     # }
     @user = current_user
-    @media = @user.favorited_by_type("Medium", scope: "like")
+    @media = @user.favorited_by_type("Medium", scope: "like").page(params[:page]).per(10)
   end
 end
