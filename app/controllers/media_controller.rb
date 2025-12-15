@@ -32,6 +32,7 @@ class MediaController < ApplicationController
 
   def search_from_igdb
     igdb = IgdbService.new
+    current_page = params[:page] || 1
     # On fait un call API pour récupérer tous les jeux qui portent un nom similaire
     response = JSON.parse(igdb.search_by_title(params[:title]).body)
 
@@ -99,6 +100,8 @@ class MediaController < ApplicationController
     }
 
     @results = response.empty? ? [] : response
+
+    @results = Kaminari.paginate_array(@results).page(current_page).per(10)
 
     respond_to do |format|
       format.turbo_stream

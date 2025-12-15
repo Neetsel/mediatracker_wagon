@@ -1,1 +1,1 @@
-<%= turbo_stream.replace "igdb_results", partial: "media/games/igdb_results", locals: { results: @results } %>
+<%= turbo_stream.update "igdb_results", partial: "media/games/igdb_results", locals: { results: @results } %>

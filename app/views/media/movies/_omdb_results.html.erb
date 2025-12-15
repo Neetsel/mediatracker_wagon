@@ -51,6 +51,5 @@
   <div class="alert alert-warning">No movies found</div>
 <% end %>
 <div class="d-flex justify-content-center mt-4">
-  <%# <%= paginate results, params: {controller: 'media', action: 'search_from_omdb', format: :turbo_stream} %>
   <%= link_to_next_page results, 'Next Page', params: { format: :turbo_stream }, data: {turbo_method: :post} %>
 </div>
