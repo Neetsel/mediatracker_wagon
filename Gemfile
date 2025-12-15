@@ -58,6 +58,9 @@ gem 'faraday', '~> 2.14'
 # For Images
 gem "cloudinary"
 
+# For Pagination
+gem 'kaminari'
+
 # For AI + Chat presentation
 gem "ruby_llm"
 gem "kramdown"
