@@ -173,12 +173,17 @@ class MediaController < ApplicationController
     elsif params[:favorite] === "collection"
       respond_to do |format|
         format.html { redirect_to @medium, notice: "Medium added or already present" }
-        format.turbo_stream { redirect_to medium_collections_path(medium), data: { turbo_method:"POST" } }
+        format.turbo_stream { redirect_to create_from_card_collection_path(id: @medium.id), data: { turbo_method:"POST" } }
+      end
+    elsif params[:favorite] === "like" || params[:favorite] === "next_up"
+      respond_to do |format|
+        format.html { redirect_back(fallback_location: root_path) }
+        format.turbo_stream
       end
     else
       respond_to do |format|
-        format.turbo_stream
         format.html { redirect_back(fallback_location: root_path) }
+        format.turbo_stream { redirect_to @medium }
       end
     end
   end

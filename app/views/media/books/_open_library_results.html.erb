@@ -26,18 +26,15 @@
             <%# buttons %>
 
             <div class="list-icon">
-              <%= render "shared/buttons/collection_card_button", medium: medium, medium_type: "book", year: medium["first_publish_year"]  %>
-              <%= render "shared/buttons/like_card_button", medium: medium, medium_type: "book", year: medium["first_publish_year"]  %>
-              <%= render "shared/buttons/next_up_card_button", medium: medium, medium_type: "book", year: medium["first_publish_year"]  %>
-              <i class="fa-solid fa-bookmark fa-lg" style="color: #FBC500;"></i>
-              <i class="fa-solid fa-circle-plus fa-lg" style="color: #FBC500;"></i>
-              <i class="fa-solid fa-heart fa-lg" style="color: #FBC500;"></i>
+                <%= render "shared/buttons/collection_card_button", medium: medium, medium_type: "book", year: medium["first_publish_year"]  %>
+                <%= render "shared/buttons/like_card_button", medium: medium, medium_type: "book", year: medium["first_publish_year"]  %>
+                <%= render "shared/buttons/next_up_card_button", medium: medium, medium_type: "book", year: medium["first_publish_year"]  %>
             </div>
 
             <div class="btn-more-details">
               <%= button_to "More details", create_record_media_path( new_medium: medium, favorite: "none", medium_type: "book" ),
                     method: :post,
-                    data: { turbo_stream: true },
+                    data: { turbo_frame: "_top" },
                     class: "btn btn-primary rounded-pill" %>
             </div>
           </div>
