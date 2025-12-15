@@ -54,12 +54,19 @@
         <% else %>
           <%# DISPLAY GAMES INFO %>
         <% end %>
-        <p>
+        <p class="mb-4">
           <strong>Description:</strong>
           <% if @medium.description.present? %>
             <%= @medium.description %>
           <% else %>
             N/A
+          <% end %>
+        </p>
+
+        <p>
+          <% if user_review = Review.find_by(medium_id: @medium.id, user_id: current_user.id) %>
+            <strong>Review:</strong>
+            <%= user_review.content %> <i class="fa-solid fa-circle fa-2xs" style="color:#FBC500;"></i> <%= user_review.rating %> ⭐
           <% end %>
         </p>
         <div class="container mt-3">
