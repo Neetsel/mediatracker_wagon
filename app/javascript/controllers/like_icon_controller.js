@@ -2,6 +2,8 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="like-icon"
 export default class extends Controller {
+  static targets = ["icon"]
+
   static values = {
     titleMovie: String,
     idMovie: String,
@@ -24,7 +26,29 @@ export default class extends Controller {
   }
 
   connect() {
-    console.log("like_icon_controller connected");
+    let title = "";
+    const settings = this.settingsValue;
+    const year = this.yearValue;
+    if (this.titleMovieValue) {
+      title = this.titleMovieValue;
+    }
+    else if (this.titleBookValue) {
+      title = this.titleBookValue;
+    } else {
+      title = this.titleGameValue;
+    }
+
+    fetch(`check_settings?name=${title}&year=${year}&settings=${settings}`)
+      .then(response => response.json())
+      .then(data => {
+        if (data) {
+          this.iconTarget.classList.remove("fa-regular");
+          this.iconTarget.classList.add("fa-solid");
+        } else {
+          this.iconTarget.classList.remove("fa-solid");
+          this.iconTarget.classList.add("fa-regular");
+        }
+      });
   }
 
   toggleLike() {
@@ -65,9 +89,12 @@ export default class extends Controller {
       completionistDuration = this.completionistDurationValue;
     }
 
-    fetch(`media/toggle_settings?id=${id}&name=${title}&cover=${cover}&author=${author}&medium_type=${mediumType}&year=${year}&settings=${settings}&developers=${developers}&publishers=${publishers}&platforms=${platforms}&story_duration=${storyDuration}&extras_duration=${extrasDuration}&completionist_duration=${completionistDuration}`)
+    fetch(`/media/toggle_settings?id=${id}&name=${title}&cover=${cover}&author=${author}&medium_type=${mediumType}&year=${year}&settings=${settings}&developers=${developers}&publishers=${publishers}&platforms=${platforms}&story_duration=${storyDuration}&extras_duration=${extrasDuration}&completionist_duration=${completionistDuration}`)
       .then(response => response.json())
-      .then(data => console.log(data));
+      .then(data => {
+        this.iconTarget.classList.toggle("fa-regular");
+        this.iconTarget.classList.toggle("fa-solid");
+      });
 
   }
 }

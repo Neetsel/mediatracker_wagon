@@ -1,5 +1,23 @@
-<div data-controller="next_up_icon">
-  <%= link_to toggle_settings_media_path(medium: medium, year: year, medium_type: medium_type, settings: "next_up") do %>
-    <i class="fa-regular fa-calendar"></i>
-  <% end %>
+<div data-controller="next-up-icon"
+  data-next-up-icon-title-movie-value="<%=medium["Title"]%>"
+  data-next-up-icon-id-movie-value="<%=medium["imdbID"]%>"
+  data-next-up-icon-title-book-value="<%=medium["title"]%>"
+  data-next-up-icon-id-book-value="<%=medium["key"]%>"
+  data-next-up-icon-cover-book-value="<%=medium["cover_edition_key"]%>"
+  data-next-up-icon-author-book-value="<%=medium["author_name"]%>"
+  data-next-up-icon-title-game-value="<%=medium["name"]%>"
+  data-next-up-icon-id-game-value="<%=medium["id"]%>"
+  data-next-up-icon-cover-game-value="<%=medium["cover"]%>"
+  data-next-up-icon-developer-value="<%=medium["developer"].join(',')%>"
+  data-next-up-icon-publisher-value="<%=medium["publisher"].join(',')%>"
+  data-next-up-icon-platforms-value="<%=medium["platforms"].join(',')%>"
+  data-next-up-icon-story-duration-value="<%=medium["main_story_duration"]%>"
+  data-next-up-icon-extras-duration-value="<%=medium["main_extras_duration"]%>"
+  data-next-up-icon-completionist-duration-value="<%=medium["completionist_duration"]%>"
+  data-next-up-icon-year-value="<%=year%>"
+  data-next-up-icon-medium-type-value="<%=medium_type%>"
+  data-next-up-icon-settings-value="next_up">
+  <button data-action="click->next-up-icon#toggleNextUp">
+    <i class="fa-regular fa-calendar" data-next-up-icon-target="icon"></i>
+  </button>
 </div>

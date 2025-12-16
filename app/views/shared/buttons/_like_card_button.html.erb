@@ -8,9 +8,9 @@
   data-like-icon-title-game-value="<%=medium["name"]%>"
   data-like-icon-id-game-value="<%=medium["id"]%>"
   data-like-icon-cover-game-value="<%=medium["cover"]%>"
-  data-like-icon-developer-value="<%=medium["developer"]%>"
-  data-like-icon-publisher-value="<%=medium["publisher"]%>"
-  data-like-icon-platforms-value="<%=medium["platforms"]%>"
+  data-like-icon-developer-value="<%=medium["developer"].join(',')%>"
+  data-like-icon-publisher-value="<%=medium["publisher"].join(',')%>"
+  data-like-icon-platforms-value="<%=medium["platforms"].join(',')%>"
   data-like-icon-story-duration-value="<%=medium["main_story_duration"]%>"
   data-like-icon-extras-duration-value="<%=medium["main_extras_duration"]%>"
   data-like-icon-completionist-duration-value="<%=medium["completionist_duration"]%>"
@@ -18,8 +18,6 @@
   data-like-icon-medium-type-value="<%=medium_type%>"
   data-like-icon-settings-value="like">
   <button data-action="click->like-icon#toggleLike">
-    <i class="fa-regular fa-heart"></i>
+    <i class="fa-regular fa-heart" data-like-icon-target="icon"></i>
   </button>
-
-  <%# <%= link_to "" (medium: medium, year: year, medium_type: medium_type, settings: ), data: {  } do %>
 </div>

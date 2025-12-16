@@ -16,6 +16,18 @@ class MediaController < ApplicationController
     toggle_favorites("next_up")
   end
 
+  def check_settings
+    @medium = Medium.find_by(title: params[:name], year: params[:year])
+
+    if @medium
+      response = current_user.favorited?(@medium, scope: params[:settings])
+    else
+      response = false
+    end
+
+    render json: response, status: :ok
+  end
+
   def toggle_settings
 
     @medium = Medium.find_by(title: params[:name], year: params[:year])
@@ -60,7 +72,6 @@ class MediaController < ApplicationController
       @results = open_library.run(params[:title])
       @results = Kaminari.paginate_array(@results).page(current_page).per(10)
     end
-    # A partir du result, on créé une page de 10 item
   end
 
   private
@@ -129,9 +140,9 @@ class MediaController < ApplicationController
     if params[:medium].nil?
       @id = params[:id]
       @cover = params[:cover]
-      @developer = params[:developers]
-      @publisher = params[:publishers]
-      @platforms = params[:platforms]
+      @developer = params[:developers].split(", ")
+      @publisher = params[:publishers].split(", ")
+      @platforms = params[:platforms].split(", ")
       @story_duration = params[:story_duration]
       @extras_duration = params[:extras_duration]
       @completionist_duration = params[:completionist_duration]
