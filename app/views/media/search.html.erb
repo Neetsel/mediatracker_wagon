@@ -121,3 +121,10 @@
 <% else %>
   <p>No results found.</p>
 <% end %>
+
+<% if @results.present? %>
+  <div class="d-flex justify-content-center mt-4">
+    <%= link_to_prev_page @results, '<< Previous Page', params: { medium_type: params[:medium_type], title: params[:title] } %>
+    <%= link_to_next_page @results, 'Next Page >>', params: { medium_type: params[:medium_type], title: params[:title] } %>
+  </div>
+<% end %>
