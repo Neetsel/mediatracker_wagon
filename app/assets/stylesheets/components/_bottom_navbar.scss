@@ -1,0 +1,29 @@
+
+#bottom-navbar {
+  height: 64px;
+  background: #161E26;
+  border: solid 1px #4B4B4B;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+  overflow: hidden;
+  padding-left: 24px;
+  padding-right: 24px;
+  border-radius: 99px;
+  margin-bottom: 2px;
+
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+}
+
+#bottom-navbar i {
+  color: #a2a3a4;
+}
+
+#bottom-navbar i.active-icon {
+  color: #FBC500;
+}
