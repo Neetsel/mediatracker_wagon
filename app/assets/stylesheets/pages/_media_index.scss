@@ -13,3 +13,15 @@
   font-weight: 500;
   font-size: 20px;
 }
+
+#media-type-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1em;
+}
+
+#select-type-text {
+  margin-bottom: 24px;
+  text-align: center;
+}

@@ -1,5 +1,5 @@
 <div class="container my-5 text-light p-5 rounded shadow" id="media-index-container">
-  <h2 class="mb-4 text-center">Search for a movie <i class="fa-solid fa-magnifying-glass"></i></h2>
+  <h1 class="mb-4 text-center">Search for a media <i class="fa-solid fa-magnifying-glass"></i></h1>
 
   <div data-controller="media-search">
 
@@ -28,23 +28,27 @@
     <div class="mt-4 d-none"
         data-media-search-target="buttons">
 
-      <button class="btn btn-outline-primary btn-lg me-2"
-        data-action="click->media-search#choose"
-        data-medium="movie">
-        🎬 Movies
-      </button>
+      <h2 id="select-type-text">Chose a media type :</h2>
+      <div id="media-type-list">
+        <button class="btn-media-type"
+          data-action="click->media-search#choose"
+          data-medium="movie">
+          <i class="fa-solid fa-video fa-lg" style="color: #000000ff; margin-right: 12px;"></i> Movies
+        </button>
 
-      <button class="btn btn-outline-success btn-lg me-2"
-        data-action="click->media-search#choose"
-        data-medium="book">
-        📚 Books
-      </button>
+        <button class="btn-media-type"
+          data-action="click->media-search#choose"
+          data-medium="book">
+          <i class="fa-solid fa-book-open fa-lg" style="color: #000000ff; margin-right: 12px;"></i> Books
+        </button>
 
-      <button class="btn btn-outline-warning btn-lg"
-        data-action="click->media-search#choose"
-        data-medium="game">
-        🎮 Video Games
-      </button>
+        <button class="btn-media-type"
+          data-action="click->media-search#choose"
+          data-medium="game">
+          <i class="fa-solid fa-gamepad fa-lg" style="color: #000000ff; margin-right: 12px;"></i> Video Games
+        </button>
+
+      </div>
     </div>
 
   </div>
