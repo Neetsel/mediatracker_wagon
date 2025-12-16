@@ -36,26 +36,29 @@ class MediaController < ApplicationController
   def create_record
     create_record_by_medium_type(params[:medium_type])
 
-    # @results = Kaminari.paginate_array(@results).page(current_page).per(10)
-
     respond_to do |format|
-      format.html { redirect_to @medium, notice: "Medium added or already present" }
-      format.turbo_stream { redirect_to @medium }
+      format.html { redirect_to medium_path(@medium), notice: "Medium added or already present" }
+      format.turbo_stream { redirect_to medium_path(@medium) }
     end
   end
 
   def search
-    current_page = params[:page] || 1
     case params[:medium_type]
     when "game"
+      current_page = params[:page] || 1
       igdb = IgdbService.new
       @results = igdb.run(params[:title])
+      @results = Kaminari.paginate_array(@results).page(current_page).per(10)
     when "movie"
+      current_page = params[:page] || 1
       omdb = OmdbService.new
       @results = omdb.run(params[:title])
+      @results = Kaminari.paginate_array(@results).page(current_page).per(10)
     when "book"
+      current_page = params[:page] || 1
       open_library = OpenLibraryService.new
       @results = open_library.run(params[:title])
+      @results = Kaminari.paginate_array(@results).page(current_page).per(10)
     end
     # A partir du result, on créé une page de 10 items
     @results = Kaminari.paginate_array(@results).page(current_page).per(10)
@@ -302,15 +305,16 @@ class MediaController < ApplicationController
   end
 
   def save_medium
-    # On save seulement si c'est un nouveau record
     @medium.save if @medium.new_record? || @medium.changed?
   end
+
+
 
   def set_medium
     if params[:id] == "search_from_omdb"
       @medium = OmdbService.new.search_by_id(params[:imdb_id])
     else
-    @medium = Medium.find(params[:id])
+      @medium = Medium.find(params[:id])
     end
   end
 end

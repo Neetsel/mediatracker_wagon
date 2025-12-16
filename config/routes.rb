@@ -39,6 +39,7 @@ Rails.application.routes.draw do
     collection do
       get :toggle_settings
       post :create_record
+      get :search
       post :search
     end
   end
