@@ -1,21 +1,20 @@
+
 <nav>
   <div id="bottom-navbar">
     <%= link_to root_path do %>
-      <i class="fa-solid fa-house fa-lg" style="color: #a2a3a4;"></i>
+      <i class="fa-solid fa-house fa-lg <%= 'active-icon' if current_page?(root_path) %>"></i>
     <% end %>
 
     <%= link_to media_path do %>
-      <i class="fa-solid fa-magnifying-glass fa-lg" style="color: #a2a3a4;"></i>
+      <i class="fa-solid fa-magnifying-glass fa-lg <%= 'active-icon' if current_page?(media_path) %>"></i>
     <% end %>
 
     <%= link_to stats_path do %>
-      <i class="fa-solid fa-chart-simple fa-lg" style="color: #a2a3a4;"></i>
+      <i class="fa-solid fa-chart-simple fa-lg <%= 'active-icon' if current_page?(stats_path) %>"></i>
     <% end %>
 
     <%= link_to chats_path do %>
-      <i class="fa-solid fa-robot fa-lg" style="color: #a2a3a4;"></i>
+      <i class="fa-solid fa-robot fa-lg <%= 'active-icon' if current_page?(chats_path) %>"></i>
     <% end %>
-
-
   </div>
 </nav>
