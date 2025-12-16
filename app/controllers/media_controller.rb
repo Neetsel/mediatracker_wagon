@@ -32,7 +32,7 @@ class MediaController < ApplicationController
   def create_record
     create_record_by_medium_type(params[:medium_type])
 
-    @results = Kaminari.paginate_array(@results).page(current_page).per(10)
+    # @results = Kaminari.paginate_array(@results).page(current_page).per(10)
 
     respond_to do |format|
       format.html { redirect_to @medium, notice: "Medium added or already present" }
