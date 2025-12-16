@@ -207,7 +207,7 @@ class MediaController < ApplicationController
     igdb = IgdbService.new
     # On fait un call API pour récupérer la fiche spécifique au jeu qui nous donnera sa description
     response = JSON.parse(igdb.search_by_id(@id).body)
-
+    
     genres_names = []
     if response[0]["genres"]
       # On fait un call API pour récupérer le nom des genres
