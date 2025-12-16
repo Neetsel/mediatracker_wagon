@@ -1,5 +1,25 @@
-<%= link_to toggle_settings_media_path(medium: medium, year: year, medium_type: medium_type, settings: "like") do %>
-  <div data-controller="like_icon">
-    <i class="fa-solid fa-heart"></i>
-  </div>
-<% end %>
+<div data-controller="like-icon"
+  data-like-icon-title-movie-value="<%=medium["Title"]%>"
+  data-like-icon-id-movie-value="<%=medium["imdbID"]%>"
+  data-like-icon-title-book-value="<%=medium["title"]%>"
+  data-like-icon-id-book-value="<%=medium["key"]%>"
+  data-like-icon-cover-book-value="<%=medium["cover_edition_key"]%>"
+  data-like-icon-author-book-value="<%=medium["author_name"]%>"
+  data-like-icon-title-game-value="<%=medium["name"]%>"
+  data-like-icon-id-game-value="<%=medium["id"]%>"
+  data-like-icon-cover-game-value="<%=medium["cover"]%>"
+  data-like-icon-developer-value="<%=medium["developer"]%>"
+  data-like-icon-publisher-value="<%=medium["publisher"]%>"
+  data-like-icon-platforms-value="<%=medium["platforms"]%>"
+  data-like-icon-story-duration-value="<%=medium["main_story_duration"]%>"
+  data-like-icon-extras-duration-value="<%=medium["main_extras_duration"]%>"
+  data-like-icon-completionist-duration-value="<%=medium["completionist_duration"]%>"
+  data-like-icon-year-value="<%=year%>"
+  data-like-icon-medium-type-value="<%=medium_type%>"
+  data-like-icon-settings-value="like">
+  <button data-action="click->like-icon#toggleLike">
+    <i class="fa-regular fa-heart"></i>
+  </button>
+
+  <%# <%= link_to "" (medium: medium, year: year, medium_type: medium_type, settings: ), data: {  } do %>
+</div>
