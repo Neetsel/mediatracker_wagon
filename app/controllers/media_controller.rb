@@ -20,9 +20,10 @@ class MediaController < ApplicationController
     @medium = Medium.find_by(title: params[:name], year: params[:year])
 
     if @medium
-      response = current_user.favorited?(@medium, scope: params[:settings])
+      favorite = current_user.favorited?(@medium, scope: params[:settings])
+      response = { medium: @medium, favorite: favorite}
     else
-      response = false
+      response = { favorite: false}
     end
 
     render json: response, status: :ok
@@ -36,9 +37,7 @@ class MediaController < ApplicationController
       @medium = create_record_by_medium_type(params[:medium_type])
     end
 
-    if params[:settings] === "collection"
-      toggle_collection
-    else
+    unless params[:settings] === "collection"
       toggle_favorites(params[:settings])
     end
 
@@ -96,22 +95,6 @@ class MediaController < ApplicationController
       current_user.favorite(@medium, scope: scope)
     end
     current_user.save!
-  end
-
-  def toggle_collection
-    collection = Collection.find_by(medium_id: @medium.id, user_id: current_user.id)
-    if collection.nil?
-      respond_to do |format|
-        format.html { redirect_to @medium }
-        format.turbo_stream { redirect_to create_from_card_collection_path(@medium), data: { turbo_method:"POST" } }
-      end
-    else
-      collection.destroy
-      respond_to do |format|
-        format.html { redirect_back(fallback_location: root_path) }
-        format.turbo_stream
-      end
-    end
   end
 
   def setup_data_for_omdb
@@ -224,7 +207,7 @@ class MediaController < ApplicationController
     igdb = IgdbService.new
     # On fait un call API pour récupérer la fiche spécifique au jeu qui nous donnera sa description
     response = JSON.parse(igdb.search_by_id(@id).body)
-
+    
     genres_names = []
     if response[0]["genres"]
       # On fait un call API pour récupérer le nom des genres

@@ -37,10 +37,10 @@ export default class extends Controller {
     } else {
       title = this.titleGameValue;
     }
-    fetch(`check_settings?name=${title}&year=${year}&settings=${settings}`)
+    fetch(`check_settings?name=${encodeURIComponent(title)}&year=${encodeURIComponent(year)}&settings=${encodeURIComponent(settings)}`)
       .then(response => response.json())
       .then(data => {
-        if (data) {
+        if (data.favorite) {
           this.iconTarget.classList.remove("fa-regular");
           this.iconTarget.classList.add("fa-solid");
         } else {
@@ -88,7 +88,7 @@ export default class extends Controller {
       completionistDuration = this.completionistDurationValue;
     }
 
-    fetch(`/media/toggle_settings?id=${id}&name=${title}&cover=${cover}&author=${author}&medium_type=${mediumType}&year=${year}&settings=${settings}&developers=${developers}&publishers=${publishers}&platforms=${platforms}&story_duration=${storyDuration}&extras_duration=${extrasDuration}&completionist_duration=${completionistDuration}`)
+    fetch(`/media/toggle_settings?id=${encodeURIComponent(id)}&name=${encodeURIComponent(title)}&cover=${encodeURIComponent(cover)}&author=${encodeURIComponent(author)}&medium_type=${encodeURIComponent(mediumType)}&year=${encodeURIComponent(year)}&settings=${encodeURIComponent(settings)}&developers=${encodeURIComponent(developers)}&publishers=${encodeURIComponent(publishers)}&platforms=${encodeURIComponent(platforms)}&story_duration=${encodeURIComponent(storyDuration)}&extras_duration=${encodeURIComponent(extrasDuration)}&completionist_duration=${encodeURIComponent(completionistDuration)}`)
       .then(response => response.json())
       .then(data => {
         this.iconTarget.classList.toggle("fa-regular");

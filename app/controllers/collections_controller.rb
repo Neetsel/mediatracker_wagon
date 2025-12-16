@@ -18,12 +18,29 @@ class CollectionsController < ApplicationController
     end
   end
 
-  def create_from_card
-    @user = current_user
-    @collection = Collection.new
-    @collection.user_id = @user.id
-    @collection.medium_id = params[:id]
-    @collection.save!
+  def toggle_collection
+    collection = Collection.find_by(medium_id: params[:id], user_id: current_user.id)
+    if collection.nil?
+      create_collection
+      response = {message: "collection created"}
+    else
+      collection.destroy!
+      response = {message: "collection deleted"}
+    end
+
+    render json: response, status: :ok
+  end
+
+  def check_collection
+    collection = Collection.find_by(medium_id: params[:id], user_id: current_user.id)
+
+    if collection
+      response = true
+    else
+      response = false
+    end
+
+    render json: response, status: :ok
   end
 
   def next_up
@@ -41,6 +58,14 @@ class CollectionsController < ApplicationController
   end
 
   private
+
+  def create_collection
+    @user = current_user
+    @collection = Collection.new
+    @collection.user_id = @user.id
+    @collection.medium_id = params[:id]
+    @collection.save!
+  end
 
   def set_medium
     @medium = Medium.find(params[:medium_id])
