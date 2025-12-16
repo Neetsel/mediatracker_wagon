@@ -1,0 +1,17 @@
+
+#bottom-navbar {
+  height: 64px;
+  background: #1A1A1A;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+  overflow: hidden;
+  padding-left: 24px;
+  padding-right: 24px;
+
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
