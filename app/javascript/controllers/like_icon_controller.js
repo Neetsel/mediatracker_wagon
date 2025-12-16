@@ -73,22 +73,23 @@ export default class extends Controller {
     }
     else if (this.titleBookValue) {
       title = this.titleBookValue;
-      id = this.idBookValue;
-      id = id.replace("/works/", "");
+      id = this.idBookValue.replace("/works/", "");
       cover = this.coverBookValue;
       author = this.authorBookValue;
     } else {
       title = this.titleGameValue;
       id = this.idGameValue;
       cover = this.coverGameValue;
-      developers = this.developerValue;
-      publishers = this.publisherValue;
-      platforms = this.platformsValue;
+      developers = this.developerValue.replace("[","").replace("]","");
+      publishers = this.publisherValue.replace("[","").replace("]","");
+      platforms = this.platformsValue.replace("[","").replace("]","");
       storyDuration = this.storyDurationValue;
       extrasDuration = this.extrasDurationValue;
       completionistDuration = this.completionistDurationValue;
     }
-
+    console.log(developers)
+    console.log(publishers)
+    console.log(platforms)
     fetch(`/media/toggle_settings?id=${id}&name=${title}&cover=${cover}&author=${author}&medium_type=${mediumType}&year=${year}&settings=${settings}&developers=${developers}&publishers=${publishers}&platforms=${platforms}&story_duration=${storyDuration}&extras_duration=${extrasDuration}&completionist_duration=${completionistDuration}`)
       .then(response => response.json())
       .then(data => {

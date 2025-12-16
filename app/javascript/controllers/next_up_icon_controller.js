@@ -37,7 +37,6 @@ export default class extends Controller {
     } else {
       title = this.titleGameValue;
     }
-    console.log("connected")
     fetch(`check_settings?name=${title}&year=${year}&settings=${settings}`)
       .then(response => response.json())
       .then(data => {
@@ -81,9 +80,9 @@ export default class extends Controller {
       title = this.titleGameValue;
       id = this.idGameValue;
       cover = this.coverGameValue;
-      developers = this.developerValue;
-      publishers = this.publisherValue;
-      platforms = this.platformsValue;
+      developers = this.developerValue.replace("[","").replace("]","");
+      publishers = this.publisherValue.replace("[","").replace("]","");
+      platforms = this.platformsValue.replace("[","").replace("]","");
       storyDuration = this.storyDurationValue;
       extrasDuration = this.extrasDurationValue;
       completionistDuration = this.completionistDurationValue;
