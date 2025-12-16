@@ -60,13 +60,7 @@ class MediaController < ApplicationController
       @results = open_library.run(params[:title])
       @results = Kaminari.paginate_array(@results).page(current_page).per(10)
     end
-    # A partir du result, on créé une page de 10 items
-    @results = Kaminari.paginate_array(@results).page(current_page).per(10)
-
-    respond_to do |format|
-      format.html { render :index }
-      format.turbo_stream
-    end
+    # A partir du result, on créé une page de 10 item
   end
 
   private
