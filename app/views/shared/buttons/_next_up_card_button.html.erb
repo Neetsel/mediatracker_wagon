@@ -1,3 +1,5 @@
-<%= link_to toggle_settings_media_path(medium: medium, year: year, medium_type: medium_type, settings: "next_up") do %>
-  <i class="fa-solid fa-calendar"></i>
-<% end %>
+<div data-controller="next_up_icon">
+  <%= link_to toggle_settings_media_path(medium: medium, year: year, medium_type: medium_type, settings: "next_up") do %>
+    <i class="fa-regular fa-calendar"></i>
+  <% end %>
+</div>

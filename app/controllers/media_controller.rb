@@ -17,9 +17,11 @@ class MediaController < ApplicationController
   end
 
   def toggle_settings
-    @medium = Medium.find_by(title: params[:medium]["name"], year: params[:year])
+
+    @medium = Medium.find_by(title: params[:name], year: params[:year])
+
     unless @medium
-      create_record_by_medium_type(params[:medium_type])
+      @medium = create_record_by_medium_type(params[:medium_type])
     end
 
     if params[:settings] === "collection"
@@ -27,12 +29,14 @@ class MediaController < ApplicationController
     else
       toggle_favorites(params[:settings])
     end
+
+    render json: @medium, status: :ok
   end
 
   def create_record
     create_record_by_medium_type(params[:medium_type])
 
-    @results = Kaminari.paginate_array(@results).page(current_page).per(10)
+    # @results = Kaminari.paginate_array(@results).page(current_page).per(10)
 
     respond_to do |format|
       format.html { redirect_to @medium, notice: "Medium added or already present" }
@@ -55,7 +59,7 @@ class MediaController < ApplicationController
     end
     # A partir du result, on créé une page de 10 items
     @results = Kaminari.paginate_array(@results).page(current_page).per(10)
-    
+
     respond_to do |format|
       format.html { render :index }
       format.turbo_stream
@@ -66,10 +70,13 @@ class MediaController < ApplicationController
 
   def create_record_by_medium_type(medium_type)
     if medium_type === "game"
+      setup_data_for_igdb
       create_from_igdb
     elsif medium_type === "book"
+      setup_data_for_open_library
       create_from_open_library
     elsif medium_type === "movie"
+      setup_data_for_omdb
       create_from_omdb
     end
   end
@@ -81,11 +88,6 @@ class MediaController < ApplicationController
       current_user.favorite(@medium, scope: scope)
     end
     current_user.save!
-
-    respond_to do |format|
-      format.html { redirect_back(fallback_location: root_path) }
-      format.turbo_stream
-    end
   end
 
   def toggle_collection
@@ -104,9 +106,53 @@ class MediaController < ApplicationController
     end
   end
 
+  def setup_data_for_omdb
+    if params[:medium].nil?
+      @imdbID = params[:id]
+    else
+      @imdbID = params[:medium]["imdbID"]
+    end
+  end
+
+  def setup_data_for_open_library
+    if params[:medium].nil?
+      @key = "/works/#{params[:id]}"
+      @cover_edition_key = params[:cover]
+      @first_publish_year = params[:year]
+      @author_name = params[:author]
+    else
+      @key = "#{params[:medium][:key]}"
+      @cover_edition_key = params[:medium][:cover_edition_key]
+      @first_publish_year = params[:medium][:first_publish_year]
+      @author_name = params[:medium][:author_name]
+    end
+  end
+
+  def setup_data_for_igdb
+    if params[:medium].nil?
+      @id = params[:id]
+      @cover = params[:cover]
+      @developer = params[:developers]
+      @publisher = params[:publishers]
+      @platforms = params[:platforms]
+      @story_duration = params[:story_duration]
+      @extras_duration = params[:extras_duration]
+      @completionist_duration = params[:completionist_duration]
+    else
+      @id = params[:medium][:id]
+      @cover = params[:medium][:cover]
+      @developer = params[:medium][:developer]
+      @publisher = params[:medium][:publisher]
+      @platforms = params[:medium][:platforms]
+      @story_duration = params[:medium][:main_story_duration]
+      @extras_duration = params[:medium][:main_extras_duration]
+      @completionist_duration = params[:medium][:completionist_duration]
+    end
+  end
+
   def create_from_omdb
     omdb = OmdbService.new
-    response = omdb.search_by_id(params[:medium]["imdbID"])
+    response = omdb.search_by_id(@imdbID)
 
     if response["Response"] == "True"
       # Si medium existe déjà, on le récupère(cf.doc active record)
@@ -128,6 +174,7 @@ class MediaController < ApplicationController
 
       # On sauve le medium maintenant qu'il est bien remplit
       save_medium
+      @medium
     else
       redirect_to media_path, alert: "Medium not available."
     end
@@ -135,30 +182,31 @@ class MediaController < ApplicationController
 
   def create_from_open_library
     open_library = OpenLibraryService.new
-    response = open_library.search_work_by_key(params[:medium][:key])
-    response_book = open_library.search_book_by_key(params[:medium][:cover_edition_key])
+    response = open_library.search_work_by_key(@key)
+    response_book = open_library.search_book_by_key(@cover_edition_key)
 
     response_book["subjects"] ? genres = response_book["subjects"].split(", ") : genres = []
 
     if response
       # Si medium existe déjà, on le récupère(cf.doc active record)
-      @medium = Medium.find_or_initialize_by(title: response["title"], year: params[:medium][:first_publish_year])
+      @medium = Medium.find_or_initialize_by(title: response["title"], year: @first_publish_year)
       # On met à jour les infos si besoin
       @medium.assign_attributes(
         title: response["title"],
-        description: response["description"],
-        release_date: Date.new(params[:medium][:first_publish_year].to_i,1,1),
-        year: params[:medium][:first_publish_year],
+        description: response["description"]["value"],
+        release_date: Date.new(@first_publish_year.to_i,1,1),
+        year: @first_publish_year,
         genres: genres,
-        poster_url: "https://covers.openlibrary.org/b/olid/#{params[:medium][:cover_edition_key]}-M.jpg"
+        poster_url: "https://covers.openlibrary.org/b/olid/#{@cover_edition_key}-M.jpg"
       )
 
       # À partir de la response, on génère un livre
       # Ensuite, on assigne ce livre à sub_media
-      @medium.sub_media = Book.create_from_medium(params[:medium], response_book["number_of_pages"])
+      @medium.sub_media = Book.create_from_medium(@cover_edition_key, @key, response_book["number_of_pages"], @author_name)
 
       # On sauve le medium maintenant qu'il est bien remplit
       save_medium
+      @medium
     else
       redirect_to media_path, alert: "Medium not available."
     end
@@ -167,7 +215,7 @@ class MediaController < ApplicationController
   def create_from_igdb
     igdb = IgdbService.new
     # On fait un call API pour récupérer la fiche spécifique au jeu qui nous donnera sa description
-    response = JSON.parse(igdb.search_by_id(params[:medium][:id]).body)
+    response = JSON.parse(igdb.search_by_id(@id).body)
 
     genres_names = []
     if response[0]["genres"]
@@ -192,29 +240,29 @@ class MediaController < ApplicationController
         release_date: release_date,
         year: release_date.year,
         genres: genres_names,
-        poster_url: params[:medium][:cover]
+        poster_url: @cover
       )
 
       companies = []
       publishers = []
       developers = []
 
-      if params[:medium][:publisher] || params[:medium][:developer]
+      if @publisher || @developer
 
-        if params[:medium][:publisher] && params[:medium][:developer]
-          companies = params[:medium][:publisher] + params[:medium][:developer]
-        elsif params[:medium][:developer]
-          companies = params[:medium][:developer]
+        if @publisher && @developer
+          companies = @publisher + @developer
+        elsif @developer
+          companies = @developer
         elsif
-          companies = params[:medium][:publisher]
+          companies = @publisher
         end
 
         # On fait un call API pour récupérer le nom de toutes les entreprises impliquées dans la création
         response_companies_name = JSON.parse(igdb.companies_name_by_id(companies).body)
         # On prépare un array dans lequel on va mettre le nom de tous les éditeurs du jeu
 
-        if params[:medium][:publisher]
-          params[:medium][:publisher].each {|publisher|
+        if @publisher
+          @publisher.each {|publisher|
             # On cherche le publisher sur base de son id
             publisher_name = response_companies_name.select { |hash| hash["id"] == publisher.to_i }
             # On ajoute son nom à l'array
@@ -223,8 +271,8 @@ class MediaController < ApplicationController
         end
         # On prépare un array dans lequel on va mettre le nom de tous les développeurs du jeu
 
-        if params[:medium][:developer]
-          params[:medium][:developer].each {|developer|
+        if @developer
+          @developer.each {|developer|
             # On cherche le développeur sur base de son id
             developer_name = response_companies_name.select { |hash| hash["id"] == developer.to_i }
             # On ajoute son nom à l'array
@@ -235,18 +283,19 @@ class MediaController < ApplicationController
       # On prépare un array dans lequel on va mettre le nom de toutes les plateformes
       platforms = []
 
-      if params[:medium][:platforms]
+      if @platforms
         # On fait un call API pour récupérer le nom de toutes les plateformes
-        response_platforms = JSON.parse(igdb.platforms_by_id(params[:medium][:platforms]).body)
+        response_platforms = JSON.parse(igdb.platforms_by_id(@platforms).body)
 
         response_platforms.each {|platform|
           platforms << platform["name"]
         }
       end
 
-      @medium.sub_media = Game.create_from_medium(params[:medium], developers, publishers, platforms)
+      @medium.sub_media = Game.create_from_medium(@id, developers, publishers, platforms, @story_duration, @extras_duration, @completionist_duration)
 
       save_medium
+      @medium
     else
       redirect_to media_path, alert: "Medium not available."
     end
