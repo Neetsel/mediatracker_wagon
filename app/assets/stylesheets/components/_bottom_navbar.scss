@@ -1,7 +1,8 @@
 
 #bottom-navbar {
   height: 64px;
-  background: #1A1A1A;
+  background: #161E26;
+  border: solid 1px #4B4B4B;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -9,9 +10,12 @@
   overflow: hidden;
   padding-left: 24px;
   padding-right: 24px;
+  border-radius: 99px;
+  margin-bottom: 2px;
 
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
+
 }
