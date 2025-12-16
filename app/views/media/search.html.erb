@@ -1,0 +1,123 @@
+<h1 class="mb-4">
+  Results for "<%= params[:title] %>"
+</h1>
+
+<%= link_to "← New search", search_media_path, class: "btn btn-link mb-3" %>
+
+<% if @results.present? %>
+  <div class="row">
+    <% @results.each do |result| %>
+      <% if result["Year"] %>
+        <div class="search-media-cards col-md-3 mb-3 mt-3">
+
+          <%# Image %>
+          <div class="search-card-image">
+            <% if result["Poster"] != "N/A" %>
+              <%= image_tag result["Poster"], alt: result["Title"], class: "search-card-image-left" %>
+            <% else %>
+              <div class="bg-secondary text-light d-flex align-items-center justify-content-center" style="height: 200px; width: 140px;">
+                No Poster
+              </div>
+            <% end %>
+          </div>
+
+          <%# Texte %>
+
+          <div class="search-card-body d-flex flex-column justify-content-between">
+            <h5 class="card-title"><%= result["Title"] %></h5>
+            <p class="card-text"><%= result["Year"] %></p>
+
+            <%# buttons %>
+
+            <%# <div class="list-icon"> %>
+              <%#= render "shared/buttons/collection_card_button", medium: medium, medium_type: "movie", year: medium["Year"]  %>
+              <%#= render "shared/buttons/like_card_button", medium: medium, medium_type: "movie", year: medium["Year"]  %>
+              <%#= render "shared/buttons/next_up_card_button", medium: medium, medium_type: "movie", year: medium["Year"]  %>
+            <%# </div> %>
+
+            <div class="btn-more-details">
+              <%#= button_to "More details", create_record_media_path( medium: medium, medium_type: "movie" ),
+                    method: :post,
+                    data: { turbo_frame: "_top" },
+                    class: "btn btn-primary rounded-pill" %>
+            </div>
+          </div>
+        </div>
+      <% elsif result["first_publish_year"] %>
+        <div class="search-media-cards col-md-3 mb-3 mt-3">
+
+          <%# Image %>
+          <div class="search-card-image">
+            <% if result["cover_edition_key"] %>
+              <%= image_tag "https://covers.openlibrary.org/b/olid/#{result["cover_edition_key"]}-M.jpg", alt: result["title"], class: "search-card-image-left" %>
+            <% else %>
+              <div class="bg-secondary text-light d-flex align-items-center justify-content-center" style="height: 222px; width: 140px;">
+                No Poster
+              </div>
+            <% end %>
+          </div>
+
+          <%# Texte %>
+
+          <div class="search-card-body d-flex flex-column justify-content-between">
+            <h5 class="card-title"><%= result["title"] %></h5>
+            <p class="card-text"><%= result["first_publish_year"] %></p>
+
+            <%# buttons %>
+
+            <%# <div class="list-icon"> %>
+                <%#= render "shared/buttons/collection_card_button", medium: medium, medium_type: "book", year: medium["first_publish_year"]  %>
+                <%#= render "shared/buttons/like_card_button", medium: medium, medium_type: "book", year: medium["first_publish_year"]  %>
+                <%#= render "shared/buttons/next_up_card_button", medium: medium, medium_type: "book", year: medium["first_publish_year"]  %>
+            <%# </div> %>
+
+            <div class="btn-more-details">
+              <%#= button_to "More details", create_record_media_path( medium: medium, medium_type: "book" ),
+                    method: :post,
+                    data: { turbo_frame: "_top" },
+                    class: "btn btn-primary rounded-pill" %>
+            </div>
+          </div>
+        </div>
+      <% else result["first_release_date"] %>
+        <div class="search-media-cards col-md-3 mb-3 mt-3">
+
+          <%# Image %>
+          <div class="search-card-image">
+            <% if result["cover"] %>
+              <%= image_tag result["cover"], alt: result["name"], class: "search-card-image-left" %>
+            <% else %>
+              <div class="bg-secondary text-light d-flex align-items-center justify-content-center" style="height: 200px; width: 140px;">
+                No Poster
+              </div>
+            <% end %>
+          </div>
+
+          <%# Texte %>
+
+          <div class="search-card-body d-flex flex-column justify-content-between">
+            <h5 class="card-title"><%= result["name"] %></h5>
+            <p class="card-text"><%= result["first_release_date"] %></p>
+
+            <%# buttons %>
+            <%# <div class="list-icon"> %>
+              <%#= render "shared/buttons/collection_card_button", medium: medium, medium_type: "game", year: medium["first_release_date"], ref_icon: "collection_icon_#{i}" %>
+              <%#= render "shared/buttons/like_card_button", medium: medium, medium_type: "game", year: medium["first_release_date"], ref_icon: "like_icon_#{i}" %>
+              <%#= render "shared/buttons/next_up_card_button", medium: medium, medium_type: "game", year: medium["first_release_date"], ref_icon: "next_up_icon_#{i}" %>
+            </div>
+
+            <%# <div class="btn-more-details"> %>
+              <%#= button_to "More details", create_record_media_path( medium: medium, medium_type: "game" ),
+                    method: :post,
+                    data: { turbo_frame: "_top" },
+                    class: "btn btn-primary rounded-pill" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+    <% end %>
+  </div>
+<% else %>
+  <p>No results found.</p>
+<% end %>

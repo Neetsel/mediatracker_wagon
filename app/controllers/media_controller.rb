@@ -41,7 +41,7 @@ class MediaController < ApplicationController
   end
 
   def search
-    current_page = params[:page] || 1
+    # current_page = params[:page] || 1
     case params[:medium_type]
     when "game"
       igdb = IgdbService.new
@@ -54,12 +54,12 @@ class MediaController < ApplicationController
       @results = open_library.run(params[:title])
     end
     # A partir du result, on créé une page de 10 items
-    @results = Kaminari.paginate_array(@results).page(current_page).per(10)
-    
-    respond_to do |format|
-      format.html { render :index }
-      format.turbo_stream
-    end
+    # @results = Kaminari.paginate_array(@results).page(current_page).per(10)
+
+    # respond_to do |format|
+    #   format.html { render :index }
+    #   format.turbo_stream
+    # end
   end
 
   private
