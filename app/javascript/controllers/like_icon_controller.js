@@ -41,7 +41,7 @@ export default class extends Controller {
     fetch(`check_settings?name=${title}&year=${year}&settings=${settings}`)
       .then(response => response.json())
       .then(data => {
-        if (data) {
+        if (data.favorite) {
           this.iconTarget.classList.remove("fa-regular");
           this.iconTarget.classList.add("fa-solid");
         } else {
@@ -87,9 +87,7 @@ export default class extends Controller {
       extrasDuration = this.extrasDurationValue;
       completionistDuration = this.completionistDurationValue;
     }
-    console.log(developers)
-    console.log(publishers)
-    console.log(platforms)
+    console.log(title)
     fetch(`/media/toggle_settings?id=${id}&name=${title}&cover=${cover}&author=${author}&medium_type=${mediumType}&year=${year}&settings=${settings}&developers=${developers}&publishers=${publishers}&platforms=${platforms}&story_duration=${storyDuration}&extras_duration=${extrasDuration}&completionist_duration=${completionistDuration}`)
       .then(response => response.json())
       .then(data => {

@@ -74,9 +74,9 @@
               <div class="col text-center">
                 <div class="d-flex justify-content-between gap-2 flex-wrap" id="group-btn-list">
                   <%= render "shared/buttons/chat_button", medium: @medium %>
-                  <%= render "shared/buttons/collection_button", medium: @medium %>
-                  <%= render "shared/buttons/like_card_button", medium: @medium, medium_type: @medium.sub_media_type.downcase, year: @medium.year  %>
-                  <%= render "shared/buttons/next_up_card_button", medium: @medium, medium_type: @medium.sub_media_type.downcase, year: @medium.year  %>
+                  <%= render "shared/buttons/collection_card_button", medium_id: @medium.id, medium: @medium, medium_type: @medium.sub_media_type.downcase, year: @medium.year  %>
+                  <%= render "shared/buttons/like_card_button", medium_id: @medium.id, medium: @medium, medium_type: @medium.sub_media_type.downcase, year: @medium.year  %>
+                  <%= render "shared/buttons/next_up_card_button", medium_id: @medium.id, medium: @medium, medium_type: @medium.sub_media_type.downcase, year: @medium.year  %>
                   <%= render "shared/buttons/review_button", medium: @medium %>
                 </div>
               </div>

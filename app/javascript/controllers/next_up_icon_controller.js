@@ -40,7 +40,7 @@ export default class extends Controller {
     fetch(`check_settings?name=${title}&year=${year}&settings=${settings}`)
       .then(response => response.json())
       .then(data => {
-        if (data) {
+        if (data.favorite) {
           this.iconTarget.classList.remove("fa-regular");
           this.iconTarget.classList.add("fa-solid");
         } else {

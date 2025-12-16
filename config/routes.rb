@@ -17,8 +17,9 @@ Rails.application.routes.draw do
 
   resources :reviews, only: [:index]
   resources :collections, only: [:index, :destroy] do
-    member do
-      get :create_from_card
+    collection do
+      get :check_collection
+      get :toggle_collection
     end
   end
 
