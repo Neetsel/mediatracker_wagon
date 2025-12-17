@@ -1,22 +1,45 @@
-<div class="container my-5 bg-dark text-light p-5 rounded shadow">
-  <h1 class="mb-4 text-center">Find media you liked here</h1>
-  <div class="row">
-    <% @media.each do |medium| %>
-      <div class="col-md-3 mb-4">
-        <div class="card h-100 shadow-sm">
-          <%= link_to medium_path(medium) do %>
-            <%= image_tag medium.poster_url, alt: medium.title, class: "card-img-top"%>
-          <% end %>
-          <div class="card-body">
+<div class="container">
+
+  <h1 class="mb-4 text-center">All your favorites</h1>
+
+  <% if @media.present? %>
+    <div class="row">
+      <% @media.each do |medium| %>
+        <div class="list-media-cards col-md-3 mb-3 mt-3">
+
+          <div class="list-card-image">
             <%= link_to medium_path(medium) do %>
-              <h5 class="card-title"><%= medium.title %></h5>
+              <%= image_tag medium.poster_url, alt: medium.title, class: "list-card-image-left"%>
             <% end %>
           </div>
+
+          <div class="list-card-body d-flex flex-column justify-content-between">
+            <%= link_to medium_path(medium) do %>
+              <h5 class="card-title"><%= medium.title %></h5>
+              <p class="card-text"><%= medium.year %></p>
+            <% end %>
+
+            <div class="list-icon">
+              <%= render "shared/buttons/collection_card_button", medium: medium, medium_type: medium.sub_media_type.downcase, year: medium.year, location: "card"  %>
+              <%= render "shared/buttons/like_card_button", medium: medium, medium_type: medium.sub_media_type.downcase, year: medium.year, location: "card"  %>
+              <%= render "shared/buttons/next_up_card_button", medium: medium, medium_type: medium.sub_media_type.downcase, year: medium.year, location: "card"  %>
+            </div>
+
+            <div class="btn-more-details">
+                <%= link_to "More details", medium_path(medium), class: "btn btn-primary rounded-pill" %>
+            </div>
+
+          </div>
         </div>
-      </div>
-    <% end %>
-    <div class="d-flex justify-content-center mt-4">
-      <%= paginate @media %>
+      <% end %>
     </div>
+  <% else %>
+    <p>Like your first media !</p>
+  <% end %>
+
+
+  <div class="d-flex justify-content-center mt-4">
+    <%= paginate @media %>
   </div>
+
 </div>
