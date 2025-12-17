@@ -48,7 +48,7 @@ export default class extends Controller {
       this.buttonTarget.classList.add("btn-cta","btn-cta-show");
     }
 
-    fetch(`check_settings?name=${encodeURIComponent(title)}&year=${encodeURIComponent(year)}&settings=${encodeURIComponent(settings)}`)
+    fetch(`/media/check_settings?name=${encodeURIComponent(title)}&year=${encodeURIComponent(year)}&settings=${encodeURIComponent(settings)}`)
       .then(response => response.json())
       .then(data => {
         if (data.medium) {
