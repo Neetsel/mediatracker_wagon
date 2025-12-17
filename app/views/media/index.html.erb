@@ -1,25 +1,31 @@
-<div class="container my-5 text-light p-5" id="media-index-container">
-  <h1 class="mb-4 text-center">Search for a media <i class="fa-solid fa-magnifying-glass"></i></h1>
+<div class="container" id="media-index-container">
+  <div class="container my-2 p-3">
+    <h1 class="mb-4 text-center">All in one place</h1>
+    <p class="text-center">Search for movies, video games or books !</p>
 
-  <div data-controller="media-search">
+  </div>
+
+  <div data-controller="media-search" class="media-search">
 
     <%= form_with url: search_media_path,
           method: :post,
           data: {
             action: "submit->media-search#submit", turbo: false
            },
-          class: "input-group shadow-sm" do %>
+          class: "input-group shadow-sm",
+          id: "media-search-bar" do %>
 
     <%= text_field_tag :title, nil,
-          class: "form-control form-control-lg",
+          class: "form-control form-control",
+          id: "form-control-text",
           placeholder: "Enter a media title...",
           required: true %>
 
     <%= hidden_field_tag :medium_type, "",
       data: { media_search_target: "mediumType" } %>
 
-      <button class="btn btn-primary btn-lg ms-2" type="submit">
-        <i class="bi bi-search"></i> Search
+      <button class="btn btn-primary btn-lg ms-2" id="search-button" type="submit">
+        <i class="bi bi-search"></i><i class="fa-solid fa-magnifying-glass fa-lg"></i>
       </button>
 
     <% end %>
