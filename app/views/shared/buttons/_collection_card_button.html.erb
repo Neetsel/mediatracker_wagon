@@ -19,6 +19,10 @@
   data-collection-icon-settings-value="collection"
   data-collection-icon-location-value="<%=location%>">
   <button data-action="click->collection-icon#toggleCollection">
-    <i class="fa-regular fa-eye" data-collection-icon-target="icon"></i>
+    <% if location === "card" %>
+      <i class="fa-regular fa-eye" data-collection-icon-target="icon"></i>
+    <% else %>
+      <i class="fa-regular fa-eye" data-collection-icon-target="icon"></i> Add to collection
+    <% end %>
   </button>
 </div>
