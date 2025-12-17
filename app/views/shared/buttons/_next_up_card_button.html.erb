@@ -18,11 +18,11 @@
   data-next-up-icon-medium-type-value="<%=medium_type%>"
   data-next-up-icon-settings-value="next_up"
   data-next-up-icon-location-value="<%=location%>">
-  <button data-action="click->next-up-icon#toggleNextUp">
+  <button data-action="click->next-up-icon#toggleNextUp" data-next-up-icon-target="button" class="btn-hidden">
     <% if location === "card" %>
       <i class="fa-regular fa-calendar" data-next-up-icon-target="icon"></i>
     <% else %>
-      <i class="fa-regular fa-calendar" data-next-up-icon-target="icon"></i> Add to next up
+      <i class="fa-regular fa-calendar" data-next-up-icon-target="icon"></i> <span data-next-up-icon-target="text">Add to next up</span>
     <% end %>
   </button>
 </div>

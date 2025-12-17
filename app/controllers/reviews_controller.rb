@@ -1,8 +1,12 @@
 class ReviewsController < ApplicationController
   before_action :set_medium, only: [:new, :create]
+  before_action :set_review, only: [:show]
 
   def index
     @reviews = Review.where(user_id: current_user.id).page(params[:page]).per(10)
+  end
+
+  def show
   end
 
   def new
@@ -29,5 +33,9 @@ class ReviewsController < ApplicationController
 
   def review_params
     params.require(:review).permit(:content, :rating)
+  end
+
+  def set_review
+    @review = Review.find(params[:id])
   end
 end

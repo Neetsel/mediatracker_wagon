@@ -1,5 +1,4 @@
 .btn-cta {
-
   font-family: "Inter";
   font-weight: bold !important;
   font-size: 18px;
@@ -18,8 +17,33 @@
   box-sizing: border-box;
 }
 
-.btn-media-type {
+.btn-cta.btn-favorites {
+  background: #7B61FF;
+  box-shadow: none;
+}
 
+.btn-cta-show{
+  width: 350px;
+  margin-top: 10px;
+}
+
+.btn-cta-bottom-show{
+  width: 150px;
+  margin-top: 10px;
+}
+
+.btn-icon {
+  color: #FBC500;
+  border: none;
+  background: none;
+  box-shadow: none;
+}
+
+.btn-hidden {
+  visibility: hidden;
+}
+
+.btn-media-type {
   font-family: "Inter";
   font-weight: bold !important;
   font-size: 18px;

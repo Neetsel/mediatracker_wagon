@@ -37,3 +37,36 @@
   margin-top: 24px;
   padding-right: 16px;
 }
+
+.show-description {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.show-section {
+  border-top: 1px solid;
+  border-color: #FFFFFF;
+  padding-top: 10px;
+}
+
+.show-title-review{
+  width:100%;
+  margin-bottom:0;
+}
+
+.show-section-review{
+  width:100%;
+  margin-bottom:0;
+}
+
+.buttons-top-show-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// .list-buttons-show-page {
+
+// }

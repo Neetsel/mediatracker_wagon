@@ -1,9 +1,9 @@
 <% if Chat.find_by(medium_id: medium.id, user_id: current_user.id).nil? %>
-  <%= link_to medium_chats_path(medium.id), data: { turbo_method:"POST" } do %>
-    <i class="fa-regular fa-comments"></i>
+  <%= button_to medium_chats_path(medium.id), data: { turbo_method:"POST" }, class: "btn-cta btn-cta-bottom-show" do %>
+    <i class="fa-regular fa-comments"></i> Chat
   <% end %>
 <% else %>
-  <%= link_to chat_path(Chat.find_by(medium_id: medium.id, user_id: current_user.id)) do %>
-    <i class="fa-solid fa-comments"></i>
+  <%= button_to chat_path(Chat.find_by(medium_id: medium.id, user_id: current_user.id)), class: "btn-cta btn-cta-bottom-show" do %>
+    <i class="fa-solid fa-comments"></i> Chat
   <% end %>
 <% end %>
