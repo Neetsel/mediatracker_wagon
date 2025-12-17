@@ -25,8 +25,8 @@ export default class extends Controller {
     settings: String,
     location: String,
     disabled: {type: Boolean, default: false},
-    addText: { type: String, default: "add to your favorites" },
-    removeText: {type: String, default: "Remove from your favorites"}
+    addText: { type: String, default: "add to your next up" },
+    removeText: {type: String, default: "Remove from your next up"}
   }
 
   connect() {
