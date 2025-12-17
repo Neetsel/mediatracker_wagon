@@ -1,15 +1,60 @@
-<div class="container my-5 bg-dark text-light p-5 rounded shadow">
+<div class="container my-5 bg-dark text-light p-5 rounded shadow text-center">
+  <h1 class="mb-4">A Little Recap for Your Media</h1>
+
+  <div class="row">
+    <div class="col-md-4 mb-4">
+      <h2 class="box">  <%= @collection_media.count %> media collected 📚 </h2>
+    </div>
+    <div class="col-md-4 mb-4">
+      <h2 class="box"> <%= @next_up_media.count%> media next up ⏭️ </h2>
+    </div>
+    <div class="col-md-4 mb-4">
+      <h2 class="box"> <%= @like_media.count%> media liked 💛</h2>
+    </div>
+  </div>
+
+  <h1 class="mb-4">Your recent activities </h1>
+  <div class="row">
+    <div class="card-stats mb-4">
+      <%= image_tag @collection_media.last.poster_url, alt: @collection_media.last.title %>
+      <div class="card-stats-infos">
+        <h2><%= @collection_media.last.title %> </h2>
+        <p>📚 Collected on <%= @collection_media.last.created_at.strftime("%H:%M - %b %d, %Y") %></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="card-stats mb-4">
+      <%= image_tag @next_up_media.last.poster_url, alt: @next_up_media.last.title %>
+      <div class="card-stats-infos">
+        <h2><%= @next_up_media.last.title %> </h2>
+        <p>⏭️ planned on <%= @next_up_media.last.created_at.strftime("%H:%M - %b %d, %Y") %></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="card-stats mb-4">
+      <%= image_tag @like_media.last.poster_url, alt: @like_media.last.title %>
+      <div class="card-stats-infos">
+        <h2><%= @like_media.last.title %></h2>
+        <p>💛 liked on <%= @like_media.last.created_at.strftime("%H:%M - %b %d, %Y") %></p>
+      </div>
+    </div>
+  </div>
+
   <h1 class="mb-4 text-center">You have collected <%= @collection_media.count%> media</h1>
   <div class="row">
-    <% @collection_media.each do |collection_medium| %>
+    <% @collection_media.each do |medium| %>
       <div class="col-md-3 mb-4">
         <div class="card h-100 shadow-sm">
-          <%= link_to medium_path(collection_medium) do %>
-            <%= image_tag collection_medium.poster_url, alt: collection_medium.title, class: "card-img-top"%>
+          <%= link_to medium_path(medium) do %>
+            <%= image_tag medium.poster_url, alt: medium.title, class: "card-img-top"%>
           <% end %>
           <div class="card-body">
-            <%= link_to medium_path(collection_medium) do %>
-              <h5 class="card-title"><%= collection_medium.title %></h5>
+            <%= link_to medium_path(medium) do %>
+              <h5 class="card-title"><%= medium.title %></h5>
             <% end %>
           </div>
         </div>
@@ -18,7 +63,7 @@
     <div class="d-flex justify-content-center mt-4">
       <%= paginate @collection_media %>
     </div>
-  </div>
+</div>
 
   <h1 class="mb-4 text-center">You have <%= @next_up_media.count%> media waiting in line</h1>
   <div class="row">

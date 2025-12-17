@@ -1,0 +1,33 @@
+.card-stats {
+  background-color: #3a3a3a;
+  overflow: hidden;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+  padding: 0;
+  border-radius: 8px;
+}
+
+.card-stats img {
+  width: 10%;
+  height: auto;
+}
+.card-stats h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+  text-align: left;
+}
+
+.card-stats p {
+  font-size: 18px;
+  line-height: 1.4;
+  opacity: .7;
+  margin-bottom: 0;
+  margin-top: 8px;
+  text-align: left;
+}
+
+.card-stats .card-stats-infos {
+  padding: 16px;
+}

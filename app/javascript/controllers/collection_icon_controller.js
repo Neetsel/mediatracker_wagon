@@ -22,7 +22,8 @@ export default class extends Controller {
     completionistDuration: String,
     mediumType: String,
     year: String,
-    settings: String
+    settings: String,
+    location: String
   }
 
   connect() {
@@ -44,8 +45,12 @@ export default class extends Controller {
         if (data.medium) {
           this.checkCollection(data.medium);
         } else {
-          this.iconTarget.classList.remove("fa-solid");
-          this.iconTarget.classList.add("fa-regular");
+          if ( this.locationValue == "card") {
+            this.iconTarget.classList.remove("fa-solid");
+            this.iconTarget.classList.add("fa-regular");
+          } else {
+
+          }
         }
       });
   }
@@ -55,11 +60,19 @@ export default class extends Controller {
       .then(response => response.json())
       .then(data => {
         if (data) {
-          this.iconTarget.classList.remove("fa-regular");
-          this.iconTarget.classList.add("fa-solid");
+          if ( this.locationValue == "card") {
+            this.iconTarget.classList.remove("fa-regular");
+            this.iconTarget.classList.add("fa-solid");
+          } else {
+
+          }
         } else {
-          this.iconTarget.classList.remove("fa-solid");
-          this.iconTarget.classList.add("fa-regular");
+          if ( this.locationValue == "card") {
+            this.iconTarget.classList.remove("fa-solid");
+            this.iconTarget.classList.add("fa-regular");
+          } else {
+
+          }
         }
       });
   }
@@ -105,8 +118,12 @@ export default class extends Controller {
       .then(data => {
         console.log(data)
         this.changeCollection(data)
-        this.iconTarget.classList.toggle("fa-regular");
-        this.iconTarget.classList.toggle("fa-solid");
+        if ( this.locationValue == "card") {
+          this.iconTarget.classList.toggle("fa-regular");
+          this.iconTarget.classList.toggle("fa-solid");
+        } else {
+
+        }
       });
   }
 
