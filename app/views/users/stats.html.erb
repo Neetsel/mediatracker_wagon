@@ -44,6 +44,26 @@
     </div>
   </div>
 
+  <h1 class="mb-4 text-center">You have collected <%= @collection_media.count%> media</h1>
+  <div class="row">
+    <% @collection_media.each do |medium| %>
+      <div class="col-md-3 mb-4">
+        <div class="card h-100 shadow-sm">
+          <%= link_to medium_path(medium) do %>
+            <%= image_tag medium.poster_url, alt: medium.title, class: "card-img-top"%>
+          <% end %>
+          <div class="card-body">
+            <%= link_to medium_path(medium) do %>
+              <h5 class="card-title"><%= medium.title %></h5>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <div class="d-flex justify-content-center mt-4">
+      <%= paginate @collection_media %>
+    </div>
+</div>
 
   <h1 class="mb-4 text-center">You have <%= @next_up_media.count%> media waiting in line</h1>
   <div class="row">
