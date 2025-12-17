@@ -156,7 +156,7 @@
 
 
           <div class="col text-center">
-            <div class="d-flex justify-content-between gap-2 flex-wrap" id="group-btn-list">
+            <div class="d-flex justify-content-between gap-2 flex-wrap">
               <% if user_review = Review.find_by(medium_id: @medium.id, user_id: current_user.id) %>
                 <p class="show-title-review">
                   <strong>Review</strong>  <%= user_review.rating %> ⭐
