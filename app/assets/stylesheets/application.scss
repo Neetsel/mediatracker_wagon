@@ -17,11 +17,13 @@
 @import "components/pagination";
 @import "components/bottom_navbar";
 @import "components/lists_media_cards";
+@import "components/stats_card";
 
 @import "pages/index";
 @import "pages/media_show";
 @import "pages/media_index";
 @import "pages/review_index";
+@import "pages/stats";
 
 main {
   background: linear-gradient(#171F28, #000000);
