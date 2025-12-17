@@ -30,9 +30,9 @@
             <%# buttons %>
 
             <div class="list-icon">
-              <%= render "shared/buttons/collection_card_button", medium: result, medium_type: "movie", year: result["Year"]  %>
-              <%= render "shared/buttons/like_card_button", medium: result, medium_type: "movie", year: result["Year"]  %>
-              <%= render "shared/buttons/next_up_card_button", medium: result, medium_type: "movie", year: result["Year"]  %>
+              <%= render "shared/buttons/collection_card_button", medium: result, medium_type: "movie", year: result["Year"], location: "card"  %>
+              <%= render "shared/buttons/like_card_button", medium: result, medium_type: "movie", year: result["Year"], location: "card"  %>
+              <%= render "shared/buttons/next_up_card_button", medium: result, medium_type: "movie", year: result["Year"], location: "card"  %>
             </div>
 
             <div class="btn-more-details">
@@ -66,9 +66,9 @@
             <%# buttons %>
 
             <div class="list-icon">
-                <%= render "shared/buttons/collection_card_button", medium: result, medium_type: "book", year: result["first_publish_year"]  %>
-                <%= render "shared/buttons/like_card_button", medium: result, medium_type: "book", year: result["first_publish_year"]  %>
-                <%= render "shared/buttons/next_up_card_button", medium: result, medium_type: "book", year: result["first_publish_year"]  %>
+                <%= render "shared/buttons/collection_card_button", medium: result, medium_type: "book", year: result["first_publish_year"], location: "card"  %>
+                <%= render "shared/buttons/like_card_button", medium: result, medium_type: "book", year: result["first_publish_year"], location: "card"  %>
+                <%= render "shared/buttons/next_up_card_button", medium: result, medium_type: "book", year: result["first_publish_year"], location: "card"  %>
             </div>
 
             <div class="btn-more-details">
@@ -101,9 +101,9 @@
 
             <%# buttons %>
             <div class="list-icon">
-              <%= render "shared/buttons/collection_card_button", medium: result, medium_type: "game", year: result["first_release_date"] %>
-              <%= render "shared/buttons/like_card_button", medium: result, medium_type: "game", year: result["first_release_date"] %>
-              <%= render "shared/buttons/next_up_card_button", medium: result, medium_type: "game", year: result["first_release_date"] %>
+              <%= render "shared/buttons/collection_card_button", medium: result, medium_type: "game", year: result["first_release_date"], location: "card" %>
+              <%= render "shared/buttons/like_card_button", medium: result, medium_type: "game", year: result["first_release_date"], location: "card" %>
+              <%= render "shared/buttons/next_up_card_button", medium: result, medium_type: "game", year: result["first_release_date"], location: "card" %>
             </div>
 
             <div class="btn-more-details">

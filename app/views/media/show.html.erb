@@ -41,6 +41,7 @@
         <% end %>
 
         <% if @medium.sub_media_type === "Movie" %>
+
           <% if @medium.sub_media.directors.present? %>
             <p class="mb-4">
               <strong>Directors:</strong>
@@ -52,6 +53,13 @@
             <p class="mb-4">
               <strong>Writers:</strong>
               <%= @medium.sub_media.writers.join(", ") %>
+            </p>
+          <% end %>
+
+          <% if @medium.sub_media.actors.present? %>
+            <p class="mb-4">
+              <strong>Cast:</strong>
+              <%= @medium.sub_media.actors.join(", ") %>
             </p>
           <% end %>
 
@@ -72,7 +80,7 @@
           <% if @medium.sub_media.runtime.present? %>
             <p class="mb-4">
               <strong>Runtime:</strong>
-              <%= @medium.sub_media.runtime %>
+              <%= @medium.sub_media.runtime %> min
             </p>
           <% end %>
 
@@ -120,7 +128,7 @@
           <% if @medium.sub_media.main_story_duration.present? %>
             <p class="mb-4">
               <strong>Story duration:</strong>
-              <%= @medium.sub_media.main_story_duration %>
+              <%= @medium.sub_media.main_story_duration.to_i  / 3600 %> hrs
             </p>
           <% end %>
 
@@ -128,7 +136,7 @@
           <% if @medium.sub_media.main_extras_duration.present? %>
             <p class="mb-4">
               <strong>Average duration:</strong>
-              <%= @medium.sub_media.main_extras_duration %>
+              <%= @medium.sub_media.main_extras_duration.to_i / 3600 %> hrs
             </p>
           <% end %>
 
@@ -136,7 +144,7 @@
           <% if @medium.sub_media.completionist_duration.present? %>
             <p class="mb-4">
               <strong>Completionist duration:</strong>
-              <%= @medium.sub_media.completionist_duration %>
+              <%= @medium.sub_media.completionist_duration.to_i  / 3600 %> hrs
             </p>
           <% end %>
         <% end %>
@@ -151,9 +159,9 @@
               <div class="col text-center">
                 <div class="d-flex justify-content-between gap-2 flex-wrap" id="group-btn-list">
                   <%= render "shared/buttons/chat_button", medium: @medium %>
-                  <%= render "shared/buttons/collection_card_button", medium_id: @medium.id, medium: @medium, medium_type: @medium.sub_media_type.downcase, year: @medium.year  %>
-                  <%= render "shared/buttons/like_card_button", medium_id: @medium.id, medium: @medium, medium_type: @medium.sub_media_type.downcase, year: @medium.year  %>
-                  <%= render "shared/buttons/next_up_card_button", medium_id: @medium.id, medium: @medium, medium_type: @medium.sub_media_type.downcase, year: @medium.year  %>
+                  <%= render "shared/buttons/collection_card_button", medium_id: @medium.id, medium: @medium, medium_type: @medium.sub_media_type.downcase, year: @medium.year, location: "show" %>
+                  <%= render "shared/buttons/like_card_button", medium_id: @medium.id, medium: @medium, medium_type: @medium.sub_media_type.downcase, year: @medium.year, location: "show"   %>
+                  <%= render "shared/buttons/next_up_card_button", medium_id: @medium.id, medium: @medium, medium_type: @medium.sub_media_type.downcase, year: @medium.year, location: "show"   %>
                   <%= render "shared/buttons/review_button", medium: @medium %>
                 </div>
               </div>

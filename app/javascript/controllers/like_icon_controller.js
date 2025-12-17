@@ -22,7 +22,8 @@ export default class extends Controller {
     completionistDuration: String,
     mediumType: String,
     year: String,
-    settings: String
+    settings: String,
+    location: String
   }
 
   connect() {
@@ -42,11 +43,19 @@ export default class extends Controller {
       .then(response => response.json())
       .then(data => {
         if (data.favorite) {
-          this.iconTarget.classList.remove("fa-regular");
-          this.iconTarget.classList.add("fa-solid");
+          if ( this.locationValue == "card") {
+            this.iconTarget.classList.remove("fa-regular");
+            this.iconTarget.classList.add("fa-solid");
+          } else {
+
+          }
         } else {
-          this.iconTarget.classList.remove("fa-solid");
-          this.iconTarget.classList.add("fa-regular");
+          if ( this.locationValue == "card") {
+            this.iconTarget.classList.remove("fa-solid");
+            this.iconTarget.classList.add("fa-regular");
+          } else {
+
+          }
         }
       });
   }
@@ -91,8 +100,12 @@ export default class extends Controller {
     fetch(`/media/toggle_settings?id=${encodeURIComponent(id)}&name=${encodeURIComponent(title)}&cover=${encodeURIComponent(cover)}&author=${encodeURIComponent(author)}&medium_type=${encodeURIComponent(mediumType)}&year=${encodeURIComponent(year)}&settings=${encodeURIComponent(settings)}&developers=${encodeURIComponent(developers)}&publishers=${encodeURIComponent(publishers)}&platforms=${encodeURIComponent(platforms)}&story_duration=${encodeURIComponent(storyDuration)}&extras_duration=${encodeURIComponent(extrasDuration)}&completionist_duration=${encodeURIComponent(completionistDuration)}`)
       .then(response => response.json())
       .then(data => {
-        this.iconTarget.classList.toggle("fa-regular");
-        this.iconTarget.classList.toggle("fa-solid");
+        if (this.locationValue == "card") {
+          this.iconTarget.classList.toggle("fa-regular");
+          this.iconTarget.classList.toggle("fa-solid");
+        } else {
+
+        }
       });
 
   }
