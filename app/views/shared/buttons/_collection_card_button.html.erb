@@ -18,11 +18,11 @@
   data-collection-icon-medium-type-value="<%=medium_type%>"
   data-collection-icon-settings-value="collection"
   data-collection-icon-location-value="<%=location%>">
-  <button data-action="click->collection-icon#toggleCollection">
+  <button data-action="click->collection-icon#toggleCollection" data-collection-icon-target="button" class="btn-hidden">
     <% if location === "card" %>
       <i class="fa-regular fa-eye" data-collection-icon-target="icon"></i>
     <% else %>
-      <i class="fa-regular fa-eye" data-collection-icon-target="icon"></i> Add to collection
+      <i class="fa-regular fa-eye" data-collection-icon-target="icon"></i> <span data-collection-icon-target="text">Add to collection</span>
     <% end %>
   </button>
 </div>

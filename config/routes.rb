@@ -15,7 +15,8 @@ Rails.application.routes.draw do
   # root "posts#index"
   get "likes", to: "pages#likes"
 
-  resources :reviews, only: [:index]
+  resources :reviews, only: [:show, :index]
+  
   resources :collections, only: [:index, :destroy] do
     collection do
       get :check_collection

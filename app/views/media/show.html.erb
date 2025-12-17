@@ -8,77 +8,82 @@
       </div>
     </div>
 
+    <div class = "mt-4 list-buttons-show-page">
+      <div class = "buttons-top-show-page">
+        <%= render "shared/buttons/like_card_button", medium_id: @medium.id, medium: @medium, medium_type: @medium.sub_media_type.downcase, year: @medium.year, location: "show"   %>
+      </div>
+      <div class = "buttons-top-show-page">
+        <%= render "shared/buttons/next_up_card_button", medium_id: @medium.id, medium: @medium, medium_type: @medium.sub_media_type.downcase, year: @medium.year, location: "show"   %>
+      </div>
+      <div class = "buttons-top-show-page">
+        <%= render "shared/buttons/collection_card_button", medium_id: @medium.id, medium: @medium, medium_type: @medium.sub_media_type.downcase, year: @medium.year, location: "show" %>
+      </div>
+    </div>
 
     <div class="col-md-8">
       <div class="rounded shadow p-4 h-100" id="media-description">
         <h1 class="mb-3"><%= @medium.title %></h1>
 
-        <div class="d-flex justify-content-evenly">
-          <p class="mb-4">
-            <% if @medium.genres.present? %>
+        <% if @medium.genres.present? %>
+          <div class="d-flex justify-content-evenly">
+            <p class="">
               <%= @medium.genres.join(' <i class="fa-solid fa-circle fa-2xs" style="color:#FBC500;"></i> ').html_safe %>
-            <% else %>
-              N/A
-            <% end %>
-          </p>
-
-        </div>
-
-        <% if @medium.year.present? %>
-          <p class="mb-4">
-            <strong>Release date:</strong>
-            <%= @medium.year %>
-          </p>
+            </p>
+          </div>
         <% end %>
 
         <% if @medium.description.present? %>
-          <p class="mb-4">
-            <div>
-            <strong>Description:</strong>
-              <%= @medium.description %>
-          </div>
-        </p>
+          <p class="show-description">
+            <%= @medium.description %>
+          </p>
+        <% end %>
+
+        <% if @medium.year.present? %>
+          <p>
+            <strong>Year:</strong>
+            <%= @medium.year %>
+          </p>
         <% end %>
 
         <% if @medium.sub_media_type === "Movie" %>
 
           <% if @medium.sub_media.directors.present? %>
-            <p class="mb-4">
+            <p class="show-section">
               <strong>Directors:</strong>
               <%= @medium.sub_media.directors.join(", ") %>
             </p>
           <% end %>
 
           <% if @medium.sub_media.writers.present? %>
-            <p class="mb-4">
+            <p class="show-section">
               <strong>Writers:</strong>
               <%= @medium.sub_media.writers.join(", ") %>
             </p>
           <% end %>
 
           <% if @medium.sub_media.actors.present? %>
-            <p class="mb-4">
+            <p class="show-section">
               <strong>Cast:</strong>
               <%= @medium.sub_media.actors.join(", ") %>
             </p>
           <% end %>
 
           <% if @medium.sub_media.countries.present? %>
-            <p class="mb-4">
+            <p class="show-section">
               <strong>Countries:</strong>
               <%= @medium.sub_media.countries %>
             </p>
           <% end %>
 
           <% if @medium.sub_media.languages.present? %>
-            <p class="mb-4">
+            <p class="show-section">
               <strong>Languages:</strong>
               <%= @medium.sub_media.languages %>
             </p>
           <% end %>
 
           <% if @medium.sub_media.runtime.present? %>
-            <p class="mb-4">
+            <p class="show-section">
               <strong>Runtime:</strong>
               <%= @medium.sub_media.runtime %> min
             </p>
@@ -86,14 +91,14 @@
 
         <% elsif @medium.sub_media_type === "Book" %>
           <% if @medium.sub_media.authors.present? %>
-            <p class="mb-4">
+            <p class="show-section">
               <strong>Authors:</strong>
               <%= @medium.sub_media.authors.join(", ") %>
             </p>
           <% end %>
 
           <% if @medium.sub_media.amount_pages.present? %>
-            <p class="mb-4">
+            <p class="show-section">
               <strong>Amount pages:</strong>
               <%= @medium.sub_media.amount_pages %>
             </p>
@@ -102,7 +107,7 @@
         <% else %>
 
           <% if @medium.sub_media.developers.present? %>
-            <p class="mb-4">
+            <p class="show-section">
               <strong>Developers:</strong>
               <%= @medium.sub_media.developers.join(", ") %>
             </p>
@@ -110,7 +115,7 @@
 
 
           <% if @medium.sub_media.publisher.present? %>
-            <p class="mb-4">
+            <p class="show-section">
               <strong>Publishers:</strong>
               <%= @medium.sub_media.publisher %>
             </p>
@@ -118,7 +123,7 @@
 
 
           <% if @medium.sub_media.platforms.present? %>
-            <p class="mb-4">
+            <p class="show-section">
               <strong>Platforms:</strong>
               <%= @medium.sub_media.platforms.join(", ") %>
             </p>
@@ -126,7 +131,7 @@
 
 
           <% if @medium.sub_media.main_story_duration.present? %>
-            <p class="mb-4">
+            <p class="show-section">
               <strong>Story duration:</strong>
               <%= @medium.sub_media.main_story_duration.to_i  / 3600 %> hrs
             </p>
@@ -134,7 +139,7 @@
 
 
           <% if @medium.sub_media.main_extras_duration.present? %>
-            <p class="mb-4">
+            <p class="show-section">
               <strong>Average duration:</strong>
               <%= @medium.sub_media.main_extras_duration.to_i / 3600 %> hrs
             </p>
@@ -142,29 +147,26 @@
 
 
           <% if @medium.sub_media.completionist_duration.present? %>
-            <p class="mb-4">
+            <p class="show-section">
               <strong>Completionist duration:</strong>
               <%= @medium.sub_media.completionist_duration.to_i  / 3600 %> hrs
             </p>
           <% end %>
         <% end %>
-        <p>
-          <% if user_review = Review.find_by(medium_id: @medium.id, user_id: current_user.id) %>
-            <strong>Review:</strong>
-            <%= user_review.content %> <i class="fa-solid fa-circle fa-2xs" style="color:#FBC500;"></i> <%= user_review.rating %> ⭐
-          <% end %>
-        </p>
-        <div class="container mt-3">
-            <div class="row">
-              <div class="col text-center">
-                <div class="d-flex justify-content-between gap-2 flex-wrap" id="group-btn-list">
-                  <%= render "shared/buttons/chat_button", medium: @medium %>
-                  <%= render "shared/buttons/collection_card_button", medium_id: @medium.id, medium: @medium, medium_type: @medium.sub_media_type.downcase, year: @medium.year, location: "show" %>
-                  <%= render "shared/buttons/like_card_button", medium_id: @medium.id, medium: @medium, medium_type: @medium.sub_media_type.downcase, year: @medium.year, location: "show"   %>
-                  <%= render "shared/buttons/next_up_card_button", medium_id: @medium.id, medium: @medium, medium_type: @medium.sub_media_type.downcase, year: @medium.year, location: "show"   %>
-                  <%= render "shared/buttons/review_button", medium: @medium %>
-                </div>
-              </div>
+
+
+          <div class="col text-center">
+            <div class="d-flex justify-content-between gap-2 flex-wrap" id="group-btn-list">
+              <% if user_review = Review.find_by(medium_id: @medium.id, user_id: current_user.id) %>
+                <p class="show-title-review">
+                  <strong>Review</strong>  <%= user_review.rating %> ⭐
+                </p>
+                <p class="show-section-review">
+                  <%= user_review.content %>
+                </p>
+              <% end %>
+              <%= render "shared/buttons/review_button", medium: @medium %>
+              <%= render "shared/buttons/chat_button", medium: @medium %>
             </div>
           </div>
         </div>
