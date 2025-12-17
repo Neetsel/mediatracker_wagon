@@ -5,21 +5,32 @@
   <% if @collections.present? %>
     <div class="row">
       <% @collections.each do |collection| %>
-      <div class="list-media-cards col-md-3 mb-3 mt-3">
+        <div class="list-media-cards col-md-3 mb-3 mt-3">
 
-        <div class="list-card-image">
-          <%= link_to medium_path(collection.medium) do %>
-            <%= image_tag collection.medium.poster_url, alt: collection.medium.title, class: "list-card-image-left"%>
-          <% end %>
-        </div>
+          <div class="list-card-image">
+            <%= link_to medium_path(collection.medium) do %>
+              <%= image_tag collection.medium.poster_url, alt: collection.medium.title, class: "list-card-image-left"%>
+            <% end %>
+          </div>
 
-        <div class="list-card-body d-flex flex-column justify-content-between">
-          <%= link_to medium_path(collection.medium) do %>
-            <h5 class="card-title"><%= collection.medium.title %></h5>
-            <p class="card-text"><%= collection.medium.year %></p>
-          <% end %>
+          <div class="list-card-body d-flex flex-column justify-content-between">
+            <%= link_to medium_path(collection.medium) do %>
+              <h5 class="card-title"><%= collection.medium.title %></h5>
+              <p class="card-text"><%= collection.medium.year %></p>
+            <% end %>
+
+            <div class="list-icon">
+              <%= render "shared/buttons/collection_card_button", medium: collection.medium, medium_type: collection.medium.sub_media_type.downcase, year: collection.medium.year, location: "card"  %>
+              <%= render "shared/buttons/like_card_button", medium: collection.medium, medium_type: collection.medium.sub_media_type.downcase, year: collection.medium.year, location: "card"  %>
+              <%= render "shared/buttons/next_up_card_button", medium: collection.medium, medium_type: collection.medium.sub_media_type.downcase, year: collection.medium.year, location: "card"  %>
+            </div>
+
+            <div class="btn-more-details">
+                <%= link_to "More details", medium_path(collection.medium), class: "btn btn-primary rounded-pill" %>
+            </div>
+
+          </div>
         </div>
-      </div>
       <% end %>
     </div>
   <% else %>
