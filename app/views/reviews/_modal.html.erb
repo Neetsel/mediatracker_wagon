@@ -1,18 +1,17 @@
-<!-- Modal -->
 <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
-<div class="modal-dialog">
+<div class="modal-dialog modal-dialog-centered">
   <div class="modal-content bg-dark">
     <div class="modal-header">
-      <h5 class="modal-title">New Review for <%= @medium.title %></h5>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <h5 class="modal-title"><%= @medium.title %></h5>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
       <%= simple_form_for [@medium, @review] do |f| %>
         <%= f.input :content  %>
         <%= f.input :rating, collection: (1..5).to_a, input_html: {data: {controller: "star-rating"}} %>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <%= f.submit "Submit Review", class: "btn btn-primary" %>
+          <button type="button" class="btn btn-secondary rounded-pill fw-bold" data-bs-dismiss="modal">Cancel</button>
+          <%= f.submit "Submit Review", class: "btn btn-primary rounded-pill fw-bold" %>
         </div>
       <% end %>
     </div>
