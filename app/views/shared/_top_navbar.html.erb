@@ -15,9 +15,13 @@
   <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
     <div class="offcanvas-header d-flex justify-content-between">
       <div>
+        <%= link_to root_path do %>
         <img src="https://res.cloudinary.com/dmby1z5d6/image/upload/v1765366833/logo-mediatrackr-no-name-1_mznbne.png" style="width: 50px; height: 50px" alt="logo MediaTrackr Yellow">
+        <% end %>
       </div>
+      <%= link_to root_path do %>
       <h2 class="offcanvas-title" id="offcanvasNavbarLabel">MediaTrackr</h2>
+      <% end %>
       <div data-bs-theme="dark">
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
@@ -25,14 +29,10 @@
     <div class="offcanvas-body">
       <div>
         <ul class="nav-list d-flex flex-column mb-4">
-          <a href="<%= root_path %>">Home</a>
-          <a href="<%= media_path %>">Search Media</a>
           <a href="<%= collections_path %>">My Collection</a>
           <a href="<%= next_up_path %>">My Next Up</a>
           <a href="<%= likes_path %>">My Favorites</a>
           <a href="<%= reviews_path %>">My Reviews</a>
-          <a href="<%= stats_path %>">My Profile</a>
-          <a href="<%= chats_path %>">Chat with AI</a>
       </ul>
       </div>
     </div>
