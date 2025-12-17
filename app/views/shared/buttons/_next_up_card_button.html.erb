@@ -16,8 +16,13 @@
   data-next-up-icon-completionist-duration-value="<%=medium["completionist_duration"]%>"
   data-next-up-icon-year-value="<%=year%>"
   data-next-up-icon-medium-type-value="<%=medium_type%>"
-  data-next-up-icon-settings-value="next_up">
+  data-next-up-icon-settings-value="next_up"
+  data-next-up-icon-location-value="<%=location%>">
   <button data-action="click->next-up-icon#toggleNextUp">
-    <i class="fa-regular fa-calendar" data-next-up-icon-target="icon"></i>
+    <% if location === "card" %>
+      <i class="fa-regular fa-calendar" data-next-up-icon-target="icon"></i>
+    <% else %>
+      <i class="fa-regular fa-calendar" data-next-up-icon-target="icon"></i> Add to next up
+    <% end %>
   </button>
 </div>

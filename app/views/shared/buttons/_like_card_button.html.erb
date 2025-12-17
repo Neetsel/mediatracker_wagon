@@ -16,8 +16,13 @@
   data-like-icon-completionist-duration-value="<%=medium["completionist_duration"]%>"
   data-like-icon-year-value="<%=year%>"
   data-like-icon-medium-type-value="<%=medium_type%>"
-  data-like-icon-settings-value="like">
+  data-like-icon-settings-value="like"
+  data-like-icon-location-value="<%=location%>">
   <button data-action="click->like-icon#toggleLike">
-    <i class="fa-regular fa-heart" data-like-icon-target="icon"></i>
+    <% if location === "card" %>
+      <i class="fa-regular fa-heart" data-like-icon-target="icon"></i>
+    <% else %>
+      <i class="fa-regular fa-heart" data-like-icon-target="icon"></i> Like
+    <% end %>
   </button>
 </div>

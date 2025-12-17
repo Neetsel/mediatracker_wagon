@@ -24,45 +24,130 @@
 
         </div>
 
-        <p class="mb-4">
-          <strong>Release date:</strong>
-          <% if @medium.year.present? %>
+        <% if @medium.year.present? %>
+          <p class="mb-4">
+            <strong>Release date:</strong>
             <%= @medium.year %>
-          <% else %>
-            N/A
-          <% end %>
+          </p>
+        <% end %>
+
+        <% if @medium.description.present? %>
+          <p class="mb-4">
+            <div>
+            <strong>Description:</strong>
+              <%= @medium.description %>
+          </div>
         </p>
+        <% end %>
 
         <% if @medium.sub_media_type === "Movie" %>
-        <p class="mb-4">
-          <strong>Directors:</strong>
-          <% if @medium.sub_media.directors.present? %>
-            <%= @medium.sub_media.directors.join(", ") %>
-          <% else %>
-            N/A
-          <% end %>
-        </p>
-        <% elsif @medium.sub_media_type === "Book" %>
-          <p class="mb-4">
-            <strong>Authors:</strong>
-            <% if @medium.sub_media.authors.present? %>
-              <%= @medium.sub_media.authors.join(", ") %>
-            <% else %>
-              N/A
-            <% end %>
-          </p>
-        <% else %>
-          <%# DISPLAY GAMES INFO %>
-        <% end %>
-        <p class="mb-4">
-          <strong>Description:</strong>
-          <% if @medium.description.present? %>
-            <%= @medium.description %>
-          <% else %>
-            N/A
-          <% end %>
-        </p>
 
+          <% if @medium.sub_media.directors.present? %>
+            <p class="mb-4">
+              <strong>Directors:</strong>
+              <%= @medium.sub_media.directors.join(", ") %>
+            </p>
+          <% end %>
+
+          <% if @medium.sub_media.writers.present? %>
+            <p class="mb-4">
+              <strong>Writers:</strong>
+              <%= @medium.sub_media.writers.join(", ") %>
+            </p>
+          <% end %>
+
+          <% if @medium.sub_media.actors.present? %>
+            <p class="mb-4">
+              <strong>Cast:</strong>
+              <%= @medium.sub_media.actors.join(", ") %>
+            </p>
+          <% end %>
+
+          <% if @medium.sub_media.countries.present? %>
+            <p class="mb-4">
+              <strong>Countries:</strong>
+              <%= @medium.sub_media.countries %>
+            </p>
+          <% end %>
+
+          <% if @medium.sub_media.languages.present? %>
+            <p class="mb-4">
+              <strong>Languages:</strong>
+              <%= @medium.sub_media.languages %>
+            </p>
+          <% end %>
+
+          <% if @medium.sub_media.runtime.present? %>
+            <p class="mb-4">
+              <strong>Runtime:</strong>
+              <%= @medium.sub_media.runtime %> min
+            </p>
+          <% end %>
+
+        <% elsif @medium.sub_media_type === "Book" %>
+          <% if @medium.sub_media.authors.present? %>
+            <p class="mb-4">
+              <strong>Authors:</strong>
+              <%= @medium.sub_media.authors.join(", ") %>
+            </p>
+          <% end %>
+
+          <% if @medium.sub_media.amount_pages.present? %>
+            <p class="mb-4">
+              <strong>Amount pages:</strong>
+              <%= @medium.sub_media.amount_pages %>
+            </p>
+          <% end %>
+
+        <% else %>
+
+          <% if @medium.sub_media.developers.present? %>
+            <p class="mb-4">
+              <strong>Developers:</strong>
+              <%= @medium.sub_media.developers.join(", ") %>
+            </p>
+          <% end %>
+
+
+          <% if @medium.sub_media.publisher.present? %>
+            <p class="mb-4">
+              <strong>Publishers:</strong>
+              <%= @medium.sub_media.publisher %>
+            </p>
+          <% end %>
+
+
+          <% if @medium.sub_media.platforms.present? %>
+            <p class="mb-4">
+              <strong>Platforms:</strong>
+              <%= @medium.sub_media.platforms.join(", ") %>
+            </p>
+          <% end %>
+
+
+          <% if @medium.sub_media.main_story_duration.present? %>
+            <p class="mb-4">
+              <strong>Story duration:</strong>
+              <%= @medium.sub_media.main_story_duration.to_i  / 3600 %> hrs
+            </p>
+          <% end %>
+
+
+          <% if @medium.sub_media.main_extras_duration.present? %>
+            <p class="mb-4">
+              <strong>Average duration:</strong>
+              <%= @medium.sub_media.main_extras_duration.to_i / 3600 %> hrs
+            </p>
+          <% end %>
+
+
+          <% if @medium.sub_media.completionist_duration.present? %>
+            <p class="mb-4">
+              <strong>Completionist duration:</strong>
+              <%= @medium.sub_media.completionist_duration.to_i  / 3600 %> hrs
+            </p>
+          <% end %>
+        <% end %>
         <p>
           <% if user_review = Review.find_by(medium_id: @medium.id, user_id: current_user.id) %>
             <strong>Review:</strong>
@@ -74,9 +159,9 @@
               <div class="col text-center">
                 <div class="d-flex justify-content-between gap-2 flex-wrap" id="group-btn-list">
                   <%= render "shared/buttons/chat_button", medium: @medium %>
-                  <%= render "shared/buttons/collection_card_button", medium_id: @medium.id, medium: @medium, medium_type: @medium.sub_media_type.downcase, year: @medium.year  %>
-                  <%= render "shared/buttons/like_card_button", medium_id: @medium.id, medium: @medium, medium_type: @medium.sub_media_type.downcase, year: @medium.year  %>
-                  <%= render "shared/buttons/next_up_card_button", medium_id: @medium.id, medium: @medium, medium_type: @medium.sub_media_type.downcase, year: @medium.year  %>
+                  <%= render "shared/buttons/collection_card_button", medium_id: @medium.id, medium: @medium, medium_type: @medium.sub_media_type.downcase, year: @medium.year, location: "show" %>
+                  <%= render "shared/buttons/like_card_button", medium_id: @medium.id, medium: @medium, medium_type: @medium.sub_media_type.downcase, year: @medium.year, location: "show"   %>
+                  <%= render "shared/buttons/next_up_card_button", medium_id: @medium.id, medium: @medium, medium_type: @medium.sub_media_type.downcase, year: @medium.year, location: "show"   %>
                   <%= render "shared/buttons/review_button", medium: @medium %>
                 </div>
               </div>
