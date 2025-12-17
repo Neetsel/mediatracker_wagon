@@ -207,7 +207,7 @@ class MediaController < ApplicationController
     igdb = IgdbService.new
     # On fait un call API pour récupérer la fiche spécifique au jeu qui nous donnera sa description
     response = JSON.parse(igdb.search_by_id(@id).body)
-    
+
     genres_names = []
     if response[0]["genres"]
       # On fait un call API pour récupérer le nom des genres
@@ -259,6 +259,7 @@ class MediaController < ApplicationController
             # On ajoute son nom à l'array
             publishers << publisher_name[0]["name"]
           }
+          publishers = publishers.join(", ")
         end
         # On prépare un array dans lequel on va mettre le nom de tous les développeurs du jeu
 
