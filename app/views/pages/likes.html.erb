@@ -19,6 +19,16 @@
               <p class="card-text"><%= medium.year %></p>
             <% end %>
 
+            <div class="icon-media-type">
+              <% if medium.sub_media_type == "Movie" %>
+                <i class="fa-solid fa-video fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
+              <% elsif medium.sub_media_type == "Book" %>
+                <i class="fa-solid fa-book-open fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
+              <% else %>
+              <i class="fa-solid fa-gamepad fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
+              <% end %>
+            </div>
+
             <div class="list-icon">
               <%= render "shared/buttons/collection_card_button", medium: medium, medium_type: medium.sub_media_type.downcase, year: medium.year, location: "card"  %>
               <%= render "shared/buttons/like_card_button", medium: medium, medium_type: medium.sub_media_type.downcase, year: medium.year, location: "card"  %>
