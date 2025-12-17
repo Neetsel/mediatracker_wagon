@@ -1,24 +1,51 @@
-<div class="container my-5 bg-dark text-light p-5 rounded shadow">
-  <h1 class="mb-4 text-center">My reviews</h1>
-  <div class="row">
-    <% @reviews.each do |review| %>
-      <div class="col-md-3 mb-4">
-        <div class="card h-100 shadow-sm">
-          <%= link_to medium_path(review.medium) do %>
-            <%= image_tag review.medium.poster_url, alt: review.medium.title, class: "card-img-top"%>
-          <% end %>
-          <div class="card-body">
+<div class="container">
+
+  <h1 class="mb-4 text-center">Your review</h1>
+
+  <% if @reviews.present? %>
+    <div class="row">
+      <% @reviews.each do |review| %>
+        <div class="list-media-cards col-md-3 mb-3 mt-3">
+
+          <div class="list-card-image">
             <%= link_to medium_path(review.medium) do %>
-              <h5 id="review-index-title"><%= review.medium.title %></h5>
-              <p class="review-card-text"><%= review.content %></p>
-              <p class="review-rating"><%= review.rating %> <i class="fa-solid fa-star" style="color: #FBC500;"></i></p>
+              <%= image_tag review.medium.poster_url, alt: review.medium.title, class: "list-card-image-left"%>
             <% end %>
           </div>
+
+
+          <div class="list-card-body d-flex flex-column justify-content-between">
+            <%= link_to medium_path(review.medium) do %>
+              <h5 class="card-title"><%= review.medium.title %></h5>
+              <p class="review-card-text">Your review : <em><%= review.content %></em></p>
+              <p class="review-rating"><%= review.rating %> <i class="fa-solid fa-star" style="color: #FBC500;"></i></p>
+            <% end %>
+
+            <div class="icon-media-type">
+              <% if review.medium.sub_media_type == "Movie" %>
+                <i class="fa-solid fa-video fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
+              <% elsif review.medium.sub_media_type == "Book" %>
+                <i class="fa-solid fa-book-open fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
+              <% else %>
+              <i class="fa-solid fa-gamepad fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
+              <% end %>
+            </div>
+
+            <div class="btn-more-details">
+                <%= link_to "More details", medium_path(review.medium), class: "btn btn-primary rounded-pill" %>
+            </div>
+
+          </div>
         </div>
-      </div>
-    <% end %>
-    <div class="d-flex justify-content-center mt-4">
-      <%= paginate @reviews %>
+      <% end %>
     </div>
+  <% else %>
+    <p>Write your first review !</p>
+  <% end %>
+
+
+  <div class="d-flex justify-content-center mt-4">
+    <%= paginate @reviews %>
   </div>
+
 </div>
