@@ -1,22 +1,22 @@
-.search-media-cards {
+.list-media-cards {
   display: flex;
   width: 100%; /* remplit la colonne Bootstrap */
   overflow: hidden;
   flex-direction: row; /* image à gauche, texte à droite */
 }
 
-.search-card-image {
+.list-card-image {
   flex: 0 0 140px;       /* largeur image fixe */
 }
 
 
-.search-card-image-left {
+.list-card-image-left {
   height: 222px;
   width: 140px;
   border-radius: 8px;
 }
 
-.search-card-body {
+.list-card-body {
   padding-left: 12px;
   margin: 2px;
 
@@ -25,10 +25,12 @@
 
 }
 
-.search-card-body .card-title {
+.list-card-body .card-title {
   font-family: "Montserrat";
   font-weight: bold;
   font-size: 18px;
+  color: white;
+
   border-left: inset 4px #7B61FF;
   padding-left: 4px;
 
@@ -40,21 +42,15 @@
 
 }
 
-.search-card-body .card-text {
+.list-card-body .card-text {
   font-family: "Montserrat";
   font-weight: 400;
   font-size: 16px;
+  color: white;
 }
 
-.search-card-body .card-description {
+.list-card-body .card-description {
   font-family: "Inter";
   font-weight: 300;
   font-size: 12px;
-}
-
-.list-icon {
-  padding: 0 8px;
-  display: flex;
-  justify-content: start;
-  gap: 24px;
 }
