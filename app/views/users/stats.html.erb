@@ -3,25 +3,22 @@
 
   <div class="row">
     <div class="col-md-4 mb-4">
-      <% if @collection_media.nil? %>
-        <h2 class="box"> Start now 📚 </h2>
-      <% else %>
-        <h2 class="box">  <%= @collection_media.count %> media collected 📚 </h2>
-      <% end %>
+      <% count = @collection_media&.count || 0 %>
+      <h2 class="box">
+        <%= count.zero? ? "Start now" : "#{count} media collected" %> 📚
+      </h2>
     </div>
     <div class="col-md-4 mb-4">
-      <% if @next_up_media.nil? %>
-        <h2 class="box"> Start now ⏭️ </h2>
-      <% else %>
-        <h2 class="box"> <%= @next_up_media.count%> media next up ⏭️ </h2>
-      <% end %>
+      <% count = @next_up_media&.count || 0 %>
+      <h2 class="box">
+        <%= count.zero? ? "Start now" : "#{count} media next up" %> ⏭️
+      </h2>
     </div>
     <div class="col-md-4 mb-4">
-      <% if @like_media.nil? %>
-        <h2 class="box"> Start now 💛 </h2>
-      <% else %>
-        <h2 class="box"> <%= @like_media.count%> media liked 💛</h2>
-      <% end %>
+      <% count = @like_media&.count || 0 %>
+      <h2 class="box">
+        <%= count.zero? ? "Start now" : "#{count} media liked" %> 💛
+      </h2>
     </div>
   </div>
 
