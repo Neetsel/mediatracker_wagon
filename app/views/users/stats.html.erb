@@ -1,45 +1,68 @@
-<div class="container my-5 text-light p-5 rounded shadow text-center">
+<div class="container my-3 text-light p-5 rounded shadow text-center">
   <h1 class="mb-4" id="stats-title">A Little Recap for Your Media</h1>
 
-  <div class="row">
-    <div class="col-md-4 mb-4">
-      <h2 class="box">  <%= @collection_media.count %> media collected 📚 </h2>
+  <div class="stats-horizontal">
+    <div class="stat-line d-flex align-items-center mb-3">
+      <i class="fa-solid fa-bookmark fa-lg me-3" style="color: #FBC500;"></i>
+      <span class="flex-grow-1">Media collected</span>
+      <span class="stat-number"><%= @collection_media.count %></span>
     </div>
-    <div class="col-md-4 mb-4">
-      <h2 class="box"> <%= @next_up_media.count%> media next up ⏭️ </h2>
+
+    <div class="stat-line d-flex align-items-center mb-3">
+      <i class="fa-solid fa-calendar fa-lg me-3" style="color: #FBC500;"></i>
+      <span class="flex-grow-1">Next up</span>
+      <span class="stat-number"><%= @next_up_media.count %></span>
     </div>
-    <div class="col-md-4 mb-4">
-      <h2 class="box"> <%= @like_media.count%> media liked 💛</h2>
+
+    <div class="stat-line d-flex align-items-center">
+      <i class="fa-solid fa-heart fa-lg me-3" style="color: #FBC500;"></i>
+      <span class="flex-grow-1">Liked</span>
+      <span class="stat-number"><%= @like_media.count %></span>
     </div>
   </div>
 
-  <h1 class="mb-4">Your recent activities </h1>
-  <div class="row">
-    <div class="card-stats mb-4">
-      <%= image_tag @collection_media.last.poster_url, alt: @collection_media.last.title %>
-      <div class="card-stats-infos">
-        <h2><%= @collection_media.last.title %> </h2>
-        <p>📚 Collected on <%= @collection_media.last.created_at.strftime("%H:%M - %b %d, %Y") %></p>
+  <h2 class="mb-4 my-2">Your recent activities </h1>
+  <div class="timeline">
+    <div class="timeline-item mb-4">
+      <div class="timeline-icon">
+        📚
+      </div>
+      <div class="timeline-content d-flex align-items-start">
+        <%= image_tag @collection_media.last.poster_url,
+            alt: @collection_media.last.title,
+            class: "timeline-image rounded me-3" %>
+        <div>
+          <h3 class="timeline-title"><%= @collection_media.last.title %></h3>
+          <p class="timeline-meta">Collected on <%= @collection_media.last.created_at.strftime("%H:%M - %b %d, %Y") %></p>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="card-stats mb-4">
-      <%= image_tag @next_up_media.last.poster_url, alt: @next_up_media.last.title %>
-      <div class="card-stats-infos">
-        <h2><%= @next_up_media.last.title %> </h2>
-        <p>⏭️ planned on <%= @next_up_media.last.created_at.strftime("%H:%M - %b %d, %Y") %></p>
+    <div class="timeline-item mb-4">
+      <div class="timeline-icon">
+        ⏭️
+      </div>
+      <div class="timeline-content d-flex align-items-start">
+        <%= image_tag @next_up_media.last.poster_url,
+            alt: @next_up_media.last.title,
+            class: "timeline-image rounded me-3" %>
+        <div>
+          <h3 class="timeline-title"><%= @next_up_media.last.title %></h3>
+          <p class="timeline-meta">Planned on <%= @next_up_media.last.created_at.strftime("%H:%M - %b %d, %Y") %></p>
+        </div>
       </div>
     </div>
-  </div>
-
-  <div class="row">
-    <div class="card-stats mb-4">
-      <%= image_tag @like_media.last.poster_url, alt: @like_media.last.title %>
-      <div class="card-stats-infos">
-        <h2><%= @like_media.last.title %></h2>
-        <p>💛 liked on <%= @like_media.last.created_at.strftime("%H:%M - %b %d, %Y") %></p>
+    <div class="timeline-item mb-4">
+      <div class="timeline-icon">
+        ⏭️
+      </div>
+      <div class="timeline-content d-flex align-items-start">
+        <%= image_tag @like_media.last.poster_url, alt: @like_media.last.title,
+            class: "timeline-image rounded me-3" %>
+        <div>
+          <h3 class="timeline-title"><%= @like_media.last.title %></h3>
+          <p class="timeline-meta">Liked on <%= @like_media.last.created_at.strftime("%H:%M - %b %d, %Y") %></p>
+        </div>
       </div>
     </div>
   </div>
