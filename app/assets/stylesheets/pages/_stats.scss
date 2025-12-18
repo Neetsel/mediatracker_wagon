@@ -17,12 +17,20 @@
 
 .carousel-title {
   color: #FBC500;
+  font-size: 24px;
+  font-weight: 400;
   margin-top: 24px;
 }
 
+#activities-title {
+  color: #FBC500;
+  font-size: 24px;
+  font-weight: 400;
+  margin-top: 24px;
+}
 
 .stats-horizontal {
-  background-color: #1c1c1c;
+  // background-color: #1c1c1c;
   padding: 20px;
   border-radius: 12px;
 }
@@ -43,12 +51,12 @@
   font-size: 1.5rem;
 }
 
-// Recent activities
+// Recent activities timeline
 
 .timeline {
   position: relative;
-  margin: 20px 0;
-  padding-left: 30px;
+  margin: 24px 0;
+  padding: 12px 0px 12px 30px;
   border-left: 2px solid rgba(255,255,255,0.2);
 }
 
@@ -61,14 +69,24 @@
   left: -18px;
   top: 0;
   background-color: #1c1c1c;
-  color: #fff;
   border-radius: 50%;
-  padding: 6px;
   font-size: 1.2rem;
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+.timeline-icon i {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+
 .timeline-content {
-  background-color: #1c1c1c;
+  // background-color: #1c1c1c;
   color: #fff;
   padding: 12px;
   border-radius: 8px;
@@ -81,7 +99,7 @@
 }
 
 .timeline-image {
-  width: 80px;
+  width: 120px;
   height: auto;
   border-radius: 6px;
 }
