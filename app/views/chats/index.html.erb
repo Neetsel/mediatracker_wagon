@@ -1,14 +1,43 @@
-<div class="container my-5 bg-dark text-light p-5 rounded shadow">
-  <h1 class="mb-4 text-center">Media you've talked about <i class="fa-solid fa-comments"></i></h1>
-  <div class="row">
-    <% current_user.chats.each do |chat| %>
-      <div class="col-md-3 mb-4">
-        <div id="<%= dom_id(chat) %>">
-          <%= link_to chat_path(chat) do %>
-            <%= render "shared/cards/chat", medium: chat.medium %>
+<div class="container my-3 text-light rounded shadow text-center background-chat">
+  <h1 class="text-center">Your conversations <i class="fa-solid fa-comments"></i></h1>
+<div class="my-5 text-light p-2 pb-5 rounded shadow">
+  <% if current_user.chats.empty? === false %>
+    <h2 class="carousel-title mb-4 mt-4 text-center">You talked about <%= current_user.chats.count%> media</h2>
+      <div id="nextUpCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <% current_user.chats.each_with_index do |chat, index| %>
+            <div class="carousel-item <%= 'active' if index == 0 %>">
+              <div class="carousel-media-cards d-flex justify-content-center">
+
+                <div class="carousel-card-image">
+                  <%= link_to chat_path(chat) do %>
+                    <%= image_tag chat.medium.poster_url, alt: chat.medium.title, class: "d-block mx-auto carousel-card-image-top" %>
+                  <% end %>
+                </div>
+
+                <div class="carousel-card-body d-flex flex-row justify-content-center text-center mt-3">
+                  <%= link_to chat_path(chat) do %>
+                    <h5 class="card-title"><%= chat.medium.title %></h5>
+                  <% end %>
+                </div>
+
+              </div>
+            </div>
           <% end %>
         </div>
-      </div>
-    <% end %>
-  </div>
+
+      <button class="carousel-control-prev" type="button" data-bs-target="#nextUpCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Précédent</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#nextUpCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Suivant</span>
+      </button>
+    </div>
+  <% end %>
+
+
+
+
 </div>
