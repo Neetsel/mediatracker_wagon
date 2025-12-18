@@ -1,0 +1,40 @@
+<footer>
+
+  <div class="footer footer mt-auto py-3">
+    <div class="container d-flex flex-column align-items-center mb-1">
+      <div>
+        <%= link_to root_path do %>
+            <img src="https://res.cloudinary.com/dmby1z5d6/image/upload/v1765366833/logo-mediatrackr-no-name-1_mznbne.png" style="width: 80px; height: 80px" alt="logo MediaTrackr Yellow">
+          <% end %>
+      </div>
+      <div class="footer-copyright">
+        Made with <i class="fas fa-heart"></i> by PYJ Team
+      </div>
+      <ul class="nav-list-footer d-flex flex-column mb-4">
+        <a href="<%= media_path %>"><i class="fa-solid fa-magnifying-glass fa-lg"></i> New search</a>
+        <a href="<%= chats_path %>"><i class="fa-solid fa-robot fa-lg"></i> New chat</a>
+        <a href="<%= collections_path %>"><i class="fa-solid fa-bookmark fa-lg"></i> My Collection</a>
+        <a href="<%= likes_path %>"><i class="fa-solid fa-heart fa-lg"></i> My Favorites</a>
+        <a href="<%= next_up_path %>"><i class="fa-solid fa-calendar fa-lg"></i> My Next Up</a>
+        <a href="<%= reviews_path %>"><i class="fa-solid fa-pen-to-square fa-lg"></i> My Reviews</a>
+        <a href="<%= stats_path %>"><i class="fa-solid fa-chart-simple fa-lg"></i> My Stats</a>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container" id="log-infos">
+
+    <% if user_signed_in? %>
+      You are signed in as <%= current_user.user_name %>
+      <div>
+        <%= link_to "Edit my profile", edit_user_registration_path, class: "btn btn-flat btn-edit" %>
+      </div>
+      <div>
+        <%= link_to "Sign out", destroy_user_session_path, data: {turbo_method: :delete}, class: "btn btn-flat btn-signout" %>
+      </div>
+    <% else %>
+      You are not signed in!
+    <% end %>
+  </div>
+
+</footer>

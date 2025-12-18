@@ -1,0 +1,42 @@
+footer {
+  padding-bottom: 64px;
+  background: #171F28;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: auto;
+  padding: 0px 50px;
+  color: rgb(255, 255, 255);
+  background-color: transparent;
+
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  margin-top: auto;
+}
+
+.footer .fa-heart {
+  color: #FCB500;
+}
+
+// log infos
+#log-infos {
+  display: row;
+  text-align: center;
+  justify-content: space-between;
+  border-top: solid 1px rgb(148, 145, 145) ;
+  text-decoration: solid;
+  padding-top: 4px;
+}
+
+.nav-list-footer a {
+  padding: 4px;
+}
+
+.footer-copyright {
+  padding: 8px 8px 16px 8px;
+}
