@@ -14,26 +14,19 @@
           </div>
 
 
-          <div class="list-card-body d-flex flex-column justify-content-between">
+          <div class="list-card-body d-flex flex-column align-item-start">
             <%= link_to medium_path(review.medium) do %>
-              <h5 class="card-title"><%= review.medium.title %></h5>
-              <p class="review-card-text">Your review : <em><%= review.content %></em></p>
+              <h5 class="card-title mb-auto"><%= review.medium.title %></h5>
+              <p class="card-text"><%= review.medium.year %> - <% if review.medium.sub_media_type == "Movie" %>
+                <i class="fa-solid fa-video" style="color: #ffffffff; margin-right: 12px;"></i>
+              <% elsif review.medium.sub_media_type == "Book" %>
+                <i class="fa-solid fa-book-open" style="color: #ffffffff; margin-right: 12px;"></i>
+              <% else %>
+                <i class="fa-solid fa-gamepad" style="color: #ffffffff; margin-right: 12px;"></i>
+              <% end %></p>
+              <p class="review-card-text"><strong>Your review :</strong> <em><%= review.content %></em></p>
               <p class="review-rating"><%= review.rating %> <i class="fa-solid fa-star" style="color: #FBC500;"></i></p>
             <% end %>
-
-            <div class="icon-media-type">
-              <% if review.medium.sub_media_type == "Movie" %>
-                <i class="fa-solid fa-video fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
-              <% elsif review.medium.sub_media_type == "Book" %>
-                <i class="fa-solid fa-book-open fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
-              <% else %>
-              <i class="fa-solid fa-gamepad fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
-              <% end %>
-            </div>
-
-            <div class="btn-more-details">
-                <%= link_to "More details", medium_path(review.medium), class: "btn btn-primary rounded-pill" %>
-            </div>
 
           </div>
         </div>
