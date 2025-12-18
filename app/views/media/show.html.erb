@@ -8,7 +8,7 @@
       </div>
     </div>
 
-    <div class = "mt-4 list-buttons-show-page">
+    <div class = "mt-4 mb-4 list-buttons-show-page">
       <div class = "buttons-top-show-page">
         <%= render "shared/buttons/like_card_button", medium_id: @medium.id, medium: @medium, medium_type: @medium.sub_media_type.downcase, year: @medium.year, location: "show"   %>
       </div>
@@ -20,8 +20,8 @@
       </div>
     </div>
 
-    <div class="col-md-8">
-      <div class="rounded shadow p-4 h-100" id="media-description">
+    <div class="col-md-8 description-background mt-3">
+      <div class="rounded shadow p-4 pt-3 h-100" id="media-description">
         <h1 class="mb-3"><%= @medium.title %></h1>
 
         <% if @medium.genres.present? %>

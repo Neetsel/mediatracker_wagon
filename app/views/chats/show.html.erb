@@ -1,12 +1,24 @@
-<div class="container my-5 bg-dark text-light p-5 rounded shadow">
-  <h1 class="mb-4 text-center"><%= @chat.title %></h1>
-  <div id="messages">
-    <%= render "messages/messages", messages:@chat.messages %>
-  </div>
+<div class="container mt-3">
+  <div class="row align-items-start min-vh-40">
+    <div class="col-md-4">
+        <div class="banner rounded shadow-sm" id="background-show">
+          <img src="<%= @chat.medium.poster_url %>" class="background-image">
+          <img src="<%= @chat.medium.poster_url %>" alt=" <%= @chat.medium.title %> Poster" class="foreground-image">
+        </div>
+      </div>
 
-  <div id="new_message_container" class="mb-3">
-	  <%= render "messages/form", chat: @chat, message: @message %>
-  </div>
+    <div class="col-md-8 description-background">
+      <div class="rounded shadow p-4 h-100 background-chat" id="media-description">
+        <h1 class="mb-3"><%= @chat.medium.title %></h1>
 
-  <%= link_to "Back to chats", chats_path, class: "btn btn-primary" %>
+        <div id="messages">
+          <%= render "messages/messages", messages:@chat.messages %>
+        </div>
+
+        <div id="new_message_container" class="mb-3">
+          <%= render "messages/form", chat: @chat, message: @message %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
