@@ -1,5 +1,5 @@
-<div class="container my-5 bg-dark text-light p-5 rounded shadow text-center">
-  <h1 class="mb-4" id="stats-title">A Little Recap for Your Media</h1>
+<div class="container my-3 text-light p-5 rounded shadow text-center">
+  <h1 class="mb-4" id="stats-title">A Little Recap of Your Media <i class="fa-solid fa-chart-simple" style="color: #7B61FF;"></i></h1>
 
   <div class="row">
     <div class="col-md-4 mb-4">
@@ -153,25 +153,38 @@
     <p>Start your next up now !</p>
   <% end %>
 
-  <h1 class="mb-4 text-center">You have liked <%= @like_media.count%> media</h1>
-  <div class="row">
-    <% @like_media.each do |medium| %>
-      <div class="col-md-3 mb-4">
-        <div class="card h-100 shadow-sm">
-          <%= link_to medium_path(medium) do %>
-            <%= image_tag medium.poster_url, alt: medium.title, class: "card-img-top"%>
-          <% end %>
-          <div class="card-body">
-            <%= link_to medium_path(medium) do %>
-              <h5 class="card-title"><%= medium.title %></h5>
-            <% end %>
+  <h2 class="carousel-title mb-4 text-center">The <%= @like_media.count%> media you liked</h2>
+    <div id="likeCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <% @like_media.each_with_index do |medium, index| %>
+          <div class="carousel-item <%= 'active' if index == 0 %>">
+            <div class="carousel-media-cards d-flex justify-content-center">
+
+              <div class="carousel-card-image">
+                <%= link_to medium_path(medium) do %>
+                  <%= image_tag medium.poster_url, alt: medium.title, class: "d-block mx-auto carousel-card-image-top" %>
+                <% end %>
+              </div>
+
+              <div class="carousel-card-body d-flex flex-row justify-content-center text-center mt-3">
+                <%= link_to medium_path(medium) do %>
+                  <h5 class="card-title"><%= medium.title %></h5>
+                <% end %>
+              </div>
+
+            </div>
           </div>
-        </div>
+        <% end %>
       </div>
-    <% end %>
-    <div class="d-flex justify-content-center mt-4">
-      <%= paginate @like_media %>
-    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#likeCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Précédent</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#likeCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Suivant</span>
+    </button>
   </div>
 
   <% if @like_media.present? %>

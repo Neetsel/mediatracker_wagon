@@ -1,0 +1,46 @@
+
+.carousel-media-cards {
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.carousel-card-image-top {
+  max-height: 300px;
+  max-width: 200px;
+  height: auto;
+  width: auto;
+
+  border-radius: 8px;
+}
+
+.carousel-card-image {
+  flex: 0 0 140px;
+}
+
+.carousel-card-body {
+  padding-left: 12px;
+  margin: 2px;
+
+  flex: 1; /* occupe tout l’espace restant */
+  min-width: 0;
+
+}
+
+.carousel-card-body .card-title {
+  font-family: "Montserrat";
+  font-weight: bold;
+  font-size: 18px;
+  color: white;
+
+  border-bottom: inset 2px #7B61FF;
+  padding-bottom: 4px;
+
+  /* Tronque le texte au-delà de 3 lignes */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
+}

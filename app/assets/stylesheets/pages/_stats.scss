@@ -1,7 +1,11 @@
-#stats-title h1 {
+#stats-title {
   color: #FBC500;
+  font-weight: bold;
+  font-family: "Montserrat";
+  margin-top: 12px;
 }
 
+// Stats
 .box {
   background-color: #3a3a3a;
   border-radius: 30px;
@@ -9,4 +13,105 @@
   height: 100px;
   place-content: center;
   padding: 10px;
+}
+
+.carousel-title {
+  color: #FBC500;
+  font-size: 24px;
+  font-weight: 400;
+  margin-top: 24px;
+}
+
+#activities-title {
+  color: #FBC500;
+  font-size: 24px;
+  font-weight: 400;
+  margin-top: 24px;
+}
+
+.stats-horizontal {
+  // background-color: #1c1c1c;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.stat-line {
+  color: #fff;
+  font-size: 1.2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 8px;
+}
+
+.stat-line:last-child {
+  border-bottom: none;
+}
+
+.stat-number {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+// Recent activities timeline
+
+.timeline {
+  position: relative;
+  margin: 24px 0;
+  padding: 12px 0px 12px 30px;
+  border-left: 2px solid rgba(255,255,255,0.2);
+}
+
+.timeline-item {
+  position: relative;
+}
+
+.timeline-icon {
+  position: absolute;
+  left: -18px;
+  top: 0;
+  background-color: #1c1c1c;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timeline-icon i {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+
+.timeline-content {
+  // background-color: #1c1c1c;
+  color: #fff;
+  padding: 12px;
+  border-radius: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.timeline-content:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+
+.timeline-image {
+  width: 120px;
+  height: auto;
+  border-radius: 6px;
+}
+
+.timeline-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.timeline-meta {
+  font-size: 0.85rem;
+  opacity: 0.8;
+  margin-top: 4px;
 }
