@@ -5,19 +5,22 @@
     <div class="stat-line d-flex align-items-center mb-3">
       <i class="fa-solid fa-bookmark fa-lg me-3" style="color: #FBC500;"></i>
       <span class="flex-grow-1">Media collected</span>
-      <span class="stat-number"><%= @collection_media.count %></span>
+      <% count = @collection_media.count || 0 %>
+      <span class="stat-number"><%= count.zero? ? "Start now" : @collection_media.count %></span>
     </div>
 
     <div class="stat-line d-flex align-items-center mb-3">
       <i class="fa-solid fa-calendar fa-lg me-3" style="color: #FBC500;"></i>
       <span class="flex-grow-1">Next up</span>
-      <span class="stat-number"><%= @next_up_media.count %></span>
+      <% count = @next_up_media.count || 0 %>
+      <span class="stat-number"><%= count.zero? ? "Start now" : @next_up_media.count %></span>
     </div>
 
     <div class="stat-line d-flex align-items-center">
       <i class="fa-solid fa-heart fa-lg me-3" style="color: #FBC500;"></i>
       <span class="flex-grow-1">Liked</span>
-      <span class="stat-number"><%= @like_media.count %></span>
+      <% count = @like_media.count || 0 %>
+      <span class="stat-number"><%= count.zero? ? "Start now" : @like_media.count %></span>
     </div>
   </div>
 
@@ -28,13 +31,19 @@
        <i class="fa-solid fa-bookmark fa-sm" style="color: #FBC500;"></i>
       </div>
       <div class="timeline-content d-flex align-items-start">
-        <%= image_tag @collection_media.last.poster_url,
-            alt: @collection_media.last.title,
-            class: "timeline-image rounded me-3" %>
-        <div>
-          <h3 class="timeline-title"><%= @collection_media.last.title %></h3>
-          <p class="timeline-meta">Collected on <%= @collection_media.last.created_at.strftime("%H:%M - %b %d, %Y") %></p>
-        </div>
+        <% if @collection_media.last.present? %>
+          <%= image_tag @collection_media.last.poster_url,
+              alt: @collection_media.last.title,
+              class: "timeline-image rounded me-3" %>
+          <div>
+            <h3 class="timeline-title"><%= @collection_media.last.title %></h3>
+            <p class="timeline-meta">Collected on <%= @collection_media.last.created_at.strftime("%H:%M - %b %d, %Y") %></p>
+          </div>
+        <% else %>
+          <div>
+            <p class="timeline-title">Start collecting now</p>
+          </div>
+        <% end %>
       </div>
     </div>
 
@@ -43,13 +52,19 @@
         <i class="fa-solid fa-calendar fa-sm" style="color: #FBC500;"></i>
       </div>
       <div class="timeline-content d-flex align-items-start">
-        <%= image_tag @next_up_media.last.poster_url,
-            alt: @next_up_media.last.title,
-            class: "timeline-image rounded me-3" %>
-        <div>
-          <h3 class="timeline-title"><%= @next_up_media.last.title %></h3>
-          <p class="timeline-meta">Planned on <%= @next_up_media.last.created_at.strftime("%H:%M - %b %d, %Y") %></p>
-        </div>
+        <% if @next_up_media.last.present? %>
+          <%= image_tag @next_up_media.last.poster_url,
+              alt: @next_up_media.last.title,
+              class: "timeline-image rounded me-3" %>
+          <div>
+            <h3 class="timeline-title"><%= @next_up_media.last.title %></h3>
+            <p class="timeline-meta">Planned on <%= @next_up_media.last.created_at.strftime("%H:%M - %b %d, %Y") %></p>
+          </div>
+        <% else %>
+          <div>
+            <p class="timeline-title">Start planning now</p>
+          </div>
+        <% end %>
       </div>
     </div>
     <div class="timeline-item mb-4">
@@ -57,56 +72,27 @@
         <i class="fa-solid fa-heart fa-sm" style="color: #FBC500;"></i>
       </div>
       <div class="timeline-content d-flex align-items-start">
-        <%= image_tag @like_media.last.poster_url, alt: @like_media.last.title,
-            class: "timeline-image rounded me-3" %>
-        <div>
-          <h3 class="timeline-title"><%= @like_media.last.title %></h3>
-          <p class="timeline-meta">Liked on <%= @like_media.last.created_at.strftime("%H:%M - %b %d, %Y") %></p>
-        </div>
+        <% if @like_media.last.present? %>
+          <%= image_tag @like_media.last.poster_url, alt: @like_media.last.title,
+              class: "timeline-image rounded me-3" %>
+          <div>
+            <h3 class="timeline-title"><%= @like_media.last.title %></h3>
+            <p class="timeline-meta">Liked on <%= @like_media.last.created_at.strftime("%H:%M - %b %d, %Y") %></p>
+          </div>
+        <% else %>
+          <div>
+            <p class="timeline-title">Start liking now</p>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
 
-  <h2 class="carousel-title mb-4 mt-4 text-center">You have collected <%= @collection_media.count%> media</h2>
-  <div id="collectionCarousel" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-      <% @collection_media.each_with_index do |medium, index| %>
-        <div class="carousel-item <%= 'active' if index == 0 %>">
-          <div class="carousel-media-cards d-flex justify-content-center">
-
-            <div class="carousel-card-image">
-              <%= link_to medium_path(medium) do %>
-                <%= image_tag medium.poster_url, alt: medium.title, class: "d-block mx-auto carousel-card-image-top" %>
-              <% end %>
-            </div>
-
-            <div class="carousel-card-body d-flex flex-row justify-content-center text-center mt-3">
-              <%= link_to medium_path(medium) do %>
-                <h5 class="card-title"><%= medium.title %></h5>
-              <% end %>
-            </div>
-
-          </div>
-        </div>
-      <% end %>
-    </div>
-
-      <!-- Contrôles du carrousel -->
-    <button class="carousel-control-prev" type="button" data-bs-target="#collectionCarousel" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Précédent</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#collectionCarousel" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Suivant</span>
-    </button>
-  </div>
-
-
-  <h2 class="carousel-title mb-4 mt-4 text-center">You have <%= @next_up_media.count%> media waiting</h2>
-    <div id="nextUpCarousel" class="carousel slide" data-bs-ride="carousel">
+  <% if @collection_media.empty? === false %>
+    <h2 class="carousel-title mb-4 mt-4 text-center">You have collected <%= @collection_media.count%> media</h2>
+    <div id="collectionCarousel" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">
-        <% @next_up_media.each_with_index do |medium, index| %>
+        <% @collection_media.each_with_index do |medium, index| %>
           <div class="carousel-item <%= 'active' if index == 0 %>">
             <div class="carousel-media-cards d-flex justify-content-center">
 
@@ -127,47 +113,85 @@
         <% end %>
       </div>
 
-    <button class="carousel-control-prev" type="button" data-bs-target="#nextUpCarousel" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Précédent</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#nextUpCarousel" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Suivant</span>
-    </button>
-  </div>
+        <!-- Contrôles du carrousel -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#collectionCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Précédent</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#collectionCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Suivant</span>
+      </button>
+    </div>
+  <% end %>
+  <% if @next_up_media.empty? === false %>
+    <h2 class="carousel-title mb-4 mt-4 text-center">You have <%= @next_up_media.count%> media waiting</h2>
+      <div id="nextUpCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <% @next_up_media.each_with_index do |medium, index| %>
+            <div class="carousel-item <%= 'active' if index == 0 %>">
+              <div class="carousel-media-cards d-flex justify-content-center">
 
-  <h2 class="carousel-title mb-4 text-center">The <%= @like_media.count%> media you liked</h2>
-    <div id="likeCarousel" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        <% @like_media.each_with_index do |medium, index| %>
-          <div class="carousel-item <%= 'active' if index == 0 %>">
-            <div class="carousel-media-cards d-flex justify-content-center">
+                <div class="carousel-card-image">
+                  <%= link_to medium_path(medium) do %>
+                    <%= image_tag medium.poster_url, alt: medium.title, class: "d-block mx-auto carousel-card-image-top" %>
+                  <% end %>
+                </div>
 
-              <div class="carousel-card-image">
-                <%= link_to medium_path(medium) do %>
-                  <%= image_tag medium.poster_url, alt: medium.title, class: "d-block mx-auto carousel-card-image-top" %>
-                <% end %>
+                <div class="carousel-card-body d-flex flex-row justify-content-center text-center mt-3">
+                  <%= link_to medium_path(medium) do %>
+                    <h5 class="card-title"><%= medium.title %></h5>
+                  <% end %>
+                </div>
+
               </div>
-
-              <div class="carousel-card-body d-flex flex-row justify-content-center text-center mt-3">
-                <%= link_to medium_path(medium) do %>
-                  <h5 class="card-title"><%= medium.title %></h5>
-                <% end %>
-              </div>
-
             </div>
-          </div>
-        <% end %>
-      </div>
+          <% end %>
+        </div>
 
-    <button class="carousel-control-prev" type="button" data-bs-target="#likeCarousel" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Précédent</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#likeCarousel" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Suivant</span>
-    </button>
-  </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#nextUpCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Précédent</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#nextUpCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Suivant</span>
+      </button>
+    </div>
+  <% end %>
+  <% if @like_media.empty? === false %>
+    <h2 class="carousel-title mb-4 text-center">The <%= @like_media.count%> media you liked</h2>
+      <div id="likeCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <% @like_media.each_with_index do |medium, index| %>
+            <div class="carousel-item <%= 'active' if index == 0 %>">
+              <div class="carousel-media-cards d-flex justify-content-center">
+
+                <div class="carousel-card-image">
+                  <%= link_to medium_path(medium) do %>
+                    <%= image_tag medium.poster_url, alt: medium.title, class: "d-block mx-auto carousel-card-image-top" %>
+                  <% end %>
+                </div>
+
+                <div class="carousel-card-body d-flex flex-row justify-content-center text-center mt-3">
+                  <%= link_to medium_path(medium) do %>
+                    <h5 class="card-title"><%= medium.title %></h5>
+                  <% end %>
+                </div>
+
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+      <button class="carousel-control-prev" type="button" data-bs-target="#likeCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Précédent</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#likeCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Suivant</span>
+      </button>
+    </div>
+  <% end %>
 </div>
