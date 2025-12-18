@@ -1,8 +1,5 @@
 {
  "name": "Media Trackr",
- "background_color": "#000000",
- "description": "Find all your favorite video games, movies, and books in one place. Media Trackr lets you collect completed works or discover the next masterpieces you'll love exploring!",
- "display": "fullscreen",
  "icons": [
   {
    "src": "\/android-icon-36x36.png",
