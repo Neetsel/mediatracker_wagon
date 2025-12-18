@@ -3,88 +3,155 @@
 
   <div class="row">
     <div class="col-md-4 mb-4">
-      <h2 class="box">  <%= @collection_media.count %> media collected 📚 </h2>
+      <% count = @collection_media&.count || 0 %>
+      <h2 class="box">
+        <%= count.zero? ? "Start now" : "#{count} media collected" %> 📚
+      </h2>
     </div>
     <div class="col-md-4 mb-4">
-      <h2 class="box"> <%= @next_up_media.count%> media next up ⏭️ </h2>
+      <% count = @next_up_media&.count || 0 %>
+      <h2 class="box">
+        <%= count.zero? ? "Start now" : "#{count} media next up" %> ⏭️
+      </h2>
     </div>
     <div class="col-md-4 mb-4">
-      <h2 class="box"> <%= @like_media.count%> media liked 💛</h2>
+      <% count = @like_media&.count || 0 %>
+      <h2 class="box">
+        <%= count.zero? ? "Start now" : "#{count} media liked" %> 💛
+      </h2>
     </div>
   </div>
 
   <h1 class="mb-4">Your recent activities </h1>
-  <div class="row">
-    <div class="card-stats mb-4">
-      <%= image_tag @collection_media.last.poster_url, alt: @collection_media.last.title %>
-      <div class="card-stats-infos">
-        <h2><%= @collection_media.last.title %> </h2>
-        <p>📚 Collected on <%= @collection_media.last.created_at.strftime("%H:%M - %b %d, %Y") %></p>
+  <% if @collection_media.last.present? %>
+    <div class="row">
+      <div class="card-stats mb-4">
+        <%= image_tag @collection_media.last.poster_url, alt: @collection_media.last.title %>
+        <div class="card-stats-infos">
+          <h2><%= @collection_media.last.title %> </h2>
+          <p>📚 Collected on <%= @collection_media.last.created_at.strftime("%H:%M - %b %d, %Y") %></p>
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
 
-  <div class="row">
-    <div class="card-stats mb-4">
-      <%= image_tag @next_up_media.last.poster_url, alt: @next_up_media.last.title %>
-      <div class="card-stats-infos">
-        <h2><%= @next_up_media.last.title %> </h2>
-        <p>⏭️ planned on <%= @next_up_media.last.created_at.strftime("%H:%M - %b %d, %Y") %></p>
+  <% if @next_up_media.last.present? %>
+    <div class="row">
+      <div class="card-stats mb-4">
+        <%= image_tag @next_up_media.last.poster_url, alt: @next_up_media.last.title %>
+        <div class="card-stats-infos">
+          <h2><%= @next_up_media.last.title %> </h2>
+          <p>⏭️ planned on <%= @next_up_media.last.created_at.strftime("%H:%M - %b %d, %Y") %></p>
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
 
-  <div class="row">
-    <div class="card-stats mb-4">
-      <%= image_tag @like_media.last.poster_url, alt: @like_media.last.title %>
-      <div class="card-stats-infos">
-        <h2><%= @like_media.last.title %></h2>
-        <p>💛 liked on <%= @like_media.last.created_at.strftime("%H:%M - %b %d, %Y") %></p>
+  <% if @like_media.last.present? %>
+    <div class="row">
+      <div class="card-stats mb-4">
+        <%= image_tag @like_media.last.poster_url, alt: @like_media.last.title %>
+        <div class="card-stats-infos">
+          <h2><%= @like_media.last.title %></h2>
+          <p>💛 liked on <%= @like_media.last.created_at.strftime("%H:%M - %b %d, %Y") %></p>
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
 
   <h1 class="mb-4 text-center">You have collected <%= @collection_media.count%> media</h1>
-  <div class="row">
-    <% @collection_media.each do |medium| %>
-      <div class="col-md-3 mb-4">
-        <div class="card h-100 shadow-sm">
-          <%= link_to medium_path(medium) do %>
-            <%= image_tag medium.poster_url, alt: medium.title, class: "card-img-top"%>
-          <% end %>
-          <div class="card-body">
+  <% if @collection_media.present? %>
+    <div class="row">
+      <% @collection_media.each do |medium| %>
+        <div class="list-media-cards col-md-3 mb-3 mt-3">
+
+          <div class="list-card-image">
             <%= link_to medium_path(medium) do %>
-              <h5 class="card-title"><%= medium.title %></h5>
+              <%= image_tag medium.poster_url, alt: medium.title, class: "list-card-image-left"%>
             <% end %>
           </div>
+
+
+          <div class="list-card-body d-flex flex-column justify-content-between">
+            <%= link_to medium_path(medium) do %>
+              <h5 class="card-title"><%= medium.title %></h5>
+              <p class="card-text"><%= medium.year %></p>
+            <% end %>
+
+            <div class="icon-media-type">
+              <% if medium.sub_media_type == "Movie" %>
+                <i class="fa-solid fa-video fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
+              <% elsif medium.sub_media_type == "Book" %>
+                <i class="fa-solid fa-book-open fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
+              <% else %>
+              <i class="fa-solid fa-gamepad fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
+              <% end %>
+            </div>
+
+            <div class="list-icon">
+              <%= render "shared/buttons/collection_card_button", medium: medium, medium_type: medium.sub_media_type.downcase, year: medium.year, location: "card"  %>
+              <%= render "shared/buttons/like_card_button", medium: medium, medium_type: medium.sub_media_type.downcase, year: medium.year, location: "card"  %>
+              <%= render "shared/buttons/next_up_card_button", medium: medium, medium_type: medium.sub_media_type.downcase, year: medium.year, location: "card"  %>
+            </div>
+
+            <div class="btn-more-details">
+                <%= link_to "More details", medium_path(medium), class: "btn btn-primary rounded-pill" %>
+            </div>
+
+          </div>
         </div>
-      </div>
-    <% end %>
-    <div class="d-flex justify-content-center mt-4">
-      <%= paginate @collection_media %>
+      <% end %>
     </div>
-</div>
+  <% else %>
+    <p>Start your collection now !</p>
+  <% end %>
 
   <h1 class="mb-4 text-center">You have <%= @next_up_media.count%> media waiting in line</h1>
-  <div class="row">
-    <% @next_up_media.each do |medium| %>
-      <div class="col-md-3 mb-4">
-        <div class="card h-100 shadow-sm">
-          <%= link_to medium_path(medium) do %>
-            <%= image_tag medium.poster_url, alt: medium.title, class: "card-img-top"%>
-          <% end %>
-          <div class="card-body">
+    <% if @next_up_media.present? %>
+    <div class="row">
+      <% @next_up_media.each do |medium| %>
+        <div class="list-media-cards col-md-3 mb-3 mt-3">
+
+          <div class="list-card-image">
             <%= link_to medium_path(medium) do %>
-              <h5 class="card-title"><%= medium.title %></h5>
+              <%= image_tag medium.poster_url, alt: medium.title, class: "list-card-image-left"%>
             <% end %>
           </div>
+
+
+          <div class="list-card-body d-flex flex-column justify-content-between">
+            <%= link_to medium_path(medium) do %>
+              <h5 class="card-title"><%= medium.title %></h5>
+              <p class="card-text"><%= medium.year %></p>
+            <% end %>
+
+            <div class="icon-media-type">
+              <% if medium.sub_media_type == "Movie" %>
+                <i class="fa-solid fa-video fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
+              <% elsif medium.sub_media_type == "Book" %>
+                <i class="fa-solid fa-book-open fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
+              <% else %>
+              <i class="fa-solid fa-gamepad fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
+              <% end %>
+            </div>
+
+            <div class="list-icon">
+              <%= render "shared/buttons/collection_card_button", medium: medium, medium_type: medium.sub_media_type.downcase, year: medium.year, location: "card"  %>
+              <%= render "shared/buttons/like_card_button", medium: medium, medium_type: medium.sub_media_type.downcase, year: medium.year, location: "card"  %>
+              <%= render "shared/buttons/next_up_card_button", medium: medium, medium_type: medium.sub_media_type.downcase, year: medium.year, location: "card"  %>
+            </div>
+
+            <div class="btn-more-details">
+                <%= link_to "More details", medium_path(medium), class: "btn btn-primary rounded-pill" %>
+            </div>
+
+          </div>
         </div>
-      </div>
-    <% end %>
-    <div class="d-flex justify-content-center mt-4">
-      <%= paginate @next_up_media %>
+      <% end %>
     </div>
-  </div>
+  <% else %>
+    <p>Start your next up now !</p>
+  <% end %>
 
   <h1 class="mb-4 text-center">You have liked <%= @like_media.count%> media</h1>
   <div class="row">
@@ -106,4 +173,50 @@
       <%= paginate @like_media %>
     </div>
   </div>
+
+  <% if @like_media.present? %>
+    <div class="row">
+      <% @like_media.each do |medium| %>
+        <div class="list-media-cards col-md-3 mb-3 mt-3">
+
+          <div class="list-card-image">
+            <%= link_to medium_path(medium) do %>
+              <%= image_tag medium.poster_url, alt: medium.title, class: "list-card-image-left"%>
+            <% end %>
+          </div>
+
+
+          <div class="list-card-body d-flex flex-column justify-content-between">
+            <%= link_to medium_path(medium) do %>
+              <h5 class="card-title"><%= medium.title %></h5>
+              <p class="card-text"><%= medium.year %></p>
+            <% end %>
+
+            <div class="icon-media-type">
+              <% if medium.sub_media_type == "Movie" %>
+                <i class="fa-solid fa-video fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
+              <% elsif medium.sub_media_type == "Book" %>
+                <i class="fa-solid fa-book-open fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
+              <% else %>
+              <i class="fa-solid fa-gamepad fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
+              <% end %>
+            </div>
+
+            <div class="list-icon">
+              <%= render "shared/buttons/collection_card_button", medium: medium, medium_type: medium.sub_media_type.downcase, year: medium.year, location: "card"  %>
+              <%= render "shared/buttons/like_card_button", medium: medium, medium_type: medium.sub_media_type.downcase, year: medium.year, location: "card"  %>
+              <%= render "shared/buttons/next_up_card_button", medium: medium, medium_type: medium.sub_media_type.downcase, year: medium.year, location: "card"  %>
+            </div>
+
+            <div class="btn-more-details">
+                <%= link_to "More details", medium_path(medium), class: "btn btn-primary rounded-pill" %>
+            </div>
+
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p>Start your like now !</p>
+  <% end %>
 </div>
