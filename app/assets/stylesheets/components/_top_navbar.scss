@@ -21,14 +21,11 @@
   font-family: "Montserrat";
   font-weight: bold;
   font-size: 24px;
+  margin-right: 24px;
 }
 
 .offcanvas {
   background: #171F28;
-}
-
-.offcanvas-body {
-  background: linear-gradient(#171F28, #000000);
 }
 
 .nav-list a {
@@ -38,11 +35,4 @@
   color: white;
   padding-bottom: 16px;
   padding-top: 16px;
-}
-
-#offcanvasNavbarLabel {
-   color: #FBC500;
-  font-family: "Montserrat";
-  font-weight: bold;
-  font-size: 24px;
 }

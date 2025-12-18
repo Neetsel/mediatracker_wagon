@@ -7,7 +7,7 @@
   justify-content: space-between;
   align-items: center;
   z-index: 100;
-  overflow: hidden;
+  // overflow: hidden;
   padding-left: 24px;
   padding-right: 24px;
   border-radius: 99px;
@@ -33,4 +33,30 @@
 
 #bottom-navbar i.active-icon {
   color: #FBC500;
+}
+
+.offcanvas {
+  width: 98%;
+  background: #161E26;
+
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background-color: rgba(17, 25, 40, 0.75);
+  border-radius: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.125);
+
+  margin: 0 auto;
+}
+
+#offcanvasNavbarLabel {
+   color: #FBC500;
+  font-family: "Montserrat";
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.btn-close-custom {
+  color: #FFFFFF;
+  background:none;
+  border: none;
 }

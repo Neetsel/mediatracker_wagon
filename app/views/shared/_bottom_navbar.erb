@@ -9,12 +9,39 @@
       <i class="fa-solid fa-magnifying-glass fa-lg <%= 'active-icon' if current_page?(media_path) %>"></i>
     <% end %>
 
-    <%= link_to stats_path do %>
-      <i class="fa-solid fa-chart-simple fa-lg <%= 'active-icon' if current_page?(stats_path) %>"></i>
-    <% end %>
+    <a data-bs-toggle="offcanvas" href="#offcanvasNavbar" role="button" aria-controls="offcanvasNavbar">
+      <i class="fa-solid fa-image-portrait fa-xl "></i>
+    </a>
 
     <%= link_to chats_path do %>
       <i class="fa-solid fa-robot fa-lg <%= 'active-icon' if current_page?(chats_path) %>"></i>
     <% end %>
+  </div>
+
+  <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" >
+    <div class="offcanvas-header d-flex justify-content-between">
+      <div>
+        <%= link_to root_path do %>
+          <img src="https://res.cloudinary.com/dmby1z5d6/image/upload/v1765366833/logo-mediatrackr-no-name-1_mznbne.png" style="width: 50px; height: 50px" alt="logo MediaTrackr Yellow">
+        <% end %>
+      </div>
+
+      <div>
+        <button type="button" class="btn-close-custom" data-bs-dismiss="offcanvas" aria-label="Close">
+          <i class="fa-solid fa-x fa-lg"></i>
+        </button>
+      </div>
+    </div>
+    <div class="offcanvas-body">
+      <div>
+        <ul class="nav-list d-flex flex-column mb-4">
+          <a href="<%= collections_path %>"><i class="fa-solid fa-bookmark fa-lg"></i> My Collection</a>
+          <a href="<%= likes_path %>"><i class="fa-solid fa-heart fa-lg"></i> My Favorites</a>
+          <a href="<%= next_up_path %>"><i class="fa-solid fa-calendar fa-lg"></i> My Next Up</a>
+          <a href="<%= reviews_path %>"><i class="fa-solid fa-pen-to-square fa-lg"></i> My Reviews</a>
+          <a href="<%= stats_path %>"><i class="fa-solid fa-chart-simple fa-lg"></i> My Stats</a>
+      </ul>
+      </div>
+    </div>
   </div>
 </nav>
