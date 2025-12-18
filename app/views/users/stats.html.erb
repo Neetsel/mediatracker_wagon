@@ -45,116 +45,148 @@
   </div>
 
   <h2 class="mb-4 text-center">You have collected <%= @collection_media.count%> media</h2>
-  <div class="row">
-    <% @collection_media.each do |medium| %>
-      <div class="list-media-cards col-md-3 mb-3 mt-3">
+  <div id="collectionCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <% @collection_media.each_with_index do |medium, index| %>
+        <div class="carousel-item <%= 'active' if index == 0 %>">
+          <div class="list-media-cards d-flex justify-content-center">
 
-        <div class="list-card-image">
-          <%= link_to medium_path(medium) do %>
-            <%= image_tag medium.poster_url, alt: medium.title, class: "list-card-image-left"%>
-          <% end %>
-        </div>
+            <div class="list-card-image">
+              <%= link_to medium_path(medium) do %>
+                <%= image_tag medium.poster_url, alt: medium.title, class: "d-block w-100 list-card-image-left" %>
+              <% end %>
+            </div>
 
+            <div class="list-card-body d-flex flex-column justify-content-between text-center mt-3">
+              <%= link_to medium_path(medium) do %>
+                <h5 class="card-title"><%= medium.title %></h5>
+              <% end %>
 
-        <div class="list-card-body d-flex flex-column justify-content-between">
-          <%= link_to medium_path(medium) do %>
-            <h5 class="card-title"><%= medium.title %></h5>
-          <% end %>
+              <div class="icon-media-type mt-2">
+                <% if medium.sub_media_type == "Movie" %>
+                  <i class="fa-solid fa-video fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
+                <% elsif medium.sub_media_type == "Book" %>
+                  <i class="fa-solid fa-book-open fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
+                <% else %>
+                  <i class="fa-solid fa-gamepad fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
+                <% end %>
+              </div>
 
-          <div class="icon-media-type">
-            <% if medium.sub_media_type == "Movie" %>
-              <i class="fa-solid fa-video fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
-            <% elsif medium.sub_media_type == "Book" %>
-              <i class="fa-solid fa-book-open fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
-            <% else %>
-              <i class="fa-solid fa-gamepad fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
-            <% end %>
+              <div class="btn-more-details mt-3">
+                <%= link_to "More details", medium_path(medium), class: "btn btn-primary rounded-pill" %>
+              </div>
+            </div>
+
           </div>
-
-          <div class="btn-more-details">
-            <%= link_to "More details", medium_path(medium), class: "btn btn-primary rounded-pill" %>
-          </div>
         </div>
-      </div>
-    <% end %>
-    <div class="d-flex justify-content-center mt-4">
-      <%= paginate @collection_media %>
+      <% end %>
     </div>
+
+      <!-- Contrôles du carrousel -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#collectionCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Précédent</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#collectionCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Suivant</span>
+    </button>
   </div>
+
 
   <h2 class="mb-4 text-center">You have <%= @next_up_media.count%> media waiting in line</h2>
-  <div class="row">
-    <% @next_up_media.each do |medium| %>
-      <div class="list-media-cards col-md-3 mb-3 mt-3">
+    <div id="nextUpCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <% @next_up_media.each_with_index do |medium, index| %>
+          <div class="carousel-item <%= 'active' if index == 0 %>">
+            <div class="list-media-cards d-flex justify-content-center">
 
-        <div class="list-card-image">
-          <%= link_to medium_path(medium) do %>
-            <%= image_tag medium.poster_url, alt: medium.title, class: "list-card-image-left"%>
-          <% end %>
-        </div>
+              <div class="list-card-image">
+                <%= link_to medium_path(medium) do %>
+                  <%= image_tag medium.poster_url, alt: medium.title, class: "d-block w-100 list-card-image-left" %>
+                <% end %>
+              </div>
 
+              <div class="list-card-body d-flex flex-column justify-content-between text-center mt-3">
+                <%= link_to medium_path(medium) do %>
+                  <h5 class="card-title"><%= medium.title %></h5>
+                <% end %>
 
-        <div class="list-card-body d-flex flex-column justify-content-between">
-          <%= link_to medium_path(medium) do %>
-            <h5 class="card-title"><%= medium.title %></h5>
-          <% end %>
+                <div class="icon-media-type mt-2">
+                  <% if medium.sub_media_type == "Movie" %>
+                    <i class="fa-solid fa-video fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
+                  <% elsif medium.sub_media_type == "Book" %>
+                    <i class="fa-solid fa-book-open fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
+                  <% else %>
+                    <i class="fa-solid fa-gamepad fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
+                  <% end %>
+                </div>
 
-          <div class="icon-media-type">
-            <% if medium.sub_media_type == "Movie" %>
-              <i class="fa-solid fa-video fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
-            <% elsif medium.sub_media_type == "Book" %>
-              <i class="fa-solid fa-book-open fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
-            <% else %>
-              <i class="fa-solid fa-gamepad fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
-            <% end %>
+                <div class="btn-more-details mt-3">
+                  <%= link_to "More details", medium_path(medium), class: "btn btn-primary rounded-pill" %>
+                </div>
+              </div>
+
+            </div>
           </div>
-
-          <div class="btn-more-details">
-            <%= link_to "More details", medium_path(medium), class: "btn btn-primary rounded-pill" %>
-          </div>
-        </div>
+        <% end %>
       </div>
-    <% end %>
-    <div class="d-flex justify-content-center mt-4">
-      <%= paginate @next_up_media %>
-    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#nextUpCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Précédent</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#nextUpCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Suivant</span>
+    </button>
   </div>
 
-  <h1 class="mb-4 text-center">You have liked <%= @like_media.count%> media</h1>
-  <div class="row">
-    <% @like_media.each do |medium| %>
-      <div class="list-media-cards col-md-3 mb-3 mt-3">
+  <h2 class="mb-4 text-center">You have liked <%= @like_media.count%> media</h2>
+    <div id="likeCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <% @like_media.each_with_index do |medium, index| %>
+          <div class="carousel-item <%= 'active' if index == 0 %>">
+            <div class="list-media-cards d-flex justify-content-center">
 
-        <div class="list-card-image">
-          <%= link_to medium_path(medium) do %>
-            <%= image_tag medium.poster_url, alt: medium.title, class: "list-card-image-left"%>
-          <% end %>
-        </div>
+              <div class="list-card-image">
+                <%= link_to medium_path(medium) do %>
+                  <%= image_tag medium.poster_url, alt: medium.title, class: "d-block w-100 list-card-image-left" %>
+                <% end %>
+              </div>
 
+              <div class="list-card-body d-flex flex-column justify-content-between text-center mt-3">
+                <%= link_to medium_path(medium) do %>
+                  <h5 class="card-title"><%= medium.title %></h5>
+                <% end %>
 
-        <div class="list-card-body d-flex flex-column justify-content-between">
-          <%= link_to medium_path(medium) do %>
-            <h5 class="card-title"><%= medium.title %></h5>
-          <% end %>
+                <div class="icon-media-type mt-2">
+                  <% if medium.sub_media_type == "Movie" %>
+                    <i class="fa-solid fa-video fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
+                  <% elsif medium.sub_media_type == "Book" %>
+                    <i class="fa-solid fa-book-open fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
+                  <% else %>
+                    <i class="fa-solid fa-gamepad fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
+                  <% end %>
+                </div>
 
-          <div class="icon-media-type">
-            <% if medium.sub_media_type == "Movie" %>
-              <i class="fa-solid fa-video fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
-            <% elsif medium.sub_media_type == "Book" %>
-              <i class="fa-solid fa-book-open fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
-            <% else %>
-              <i class="fa-solid fa-gamepad fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
-            <% end %>
+                <div class="btn-more-details mt-3">
+                  <%= link_to "More details", medium_path(medium), class: "btn btn-primary rounded-pill" %>
+                </div>
+              </div>
+
+            </div>
           </div>
-
-          <div class="btn-more-details">
-            <%= link_to "More details", medium_path(medium), class: "btn btn-primary rounded-pill" %>
-          </div>
-        </div>
+        <% end %>
       </div>
-    <% end %>
-    <div class="d-flex justify-content-center mt-4">
-      <%= paginate @like_media %>
-    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#likeCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Précédent</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#likeCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Suivant</span>
+    </button>
   </div>
 </div>
