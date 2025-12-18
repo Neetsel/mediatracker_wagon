@@ -82,18 +82,35 @@
     </div>
   </div>
 
-  <h1 class="mb-4 text-center">You have <%= @next_up_media.count%> media waiting in line</h1>
+  <h2 class="mb-4 text-center">You have <%= @next_up_media.count%> media waiting in line</h2>
   <div class="row">
     <% @next_up_media.each do |medium| %>
-      <div class="col-md-3 mb-4">
-        <div class="card h-100 shadow-sm">
+      <div class="list-media-cards col-md-3 mb-3 mt-3">
+
+        <div class="list-card-image">
           <%= link_to medium_path(medium) do %>
-            <%= image_tag medium.poster_url, alt: medium.title, class: "card-img-top"%>
+            <%= image_tag medium.poster_url, alt: medium.title, class: "list-card-image-left"%>
           <% end %>
-          <div class="card-body">
-            <%= link_to medium_path(medium) do %>
-              <h5 class="card-title"><%= medium.title %></h5>
+        </div>
+
+
+        <div class="list-card-body d-flex flex-column justify-content-between">
+          <%= link_to medium_path(medium) do %>
+            <h5 class="card-title"><%= medium.title %></h5>
+          <% end %>
+
+          <div class="icon-media-type">
+            <% if medium.sub_media_type == "Movie" %>
+              <i class="fa-solid fa-video fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
+            <% elsif medium.sub_media_type == "Book" %>
+              <i class="fa-solid fa-book-open fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
+            <% else %>
+              <i class="fa-solid fa-gamepad fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
             <% end %>
+          </div>
+
+          <div class="btn-more-details">
+            <%= link_to "More details", medium_path(medium), class: "btn btn-primary rounded-pill" %>
           </div>
         </div>
       </div>
