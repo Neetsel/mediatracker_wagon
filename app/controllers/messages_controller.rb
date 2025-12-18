@@ -49,15 +49,15 @@ class MessagesController < ApplicationController
   end
 
   def medium_title
-    "Here is the title of the movie: #{@medium.title}."
+    "Here is the title of the #{@medium.sub_media_type.downcase}: #{@medium.title}."
   end
 
   def medium_description
-    "Here is the description of the movie: #{@medium.description}."
+    "Here is the description of the #{@medium.sub_media_type.downcase}: #{@medium.description}."
   end
 
   def medium_year
-    "Here is the release year of the movie: #{@medium.year}."
+    "Here is the release year of the #{@medium.sub_media_type.downcase}: #{@medium.year}."
   end
 
   def list_media_liked
@@ -134,7 +134,7 @@ class MessagesController < ApplicationController
   end
 
   def instructions
-    [system_prompt_selection, list_media_liked, list_media_seen, list_media_planned, medium_title, medium_year, medium_description].compact.join("\n\n")
+    [system_prompt_selection, medium_title, medium_year, medium_description].compact.join("\n\n")
   end
 
   def message_params
