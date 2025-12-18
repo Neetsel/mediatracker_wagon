@@ -17,18 +17,16 @@
           <div class="list-card-body d-flex flex-column justify-content-between">
             <%= link_to medium_path(collection.medium) do %>
               <h5 class="card-title"><%= collection.medium.title %></h5>
-              <p class="card-text"><%= collection.medium.year %></p>
+              <p class="card-text"><%= collection.medium.year %> - <% if collection.medium.sub_media_type == "Movie" %>
+                <i class="fa-solid fa-video" style="color: #ffffffff; margin-right: 12px;"></i>
+              <% elsif collection.medium.sub_media_type == "Book" %>
+                <i class="fa-solid fa-book-open" style="color: #ffffffff; margin-right: 12px;"></i>
+              <% else %>
+                <i class="fa-solid fa-gamepad" style="color: #ffffffff; margin-right: 12px;"></i>
+              <% end %></p>
             <% end %>
 
-            <div class="icon-media-type">
-              <% if collection.medium.sub_media_type == "Movie" %>
-                <i class="fa-solid fa-video fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
-              <% elsif collection.medium.sub_media_type == "Book" %>
-                <i class="fa-solid fa-book-open fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
-              <% else %>
-              <i class="fa-solid fa-gamepad fa-lg" style="color: #ffffffff; margin-right: 12px;"></i>
-              <% end %>
-            </div>
+
 
             <div class="list-icon">
               <%= render "shared/buttons/collection_card_button", medium: collection.medium, medium_type: collection.medium.sub_media_type.downcase, year: collection.medium.year, location: "card"  %>
