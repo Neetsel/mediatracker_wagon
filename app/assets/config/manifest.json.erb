@@ -1,0 +1,17 @@
+{
+  "background_color": "white",
+  "description": "Find all your favorite video games, movies, and books in one place. Media Trackr lets you collect completed works or discover the next masterpieces you'll love exploring!",
+  "display": "fullscreen",
+  "name": "Media Trackr",
+  "icons": [
+    <% files = Dir.entries(Rails.root.join("app/assets/images/icons/")).select {|f| !File.directory? f} %>
+    <% files.each_with_index do |file, index| %>
+      <% match = file.match(/.+-(?<size>\d{2,3}x\d{2,3}).png/) %>
+      {
+        "src": "<%= image_path "icons/#{file}" %>",
+        "sizes": "<%= match && match[:size] %>",
+        "type": "image/png"
+      }<%= "," unless (files.size - 1) == index %>
+    <% end %>
+  ]
+}
