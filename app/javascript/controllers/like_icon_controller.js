@@ -115,7 +115,7 @@ export default class extends Controller {
 
         if (this.locationValue == "show") {
           this.buttonTarget.classList.toggle("btn-favorites");
-          this.textTarget.innerText === this.addTextValue ? this.textTarget.innerText = this.removeTextValue : this.textTarget.innerText = this.addTextValue;
+          this.buttonTarget.classList.contains("btn-favorites") ? this.textTarget.innerText = this.removeTextValue : this.textTarget.innerText = this.addTextValue;
         }
 
         setTimeout(() => {

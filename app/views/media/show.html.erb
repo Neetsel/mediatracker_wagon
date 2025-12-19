@@ -10,13 +10,13 @@
 
     <div class = "mt-4 mb-4 list-buttons-show-page">
       <div class = "buttons-top-show-page">
+        <%= render "shared/buttons/collection_card_button", medium_id: @medium.id, medium: @medium, medium_type: @medium.sub_media_type.downcase, year: @medium.year, location: "show" %>
+      </div>
+      <div class = "buttons-top-show-page">
         <%= render "shared/buttons/like_card_button", medium_id: @medium.id, medium: @medium, medium_type: @medium.sub_media_type.downcase, year: @medium.year, location: "show"   %>
       </div>
       <div class = "buttons-top-show-page">
         <%= render "shared/buttons/next_up_card_button", medium_id: @medium.id, medium: @medium, medium_type: @medium.sub_media_type.downcase, year: @medium.year, location: "show"   %>
-      </div>
-      <div class = "buttons-top-show-page">
-        <%= render "shared/buttons/collection_card_button", medium_id: @medium.id, medium: @medium, medium_type: @medium.sub_media_type.downcase, year: @medium.year, location: "show" %>
       </div>
     </div>
 
