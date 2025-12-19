@@ -1,7 +1,10 @@
-<div class="container my-5 bg-dark text-light p-5 rounded shadow">
-  <h1 class="mb-4 text-center"><%= @medium.title %></h1>
-  <div class="row">
-    <div class="text-center mb-4">
+<%= link_to "<- Back to Media", medium_path(@medium), class: "p-2 mx-2" %>
+<div class="new-review container my-5 text-light p-5">
+
+  <h1 class="mb-4 text-center"><%= @medium.title %> - <%= @medium.year %></h1>
+  <div class="row justify-content-center">
+    <%= image_tag @medium.poster_url, alt: @medium.title, class: "new-review-image" %>
+    <div class="text-center mb-4 mt-4">
       <button type="button" class="btn btn-cta" data-bs-toggle="modal" data-bs-target="#reviewModal">
        <i class="fa-solid fa-pencil"></i> Review
       </button>
@@ -21,7 +24,6 @@
     </div>
 
     <%= render "modal" %>
-    <%= link_to "<- Back to Media", medium_path(@medium) %>
 
   </div>
 </div>

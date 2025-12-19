@@ -1,6 +1,15 @@
 .review {
-  background-color: #202529;
-  font-family: Inter;
+  font-family: "Inter";
   border-radius: 8px;
   padding: 10px;
+}
+
+.new-review-image {
+  width: 200px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.new-review h1 {
+  padding-bottom: 8px;
 }
