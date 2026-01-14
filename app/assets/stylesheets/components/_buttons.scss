@@ -16,6 +16,24 @@
   box-sizing: border-box;
 }
 
+.btn-cta-secondary {
+  font-family: "Inter";
+  font-weight: bold !important;
+  font-size: 18px;
+  line-height: 24px;
+  word-break: break-word;
+  color: black;
+  opacity: 1;
+  outline: 0 solid transparent;
+  padding: 8px 18px;
+
+  background: #7B61FF;
+  border-radius: 999px;
+  width: fit-content;
+  border: 0;
+  box-sizing: border-box;
+}
+
 .btn-cta.btn-favorites {
   background: #7B61FF;
   box-shadow: none;
