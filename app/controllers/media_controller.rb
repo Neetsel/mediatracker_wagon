@@ -59,18 +59,23 @@ class MediaController < ApplicationController
       current_page = params[:page] || 1
       igdb = IgdbService.new
       @results = igdb.run(params[:title])
+      # Besoin de créer la DB
       @results = Kaminari.paginate_array(@results).page(current_page).per(10)
     when "movie"
       current_page = params[:page] || 1
       omdb = OmdbService.new
       @results = omdb.run(params[:title])
+      # Besoin de créer la DB
       @results = Kaminari.paginate_array(@results).page(current_page).per(10)
     when "book"
       current_page = params[:page] || 1
       open_library = OpenLibraryService.new
       @results = open_library.run(params[:title])
+      # Besoin de créer la DB
       @results = Kaminari.paginate_array(@results).page(current_page).per(10)
     end
+
+
   end
 
   private
@@ -146,18 +151,8 @@ class MediaController < ApplicationController
     response = omdb.search_by_id(@imdbID)
 
     if response["Response"] == "True"
-      # Si medium existe déjà, on le récupère(cf.doc active record)
-      @medium = Medium.find_or_initialize_by(title: response["Title"], release_date: response["Released"])
 
-      # On met à jour les infos si besoin
-      @medium.assign_attributes(
-        title: response["Title"],
-        description: response["Plot"],
-        release_date: response["Released"],
-        year: response["Year"],
-        genres: response["Genre"].split(", "),
-        poster_url: response["Poster"]
-      )
+      @medium = Medium.create_from_omdb(response)
 
       # À partir de la response, on génère un film
       # Ensuite, on assigne ce film à sub_media
@@ -179,18 +174,8 @@ class MediaController < ApplicationController
     response_book["subjects"] ? genres = response_book["subjects"].split(", ") : genres = []
 
     if response
-      # Si medium existe déjà, on le récupère(cf.doc active record)
-      @medium = Medium.find_or_initialize_by(title: response["title"], year: @first_publish_year)
-      # On met à jour les infos si besoin
-      @medium.assign_attributes(
-        title: response["title"],
-        description: response["description"]["value"],
-        release_date: Date.new(@first_publish_year.to_i,1,1),
-        year: @first_publish_year,
-        genres: genres,
-        poster_url: "https://covers.openlibrary.org/b/olid/#{@cover_edition_key}-M.jpg"
-      )
 
+      @medium = Medium.create_from_open_library(response, @first_publish_year, @cover_edition_key, genres)
       # À partir de la response, on génère un livre
       # Ensuite, on assigne ce livre à sub_media
       @medium.sub_media = Book.create_from_medium(@cover_edition_key, @key, response_book["number_of_pages"], @author_name)
@@ -219,20 +204,8 @@ class MediaController < ApplicationController
     end
 
     if response
-      # On convertit la date reçue en Unix
-      release_date = DateTime.strptime(response[0]["first_release_date"].to_s, '%s')
 
-      # Si medium existe déjà, on le récupère(cf.doc active record)
-      @medium = Medium.find_or_initialize_by(title: response[0]["name"], release_date: release_date)
-
-      @medium.assign_attributes(
-        title: response[0]["name"],
-        description: response[0]["summary"],
-        release_date: release_date,
-        year: release_date.year,
-        genres: genres_names,
-        poster_url: @cover
-      )
+      @medium = Medium.create_from_igdb(response, genres_names, @cover)
 
       companies = []
       publishers = []
@@ -244,7 +217,7 @@ class MediaController < ApplicationController
           companies = @publisher + @developer
         elsif @developer
           companies = @developer
-        elsif
+        else
           companies = @publisher
         end
 

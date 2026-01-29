@@ -2,6 +2,7 @@ class Game < ApplicationRecord
   has_one :media, as: :sub_media
 
   def self.create_from_medium(id, developers, publishers, platforms, story_duration, extras_duration, completionist_duration)
+    
     # Si jeu existe déjà, on le récupère(cf.doc active record)
     @Game = Game.find_or_initialize_by(api_id: id)
 
