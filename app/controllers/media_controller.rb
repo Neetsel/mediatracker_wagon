@@ -59,23 +59,24 @@ class MediaController < ApplicationController
       current_page = params[:page] || 1
       igdb = IgdbService.new
       @results = igdb.run(params[:title])
-      # Besoin de créer la DB
+
+      initial_game_creation
       @results = Kaminari.paginate_array(@results).page(current_page).per(10)
     when "movie"
       current_page = params[:page] || 1
       omdb = OmdbService.new
       @results = omdb.run(params[:title])
-      # Besoin de créer la DB
+
+      initial_movie_creation
       @results = Kaminari.paginate_array(@results).page(current_page).per(10)
     when "book"
       current_page = params[:page] || 1
       open_library = OpenLibraryService.new
       @results = open_library.run(params[:title])
-      # Besoin de créer la DB
+
+      initial_book_creation
       @results = Kaminari.paginate_array(@results).page(current_page).per(10)
     end
-
-
   end
 
   private
@@ -144,6 +145,48 @@ class MediaController < ApplicationController
       @extras_duration = params[:medium][:main_extras_duration]
       @completionist_duration = params[:medium][:completionist_duration]
     end
+  end
+
+  def initial_movie_creation
+
+    @results.each {|movie|
+      @medium = Medium.initial_movie_creation(movie)
+      @medium.sub_media = Movie.initial_creation(movie)
+      save_medium
+    }
+  end
+
+  def initial_book_creation
+
+    @results.each {|book|
+      @medium = Medium.initial_book_creation(book)
+      @medium.sub_media = Book.initial_creation(book)
+      save_medium
+    }
+  end
+
+  def initial_game_creation
+
+    @results.each {|game|
+      @medium = Medium.initial_game_creation(game)
+      @medium.sub_media = Game.initial_creation(game)
+      save_medium
+    }
+  end
+
+  def add_movie_details
+
+
+  end
+
+  def add_book_details
+
+
+  end
+
+  def add_game_details
+
+
   end
 
   def create_from_omdb
@@ -267,9 +310,8 @@ class MediaController < ApplicationController
   end
 
   def save_medium
-    @medium.save if @medium.new_record? || @medium.changed?
+    @medium.save! if @medium.new_record? || @medium.changed?
   end
-
 
 
   def set_medium

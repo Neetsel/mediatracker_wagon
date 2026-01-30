@@ -156,7 +156,7 @@ class IgdbService
         game["main_extras_duration"] = time_to_beat[0]["normally"]
         game["completionist_duration"] = time_to_beat[0]["completely"]
       end
-
+      
       # On ajoute des champs dévelopeurs et éditeurs au jeu
       game["developer"] = []
       game["publisher"] = []

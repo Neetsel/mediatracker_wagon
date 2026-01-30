@@ -38,6 +38,7 @@ class OmdbService
         @results.concat(response["Search"])
       end
     end
+
     @results
   end
 end
