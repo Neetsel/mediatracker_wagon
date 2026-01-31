@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   get "likes", to: "pages#likes"
 
   resources :reviews, only: [:show, :index]
-  
+
   resources :collections, only: [:index, :destroy] do
     collection do
       get :check_collection
@@ -42,7 +42,6 @@ Rails.application.routes.draw do
     collection do
       get :check_settings
       get :toggle_settings
-      post :create_record
       get :search
       post :search
     end

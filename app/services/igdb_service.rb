@@ -156,7 +156,7 @@ class IgdbService
         game["main_extras_duration"] = time_to_beat[0]["normally"]
         game["completionist_duration"] = time_to_beat[0]["completely"]
       end
-      
+
       # On ajoute des champs dévelopeurs et éditeurs au jeu
       game["developer"] = []
       game["publisher"] = []
@@ -177,4 +177,85 @@ class IgdbService
     @results
   end
 
+  def fetch_companies(publishers, developers)
+
+    if publishers || developers
+
+        if publishers && developers
+          companies = publishers + developers
+        elsif developers
+          companies = developers
+        else
+          companies = publishers
+        end
+
+        # On fait un call API pour récupérer le nom de toutes les entreprises impliquées dans la création
+        JSON.parse(companies_name_by_id(companies).body)
+
+    end
+  end
+
+  def fetch_developers(developers_ref, companies)
+
+    developers = []
+
+    if developers_ref
+          developers_ref.each {|developer|
+            # On cherche le développeur sur base de son id
+            developer_name = companies.select { |hash| hash["id"] == developer.to_i }
+            # On ajoute son nom à l'array
+            developers << developer_name[0]["name"]
+          }
+    end
+
+    developers
+  end
+
+  def fetch_publishers(publishers_ref, companies)
+
+    publishers = []
+
+    if publishers_ref
+          publishers_ref.each {|publisher|
+            # On cherche le publisher sur base de son id
+            publisher_name = companies.select { |hash| hash["id"] == publisher.to_i }
+            # On ajoute son nom à l'array
+            publishers << publisher_name[0]["name"]
+          }
+          publishers = publishers.join(", ")
+    end
+
+    publishers
+  end
+
+  def fetch_platforms(platforms_ref)
+
+    platforms = []
+
+    if platforms_ref
+      # On fait un call API pour récupérer le nom de toutes les plateformes
+      response_platforms = JSON.parse(platforms_by_id(platforms_ref).body)
+
+      response_platforms.each {|platform|
+        platforms << platform["name"]
+      }
+    end
+
+    platforms
+  end
+
+  def fetch_genres(response)
+    genres_names = []
+
+    if response["genres"]
+      # On fait un call API pour récupérer le nom des genres
+      response_genres = JSON.parse(genres_by_id(response["genres"]).body)
+      # On prépare un array dans lequel on va mettre le nom de tous les genres
+      response_genres.each {|genre|
+        genres_names << genre["name"]
+      }
+    end
+
+    genres_names
+  end
 end

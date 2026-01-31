@@ -3,38 +3,35 @@ class Book < ApplicationRecord
 
   def self.initial_creation(response)
     # Si livre existe déjà, on le récupère(cf.doc active record)
-    @Book = Book.find_or_initialize_by(book_id: response["cover_edition_key"])
+    @book = Book.find_or_initialize_by(book_id: response["cover_edition_key"])
 
     # On met à jour les infos si besoin
-    @Book.assign_attributes(
+    @book.assign_attributes(
+      work_id: response["key"],
       book_id: response["cover_edition_key"],
       authors: response["author_name"]
     )
 
     # on sauve le livre en DB
-    @Book.save
-
+    @book.save
     # On renvoie le livre créé
-    @Book
+    @book
   end
 
-  def self.create_from_medium(cover_edition_key, key, amount_pages, author_name)
+  def self.update(response, response_book)
     # Si livre existe déjà, on le récupère(cf.doc active record)
-    @Book = Book.find_or_initialize_by(book_id: cover_edition_key)
+    @book = Book.find_or_initialize_by(book_id: @book.book_id)
 
     # On met à jour les infos si besoin
-    @Book.assign_attributes(
-      book_id: cover_edition_key,
-      work_id: key,
+    @book.assign_attributes(
       publisher: "",
-      amount_pages: amount_pages,
-      authors: author_name
+      amount_pages: response_book["number_of_pages"]
     )
 
     # on sauve le livre en DB
-    @Book.save
+    @book.save
 
     # On renvoie le livre créé
-    @Book
+    @book
   end
 end

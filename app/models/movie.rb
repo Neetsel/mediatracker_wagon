@@ -17,7 +17,7 @@ class Movie < ApplicationRecord
     @movie
   end
 
-  def self.create_from_medium(response)
+  def self.update(response)
     # Si movie existe déjà, on le récupère(cf.doc active record)
     @movie = Movie.find_or_initialize_by(api_id: response["imdbID"])
 

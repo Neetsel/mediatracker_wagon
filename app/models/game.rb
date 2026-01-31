@@ -3,10 +3,10 @@ class Game < ApplicationRecord
 
   def self.initial_creation(response)
     # Si livre existe déjà, on le récupère(cf.doc active record)
-    @Game = Game.find_or_initialize_by(api_id: response["id"])
+    @game = Game.find_or_initialize_by(api_id: response["id"])
 
     # On met à jour les infos si besoin
-    @Game.assign_attributes(
+    @game.assign_attributes(
       api_id: response["id"],
       publishers_ref: response["publisher"],
       developers_ref: response["developer"],
@@ -17,32 +17,28 @@ class Game < ApplicationRecord
     )
 
     # on sauve le livre en DB
-    @Game.save
+    @game.save
 
     # On renvoie le livre créé
-    @Game
+    @game
   end
 
-  def self.create_from_medium(id, developers, publishers, platforms, story_duration, extras_duration, completionist_duration)
+  def self.update(response, developers, publishers, platforms)
 
     # Si jeu existe déjà, on le récupère(cf.doc active record)
-    @Game = Game.find_or_initialize_by(api_id: id)
+    @game = Game.find_or_initialize_by(api_id: response["id"])
 
     # On met à jour les infos si besoin
-    @Game.assign_attributes(
-      api_id: id,
+    @game.assign_attributes(
       publisher: publishers,
       developers: developers,
       platforms: platforms,
-      main_story_duration: story_duration,
-      main_extras_duration: extras_duration,
-      completionist_duration: completionist_duration
     )
 
     # on sauve le jeu en DB
-    @Game.save
+    @game.save
 
     # On renvoie le jeu créé
-    @Game
+    @game
   end
 end
