@@ -1,0 +1,12 @@
+<div data-controller="like-icon"
+  data-like-icon-id-value="<%=medium["id"]%>"
+  data-like-icon-settings-value="like"
+  data-like-icon-location-value="<%=location%>">
+  <button data-action="click->like-icon#toggleLike" data-like-icon-target="button" class="btn-hidden">
+    <% if location === "card" %>
+      <i class="fa-regular fa-heart" data-like-icon-target="icon"></i>
+    <% else %>
+      <i class="fa-regular fa-heart" data-like-icon-target="icon"></i> <span data-like-icon-target="text">Add to your favorites</span>
+    <% end %>
+  </button>
+</div>

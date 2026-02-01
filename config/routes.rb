@@ -35,13 +35,11 @@ Rails.application.routes.draw do
 
     member do
       get :reviews
-      get :toggle_next_up
-      get :toggle_likes
+      get :check_settings
+      get :toggle_settings
     end
 
     collection do
-      get :check_settings
-      get :toggle_settings
       get :search
       post :search
     end

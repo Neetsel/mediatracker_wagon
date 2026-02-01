@@ -26,12 +26,10 @@
               <% end %></p>
             <% end %>
 
-
-
             <div class="list-icon p-2">
-              <%= render "shared/buttons/collection_card_button", medium: collection.medium, medium_type: collection.medium.sub_media_type.downcase, year: collection.medium.year, location: "card"  %>
-              <%= render "shared/buttons/like_card_button", medium: collection.medium, medium_type: collection.medium.sub_media_type.downcase, year: collection.medium.year, location: "card"  %>
-              <%= render "shared/buttons/next_up_card_button", medium: collection.medium, medium_type: collection.medium.sub_media_type.downcase, year: collection.medium.year, location: "card"  %>
+              <%= render "shared/buttons/collection_button", medium: collection.medium, location: "card"  %>
+              <%= render "shared/buttons/like_button", medium: collection.medium, location: "card"  %>
+              <%= render "shared/buttons/next_up_button", medium: collection.medium, location: "card"  %>
             </div>
 
             <div class="btn-more-details p-2">

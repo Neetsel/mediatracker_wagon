@@ -1,5 +1,5 @@
 class MediaController < ApplicationController
-  before_action :set_medium, only: [:show, :toggle_likes, :toggle_next_up]
+  before_action :set_medium, only: [:show, :toggle_settings, :check_settings]
 
   def index
     @media = Medium.all
@@ -9,17 +9,7 @@ class MediaController < ApplicationController
     update_data_by_medium_type
   end
 
-  def toggle_likes
-    toggle_favorites("like")
-  end
-
-  def toggle_next_up
-    toggle_favorites("next_up")
-  end
-
   def check_settings
-    @medium = Medium.find_by(title: params[:name], year: params[:year])
-
     favorite = current_user.favorited?(@medium, scope: params[:settings])
     response = { medium: @medium, favorite: favorite}
 
@@ -27,8 +17,6 @@ class MediaController < ApplicationController
   end
 
   def toggle_settings
-
-    @medium = Medium.find_by(title: params[:name], year: params[:year])
 
     unless params[:settings] === "collection"
       toggle_favorites(params[:settings])
@@ -201,10 +189,6 @@ class MediaController < ApplicationController
 
 
   def set_medium
-    if params[:id] == "search_from_omdb"
-      @medium = OmdbService.new.search_by_id(params[:imdb_id])
-    else
-      @medium = Medium.find(params[:id])
-    end
+    @medium = Medium.find(params[:id])
   end
 end
