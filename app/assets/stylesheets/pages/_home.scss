@@ -2,8 +2,6 @@
 // Import du bouton cta depuis sa partial
 // Les media-cards sont gérées par une partial
 
-
-// On crée un contexte de positionnement pour l'élément enfant dans le ::before
 #home-header {
   position: relative;
   overflow: visible;  // Permet d'afficher le contenu qui sort de la div
@@ -34,7 +32,6 @@
   z-index: 1;
 }
 
-
 #home-header .container {
   display: flex;
   flex-direction: column;
@@ -50,4 +47,55 @@
   text-align: center;
   font-weight: bolder;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+
+// Responsive qui s'active quand la largeur >= 900px sinon affichage mobile
+
+@media (min-width: 900px) {
+  #home-header {
+    position: relative;
+    overflow: visible;
+    background: transparent;
+    min-height: 100%;
+  }
+
+
+  #home-header::before {
+    content:"";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url('https://res.cloudinary.com/dmby1z5d6/image/upload/v1765366835/movie-posters-compo-2_fcbxeu.jpg');
+    background-size: cover;
+    background-position:center;
+    transform: rotate(0deg) scale(1) translateX(0%);
+    transform-origin: center;
+    z-index: 0;
+    filter: blur(2px);
+    opacity: .7;
+    box-shadow: white 0 8px 18px -16px;
+  }
+
+  #home-header > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  #home-header .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 92px;
+    min-height: 40vh;
+  }
+
+  .home-title {
+    font-family: "Montserrat";
+    font-size: 48px;
+    text-align: center;
+    font-weight: bolder;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  }
+
 }

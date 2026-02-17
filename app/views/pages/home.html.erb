@@ -18,7 +18,7 @@
 
     </div>
 
-    <img src="https://res.cloudinary.com/dmby1z5d6/image/upload/v1765366834/lotr-book-cover_ohywyc.jpg" alt="The Lord of The Rings book cover" id="img-center">
+    <img src="https://res.cloudinary.com/dmby1z5d6/image/upload/v1765366834/lotr-book-cover_ohywyc.jpg" alt="The Lord of The Rings book cover" class="img-center">
   </div>
   <div class="media-card-content">
     <h2>All in the same place</h2>
@@ -27,7 +27,7 @@
 
     <p>Find all your favorite video games, movies, and books in one place. A platform that lets you collect completed works or discover the next masterpieces you'll love exploring!</p>
 
-    <%= link_to media_path do  %>
+    <%= link_to media_path do %>
     <i class="fa-solid fa-magnifying-glass fa-xl" style="color: #FBC500;"></i>
     <% end %>
 
@@ -35,6 +35,20 @@
 </div>
 
 <div class="container home-media-card">
+
+  <div class="media-card-content">
+    <h2>Create your own collection</h2>
+
+    <p><strong>Gather everything you have read, seen or played</strong></p>
+
+    <p>With MediaTrackr, you can create a collection that gathers all the media you've watched, played, or even read. Rate them, comment on them, set your favorites, and share your collection with your friends!</p>
+
+    <%= link_to collections_path do %>
+      <i class="fa-solid fa-bookmark fa-xl" style="color: #FBC500;"></i>
+    <% end %>
+
+
+  </div>
 
   <div class="img-container">
     <div>
@@ -46,22 +60,9 @@
 
     </div>
 
-    <img src="https://res.cloudinary.com/dmby1z5d6/image/upload/v1765366797/book-dune_extbs6.jpg" alt="Dune Frank Herbert book cover" id="img-center">
+    <img src="https://res.cloudinary.com/dmby1z5d6/image/upload/v1765366797/book-dune_extbs6.jpg" alt="Dune Frank Herbert book cover" class="img-center">
   </div>
 
-  <div class="media-card-content">
-    <h2>Create your own collection</h2>
-
-    <p><strong>Gather everything you have read, seen or played</strong></p>
-
-    <p>With MediaTrackr, you can create a collection that gathers all the media you've watched, played, or even read. Rate them, comment on them, set your favorites, and share your collection with your friends!</p>
-
-    <%= link_to collections_path do  %>
-      <i class="fa-solid fa-bookmark fa-xl" style="color: #FBC500;"></i>
-    <% end %>
-
-
-  </div>
 </div>
 
 <div class="container home-media-card">
@@ -76,7 +77,7 @@
 
     </div>
 
-    <img src="https://res.cloudinary.com/dmby1z5d6/image/upload/v1765386671/the-god-father-movie-poster_nfduz6.jpg" alt="The Godfather movie poster" id="img-center">
+    <img src="https://res.cloudinary.com/dmby1z5d6/image/upload/v1765386671/the-god-father-movie-poster_nfduz6.jpg" alt="The Godfather movie poster" class="img-center">
   </div>
 
   <div class="media-card-content">
@@ -95,22 +96,7 @@
 
 <div class="container home-media-card">
 
-  <div class="img-container">
-    <div>
-      <img src="https://res.cloudinary.com/dmby1z5d6/image/upload/v1765366831/the-good-the-bad-the-ugly_owghwo.jpg" alt="The Good, The Bad and The Ugly movie poster">
-
-    </div>
-    <div>
-      <img src="https://res.cloudinary.com/dmby1z5d6/image/upload/v1765385120/the-name-of-the-wind-book_ddhzom.jpg" alt="The Name of the Wind book cover">
-
-    </div>
-
-    <img src="https://res.cloudinary.com/dmby1z5d6/image/upload/v1765385213/hades-video-game-poster_kf7oyh.jpg" alt="Hades video game poster" id="img-center">
-  </div>
-
-
-
-  <div class="media-card-content">
+ <div class="media-card-content">
     <h2>Create your own list of favorites</h2>
 
     <p><strong>List your greatest classics</strong></p>
@@ -122,4 +108,19 @@
     <% end %>
 
   </div>
+
+  <div class="img-container">
+    <div>
+      <img src="https://res.cloudinary.com/dmby1z5d6/image/upload/v1765366831/the-good-the-bad-the-ugly_owghwo.jpg" alt="The Good, The Bad and The Ugly movie poster">
+
+    </div>
+    <div>
+      <img src="https://res.cloudinary.com/dmby1z5d6/image/upload/v1765385120/the-name-of-the-wind-book_ddhzom.jpg" alt="The Name of the Wind book cover">
+
+    </div>
+
+    <img src="https://res.cloudinary.com/dmby1z5d6/image/upload/v1765385213/hades-video-game-poster_kf7oyh.jpg" alt="Hades video game poster" class="img-center">
+  </div>
+
+
 </div>
