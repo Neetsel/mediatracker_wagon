@@ -62,3 +62,17 @@ body {
   font-family: "Inter";
   font-weight: 400;
 }
+
+#menu-burger {
+  display: none;
+}
+
+// Desktop Version
+@media (min-width: 900px) {
+
+  // Retrait du menu mobile
+  #bottom-navbar {
+    display: none;
+  }
+
+}

@@ -36,3 +36,37 @@
   padding-bottom: 16px;
   padding-top: 16px;
 }
+
+
+// Gestion responsive
+@media (min-width: 900px) {
+
+  // Affichage du menu desktop
+  #top-navbar #menu-burger {
+    display: inline-block;
+  }
+
+  // Retrait du logo pour laisser la place au menu
+  #mediatrackr-logo {
+    display: none;
+  }
+
+  #offcanvasNavbarLabel {
+     color: #FBC500;
+    font-family: "Montserrat";
+    font-weight: bold;
+    font-size: 24px;
+  }
+
+  #top-navbar {
+    justify-content: space-between;
+  }
+
+  // Garde le titre bien centré dans la navbar
+  .brand-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+}
