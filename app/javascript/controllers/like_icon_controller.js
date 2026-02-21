@@ -12,11 +12,12 @@ export default class extends Controller {
     addText: { type: String, default: "add to your favorites" },
     removeText: {type: String, default: "Remove from your favorites"}
   }
-
+  // Quand l'icône est initialisée, on va checker si le média lié est liké
   connect() {
     const id = this.idValue;
     const settings = this.settingsValue;
 
+    // En fonction de l'endroit où est l'icône, on lui donne l'apparence avec texte ou sans
     if (this.locationValue == "card") {
       this.buttonTarget.classList.add("btn-icon");
     } else {
@@ -42,6 +43,7 @@ export default class extends Controller {
       });
   }
 
+  // Ici, on fait un toggle de l'icône quand le button a été pressé
   toggleLike() {
 
     if (!this.disabledValue) {

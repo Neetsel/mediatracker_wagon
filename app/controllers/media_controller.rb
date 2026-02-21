@@ -9,6 +9,7 @@ class MediaController < ApplicationController
     update_data_by_medium_type
   end
 
+  # Permet aux icons de controller de vérifier si le média a été liké ou planifié.
   def check_settings
     favorite = current_user.favorited?(@medium, scope: params[:settings])
     response = { medium: @medium, favorite: favorite}
@@ -16,6 +17,7 @@ class MediaController < ApplicationController
     render json: response, status: :ok
   end
 
+  # Permet aux icons de controller de modifier les médias liké et planifiés
   def toggle_settings
 
     unless params[:settings] === "collection"
@@ -25,6 +27,7 @@ class MediaController < ApplicationController
     render json: @medium, status: :ok
   end
 
+  # Permet de lancer une recherche via l'api correspondante en fonction du type de média choisi
   def search
     case params[:medium_type]
     when "game"
@@ -55,6 +58,7 @@ class MediaController < ApplicationController
 
   private
 
+  # En fonction du type du média que l'on veut consulter, on va lancer le chargement des détails pertinents.
   def update_data_by_medium_type
     if @medium.sub_media_type === "Game"
       add_game_details
@@ -67,6 +71,7 @@ class MediaController < ApplicationController
     end
   end
 
+  # En fonction de si le média a été liké ou planifié, on l'ajoute ou retire à la liste des favoris correspondants
   def toggle_favorites(scope)
     if(current_user.favorited?(@medium, scope: scope))
       current_user.unfavorite(@medium, scope: scope)
@@ -76,6 +81,7 @@ class MediaController < ApplicationController
     current_user.save!
   end
 
+  # On effectue une sauvegarde de tous les films obtenus via l'api
   def initial_movie_creation
     movies = []
 
@@ -90,6 +96,7 @@ class MediaController < ApplicationController
     movies
   end
 
+  # On effectue une sauvegarde de tous les livres obtenus via l'api
   def initial_book_creation
     books = []
 
@@ -104,6 +111,7 @@ class MediaController < ApplicationController
     books
   end
 
+  # On effectue une sauvegarde de tous les jeux obtenus via l'api
   def initial_game_creation
     games = []
 
@@ -118,6 +126,7 @@ class MediaController < ApplicationController
     games
   end
 
+  # Quand on veut regarder la page d'un film, on va appeler l'api pour obtenir les infos manquantes
   def add_movie_details
     omdb = OmdbService.new
     response = omdb.search_by_id(@medium.sub_media.api_id)
@@ -138,6 +147,7 @@ class MediaController < ApplicationController
     end
   end
 
+  # Quand on veut regarder la page d'un livre, on va appeler l'api pour obtenir les infos manquantes
   def add_book_details
 
     open_library = OpenLibraryService.new
@@ -157,6 +167,7 @@ class MediaController < ApplicationController
     end
   end
 
+  # Quand on veut regarder la page d'un jeu, on va appeler l'api pour obtenir les infos manquantes
   def add_game_details
     igdb = IgdbService.new
     # On fait un call API pour récupérer la fiche spécifique au jeu qui nous donnera sa description

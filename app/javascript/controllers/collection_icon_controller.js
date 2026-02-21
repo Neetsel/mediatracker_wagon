@@ -12,11 +12,12 @@ export default class extends Controller {
     addText: { type: String, default: "add to your collection" },
     removeText: {type: String, default: "Remove from your collection"}
   }
-
+  // Quand l'icône est initialisée, on va checker si le média lié est dans la collection
   connect() {
     const id = this.idValue;
     const settings = this.settingsValue;
 
+    // En fonction de l'endroit où est l'icône, on lui donne l'apparence avec texte ou sans
     if (this.locationValue == "card") {
       this.buttonTarget.classList.add("btn-icon");
     } else {
@@ -36,6 +37,7 @@ export default class extends Controller {
       });
   }
 
+  // On doit checker si une collection existe avec ce média
   checkCollection(medium) {
     fetch(`/collections/check_collection?id=${medium.id}`)
       .then(response => response.json())
@@ -55,6 +57,7 @@ export default class extends Controller {
       });
   }
 
+  // Ici, on fait un toggle de l'icône quand le button a été pressé
   toggleCollection() {
     if (!this.disabledValue) {
 

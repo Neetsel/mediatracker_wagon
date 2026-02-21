@@ -13,10 +13,12 @@ export default class extends Controller {
     removeText: {type: String, default: "Remove from your next up"}
   }
 
+  // Quand l'icône est initialisée, on va checker si le média lié est dans le next up
   connect() {
     const id = this.idValue;
     const settings = this.settingsValue;
 
+    // En fonction de l'endroit où est l'icône, on lui donne l'apparence avec texte ou sans
     if (this.locationValue == "card") {
       this.buttonTarget.classList.add("btn-icon");
     } else {
@@ -42,6 +44,7 @@ export default class extends Controller {
       });
   }
 
+  // Ici, on fait un toggle de l'icône quand le button a été pressé
   toggleNextUp() {
 
     if (!this.disabledValue) {
