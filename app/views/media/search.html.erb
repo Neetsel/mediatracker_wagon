@@ -6,52 +6,100 @@
 
   <%= link_to "← New search", media_path, class: "btn btn-link mb-3" %>
 
-  <% if @results.present? %>
-    <div class="row">
-      <% @results.each do |result| %>
-        <div class="search-media-cards col-md-3 mb-3 mt-3">
+  <%# For Desktop, we want to display everything %>
+  <div class="d-desktop">
+    <% if @results_all.present? %>
+      <div class="row">
+        <% @results_all.each do |result| %>
+          <%# Display for desktop %>
+          <div class="search-media-cards col-md-4 col-lg-3 col-xl-2 mb-3 mt-3">
 
-          <%# Image %>
-          <div class="search-card-image">
-            <% if result["poster_url"] != "N/A" && result["poster_url"]%>
-              <%= image_tag result["poster_url"], alt: result["title"], class: "search-card-image-left" %>
-            <% else %>
-              <div class="bg-secondary text-light d-flex align-items-center justify-content-center" style="height: 200px; width: 140px;">
-                No Poster
-              </div>
-            <% end %>
-          </div>
-
-          <%# Texte %>
-
-          <div class="search-card-body d-flex flex-column justify-content-between">
-            <h5 class="card-title"><%= result["title"] %></h5>
-            <p class="card-text"><%= result["year"] %></p>
+            <%# Image %>
+            <div class="search-card-image">
+              <% if result["poster_url"] != "N/A" && result["poster_url"]%>
+                <%= link_to medium_path(result) do %>
+                  <%= image_tag result["poster_url"], alt: result["title"], class: "search-card-image-desktop" %>
+                <% end %>
+              <% else %>
+                <div class="bg-secondary text-light d-flex align-items-center justify-content-center" style="height: 200px; width: 140px;">
+                  No Poster
+                </div>
+              <% end %>
+            </div>
 
             <%# buttons %>
-
-            <div class="list-icon">
+            <div class="list-icon mt-2">
               <%= render "shared/buttons/collection_button", medium: result, location: "card"  %>
               <%= render "shared/buttons/like_button", medium: result, location: "card"  %>
               <%= render "shared/buttons/next_up_button", medium: result, location: "card"  %>
             </div>
 
-            <div class="btn-more-details">
-              <%= link_to "More details", medium_path(result),
-                class: "btn btn-primary rounded-pill" %>
+            <%# Texte %>
+            <div class="search-card-body d-flex flex-column justify-content-between mt-2">
+              <%= link_to medium_path(result) do %>
+                <h5 class="card-title"><%= result["title"] %></h5>
+              <% end %>
+              <p class="card-text"><%= result["year"] %></p>
+            </div>
+
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p>No results found.</p>
+    <% end %>
+  </div>
+
+  <%# For Mobile, we want to paginate the content %>
+  <div class="d-mobile">
+    <% if @results.present? %>
+      <div class="row">
+        <% @results.each do |result| %>
+
+          <%# Display for mobile %>
+          <div class="search-media-cards col-md-3 mb-3 mt-3">
+            <%# Image %>
+            <div class="search-card-image">
+              <% if result["poster_url"] != "N/A" && result["poster_url"]%>
+                <%= image_tag result["poster_url"], alt: result["title"], class: "search-card-image-left" %>
+              <% else %>
+                <div class="bg-secondary text-light d-flex align-items-center justify-content-center" style="height: 200px; width: 140px;">
+                  No Poster
+                </div>
+              <% end %>
+            </div>
+
+            <%# Texte %>
+
+            <div class="search-card-body d-flex flex-column justify-content-between">
+              <h5 class="card-title"><%= result["title"] %></h5>
+              <p class="card-text"><%= result["year"] %></p>
+
+              <%# buttons %>
+
+              <div class="list-icon">
+                <%= render "shared/buttons/collection_button", medium: result, location: "card"  %>
+                <%= render "shared/buttons/like_button", medium: result, location: "card"  %>
+                <%= render "shared/buttons/next_up_button", medium: result, location: "card"  %>
+              </div>
+
+              <div class="btn-more-details">
+                <%= link_to "More details", medium_path(result),
+                  class: "btn btn-primary rounded-pill" %>
+              </div>
             </div>
           </div>
-        </div>
-      <% end %>
-    </div>
-  <% else %>
-    <p>No results found.</p>
-  <% end %>
+        <% end %>
+      </div>
 
-  <% if @results.present? %>
-    <div class="d-flex justify-content-center mt-4">
-      <%= link_to_prev_page @results, '<< Previous Page', params: { medium_type: params[:medium_type], title: params[:title] } %>
-      <%= link_to_next_page @results, 'Next Page >>', params: { medium_type: params[:medium_type], title: params[:title] } %>
-    </div>
-  <% end %>
+      <div class="d-mobile">
+        <div class="d-flex justify-content-center mt-4">
+          <%= link_to_prev_page @results, '<< Previous Page', params: { medium_type: params[:medium_type], title: params[:title] } %>
+          <%= link_to_next_page @results, 'Next Page >>', params: { medium_type: params[:medium_type], title: params[:title] } %>
+        </div>
+      </div>
+    <% else %>
+      <p>No results found.</p>
+    <% end %>
+  </div>
 </div>
