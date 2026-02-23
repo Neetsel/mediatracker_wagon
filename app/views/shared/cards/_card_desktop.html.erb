@@ -1,0 +1,40 @@
+<%# Display for desktop %>
+<div class="search-media-cards col-md-4 col-lg-3 col-xl-2 mb-3 mt-3">
+
+  <%# Image %>
+  <div class="search-card-image">
+    <% if medium["poster_url"] != "N/A" && medium["poster_url"]%>
+      <%= link_to medium_path(medium) do %>
+        <%= image_tag medium["poster_url"], alt: medium["title"], class: "search-card-image-desktop" %>
+      <% end %>
+    <% else %>
+      <div class="bg-secondary text-light d-flex align-items-center justify-content-center" style="height: 200px; width: 140px;">
+        No Poster
+      </div>
+    <% end %>
+  </div>
+
+  <%# buttons %>
+  <div class="list-icon mt-2">
+    <%= render "shared/buttons/collection_button", medium: medium, location: "card"  %>
+    <%= render "shared/buttons/like_button", medium: medium, location: "card"  %>
+    <%= render "shared/buttons/next_up_button", medium: medium, location: "card"  %>
+  </div>
+
+  <%# Texte %>
+  <div class="search-card-body d-flex flex-column justify-content-between mt-2">
+    <%= link_to medium_path(medium) do %>
+      <h5 class="card-title"><%= medium["title"] %></h5>
+    <% end %>
+    <p class="card-text"><%= medium["year"] %> -
+      <% if medium["sub_media_type"] == "Movie" %>
+        <i class="fa-solid fa-video" style="color: #ffffffff; margin-right: 12px;"></i>
+      <% elsif medium["sub_media_type"] == "Book" %>
+        <i class="fa-solid fa-book-open" style="color: #ffffffff; margin-right: 12px;"></i>
+      <% else %>
+        <i class="fa-solid fa-gamepad" style="color: #ffffffff; margin-right: 12px;"></i>
+      <% end %>
+    </p>
+  </div>
+
+</div>

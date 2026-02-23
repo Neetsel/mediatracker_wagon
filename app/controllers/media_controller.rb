@@ -33,7 +33,7 @@ class MediaController < ApplicationController
       @fetched_data = igdb.run(params[:title])
 
       @results_all = initial_game_creation
-      @results = Kaminari.paginate_array(@results_all).page(current_page).per(10)
+      @results_paginated = Kaminari.paginate_array(@results_all).page(current_page).per(10)
 
     when "movie"
       current_page = params[:page] || 1
@@ -41,7 +41,7 @@ class MediaController < ApplicationController
       @fetched_data = omdb.run(params[:title])
 
       @results_all = initial_movie_creation
-      @results = Kaminari.paginate_array(@results_all).page(current_page).per(10)
+      @results_paginated = Kaminari.paginate_array(@results_all).page(current_page).per(10)
 
     when "book"
       current_page = params[:page] || 1
@@ -49,7 +49,7 @@ class MediaController < ApplicationController
       @fetched_data = open_library.run(params[:title])
 
       @results_all = initial_book_creation
-      @results = Kaminari.paginate_array(@results_all).page(current_page).per(10)
+      @results_paginated = Kaminari.paginate_array(@results_all).page(current_page).per(10)
     end
   end
 
