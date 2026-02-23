@@ -25,16 +25,21 @@
       <% end %>
     </p>
 
-    <%# buttons %>
-    <div class="list-icon">
-      <%= render "shared/buttons/collection_button", medium: medium, location: "card"  %>
-      <%= render "shared/buttons/like_button", medium: medium, location: "card"  %>
-      <%= render "shared/buttons/next_up_button", medium: medium, location: "card"  %>
-    </div>
+    <% if defined?(review) %>
+      <p class="review-card-text"><strong>Your review :</strong> <em><%= review.content %></em></p>
+      <p class="review-rating"><%= review.rating %> <i class="fa-solid fa-star" style="color: #FBC500;"></i></p>
+    <% else %>
+      <%# buttons %>
+      <div class="list-icon">
+        <%= render "shared/buttons/collection_button", medium: medium, location: "card"  %>
+        <%= render "shared/buttons/like_button", medium: medium, location: "card"  %>
+        <%= render "shared/buttons/next_up_button", medium: medium, location: "card"  %>
+      </div>
 
-    <div class="btn-more-details">
-      <%= link_to "More details", medium_path(medium),
-        class: "btn btn-primary rounded-pill" %>
-    </div>
+      <div class="btn-more-details">
+        <%= link_to "More details", medium_path(medium),
+          class: "btn btn-primary rounded-pill" %>
+      </div>
+    <% end %>
   </div>
 </div>

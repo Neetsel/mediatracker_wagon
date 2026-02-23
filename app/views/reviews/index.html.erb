@@ -3,35 +3,19 @@
   <h1 class="mb-4 text-center">Your review</h1>
 
   <% if @reviews.present? %>
-    <div class="row">
-      <% @reviews.each do |review| %>
-        <div class="list-media-cards col-md-3 mb-3 mt-3">
 
-          <div class="list-card-image">
-            <%= link_to medium_path(review.medium) do %>
-              <%= image_tag review.medium.poster_url, alt: review.medium.title, class: "list-card-image-left"%>
-            <% end %>
-          </div>
-
-
-          <div class="list-card-body d-flex flex-column align-item-start">
-            <%= link_to medium_path(review.medium) do %>
-              <h5 class="card-title mb-auto"><%= review.medium.title %></h5>
-              <p class="card-text"><%= review.medium.year %> - <% if review.medium.sub_media_type == "Movie" %>
-                <i class="fa-solid fa-video" style="color: #ffffffff; margin-right: 12px;"></i>
-              <% elsif review.medium.sub_media_type == "Book" %>
-                <i class="fa-solid fa-book-open" style="color: #ffffffff; margin-right: 12px;"></i>
-              <% else %>
-                <i class="fa-solid fa-gamepad" style="color: #ffffffff; margin-right: 12px;"></i>
-              <% end %></p>
-              <p class="review-card-text"><strong>Your review :</strong> <em><%= review.content %></em></p>
-              <p class="review-rating"><%= review.rating %> <i class="fa-solid fa-star" style="color: #FBC500;"></i></p>
-            <% end %>
-
-          </div>
-        </div>
-      <% end %>
+    <div class="row d-desktop">
+        <% @reviews.each do |review| %>
+          <%= render "shared/cards/card_desktop", medium: review.medium, review: review %>
+        <% end %>
     </div>
+
+    <div class="row d-mobile">
+        <% @reviews.each do |review| %>
+          <%= render "shared/cards/card_mobile", medium: review.medium, review: review %>
+        <% end %>
+    </div>
+
   <% else %>
     <p>Write your first review !</p>
   <% end %>

@@ -35,6 +35,11 @@
         <i class="fa-solid fa-gamepad" style="color: #ffffffff; margin-right: 12px;"></i>
       <% end %>
     </p>
+
+    <% if defined?(review) %>
+      <p class="review-card-text"><strong>Your review :</strong> <em><%= review.content %></em></p>
+      <p class="review-rating"><%= review.rating %> <i class="fa-solid fa-star" style="color: #FBC500;"></i></p>
+    <% end %>
   </div>
 
 </div>
