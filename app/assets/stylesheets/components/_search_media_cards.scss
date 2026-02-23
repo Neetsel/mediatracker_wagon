@@ -1,14 +1,6 @@
-.search-media-cards {
-  display: flex;
-  width: 100%; /* remplit la colonne Bootstrap */
-  overflow: hidden;
-  flex-direction: row; /* image à gauche, texte à droite */
-}
-
 .search-card-image {
   flex: 0 0 140px;       /* largeur image fixe */
 }
-
 
 .search-card-image-left {
   height: 222px;
@@ -56,5 +48,39 @@
   padding: 0 8px;
   display: flex;
   justify-content: start;
-  gap: 24px;
+}
+
+@media (min-width: 901px) {
+
+  .card-title {
+    color: #FFFFFF;
+  }
+
+  .search-card-image-desktop {
+    width: 100%;
+  }
+  .search-media-cards {
+    overflow: hidden;
+  }
+
+  .d-mobile {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .d-desktop {
+    display: none;
+  }
+
+  .search-media-cards {
+    display: flex;
+    width: 100%; /* remplit la colonne Bootstrap */
+    overflow: hidden;
+    flex-direction: row; /* image à gauche, texte à droite */
+  }
+
+  .list-icon {
+    gap: 24px;
+  }
 }

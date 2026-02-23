@@ -3,47 +3,20 @@
   <h1 class="mb-4 text-center">Your collection</h1>
 
   <% if @collections.present? %>
-    <div class="row">
-      <% @collections.each do |collection| %>
-        <div class="list-media-cards col-md-3 mb-3 mt-3">
+    <div class="row d-desktop">
+        <% @collections.each do |collection| %>
+          <%= render "shared/cards/card_desktop", medium: collection.medium %>
+        <% end %>
+    </div>
 
-          <div class="list-card-image">
-            <%= link_to medium_path(collection.medium) do %>
-              <%= image_tag collection.medium.poster_url, alt: collection.medium.title, class: "list-card-image-left"%>
-            <% end %>
-          </div>
-
-
-          <div class="list-card-body d-flex flex-column align-item-start">
-            <%= link_to medium_path(collection.medium) do %>
-              <h5 class="card-title mb-auto"><%= collection.medium.title %></h5>
-              <p class="card-text"><%= collection.medium.year %> - <% if collection.medium.sub_media_type == "Movie" %>
-                <i class="fa-solid fa-video" style="color: #ffffffff; margin-right: 12px;"></i>
-              <% elsif collection.medium.sub_media_type == "Book" %>
-                <i class="fa-solid fa-book-open" style="color: #ffffffff; margin-right: 12px;"></i>
-              <% else %>
-                <i class="fa-solid fa-gamepad" style="color: #ffffffff; margin-right: 12px;"></i>
-              <% end %></p>
-            <% end %>
-
-            <div class="list-icon p-2">
-              <%= render "shared/buttons/collection_button", medium: collection.medium, location: "card"  %>
-              <%= render "shared/buttons/like_button", medium: collection.medium, location: "card"  %>
-              <%= render "shared/buttons/next_up_button", medium: collection.medium, location: "card"  %>
-            </div>
-
-            <div class="btn-more-details p-2">
-                <%= link_to "More details", medium_path(collection.medium), class: "btn btn-primary rounded-pill" %>
-            </div>
-
-          </div>
-        </div>
-      <% end %>
+    <div class="row d-mobile">
+        <% @collections.each do |collection| %>
+          <%= render "shared/cards/card_mobile", medium: collection.medium %>
+        <% end %>
     </div>
   <% else %>
     <p>Start your collection now !</p>
   <% end %>
-
 
   <div class="d-flex justify-content-center mt-4">
     <%= paginate @collections %>
