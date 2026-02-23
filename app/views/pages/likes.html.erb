@@ -3,46 +3,21 @@
   <h1 class="mb-4 text-center">All your favorites</h1>
 
   <% if @media.present? %>
-    <div class="row">
-      <% @media.each do |medium| %>
-        <div class="list-media-cards col-md-3 mb-3 mt-3">
-
-          <div class="list-card-image">
-            <%= link_to medium_path(medium) do %>
-              <%= image_tag medium.poster_url, alt: medium.title, class: "list-card-image-left"%>
-            <% end %>
-          </div>
-
-          <div class="list-card-body d-flex flex-column align-item-start">
-            <%= link_to medium_path(medium) do %>
-              <h5 class="card-title mb-auto"><%= medium.title %></h5>
-              <p class="card-text"><%= medium.year %> - <% if medium.sub_media_type == "Movie" %>
-                <i class="fa-solid fa-video" style="color: #ffffffff; margin-right: 12px;"></i>
-              <% elsif medium.sub_media_type == "Book" %>
-                <i class="fa-solid fa-book-open" style="color: #ffffffff; margin-right: 12px;"></i>
-              <% else %>
-                <i class="fa-solid fa-gamepad" style="color: #ffffffff; margin-right: 12px;"></i>
-              <% end %></p>
-            <% end %>
-
-            <div class="list-icon p-2">
-              <%= render "shared/buttons/collection_button", medium: medium, location: "card"  %>
-              <%= render "shared/buttons/like_button", medium: medium, location: "card"  %>
-              <%= render "shared/buttons/next_up_button", medium: medium, location: "card"  %>
-            </div>
-
-            <div class="btn-more-details p-2">
-                <%= link_to "More details", medium_path(medium), class: "btn btn-primary rounded-pill" %>
-            </div>
-
-          </div>
-        </div>
-      <% end %>
+    <div class="row d-desktop">
+        <% @media.each do |medium| %>
+          <%= render "shared/cards/card_desktop", medium: medium %>
+        <% end %>
     </div>
+
+    <div class="row d-mobile">
+        <% @media.each do |medium| %>
+          <%= render "shared/cards/card_mobile", medium: medium %>
+        <% end %>
+    </div>
+
   <% else %>
     <p>Like your first media !</p>
   <% end %>
-
 
   <div class="d-flex justify-content-center mt-4">
     <%= paginate @media %>
