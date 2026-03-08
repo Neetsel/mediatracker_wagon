@@ -98,3 +98,9 @@
   border: 0;
   box-sizing: border-box;
 }
+
+@media (min-width: 992px) {
+  .btn-cta-show{
+    width: auto;
+  }
+}

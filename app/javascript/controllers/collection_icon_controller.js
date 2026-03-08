@@ -9,8 +9,8 @@ export default class extends Controller {
     settings: String,
     location: String,
     disabled: {type: Boolean, default: false},
-    addText: { type: String, default: "add to your collection" },
-    removeText: {type: String, default: "Remove from your collection"}
+    addText: { type: String, default: "Add bookmark" },
+    removeText: {type: String, default: "Remove bookmark"}
   }
 
   connect() {
