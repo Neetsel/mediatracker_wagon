@@ -30,12 +30,11 @@
         <% end %>
       </div>
 
-      <div class="d-mobile">
-        <div class="d-flex justify-content-center mt-4">
-          <%= link_to_prev_page @results_paginated, '<< Previous Page', params: { medium_type: params[:medium_type], title: params[:title] } %>
-          <%= link_to_next_page @results_paginated, 'Next Page >>', params: { medium_type: params[:medium_type], title: params[:title] } %>
-        </div>
+      <div class="d-flex justify-content-center mt-4">
+        <%= link_to_prev_page @results_paginated, '<< Previous Page', params: { medium_type: params[:medium_type], title: params[:title] } %>
+        <%= link_to_next_page @results_paginated, 'Next Page >>', params: { medium_type: params[:medium_type], title: params[:title] } %>
       </div>
+
     <% else %>
       <p>No results found.</p>
     <% end %>
